@@ -1,0 +1,198 @@
+<template>
+  <div v-if="curRoute.hidden">
+  </div>
+  <el-submenu
+    v-else-if="curRoute.children && (curRoute.alwaysShow || curRoute.children.length > 1)"
+    :index="curRoute.path"
+    :abc="curRoute.path"
+    :popper-append-to-body="false"
+    background-color="#304156"
+    text-color="#BFCBD9"
+    active-text-color="#409EFF"
+    :router='true'
+  >
+    <template slot="title">
+      <SvgIcon :icon-class="curRoute.meta.icon"></SvgIcon>
+      <span slot="title">
+        {{curRoute.meta.title}}
+      </span>
+    </template>
+    <AsideNavRecurItem
+      v-for="item in curRoute.children"
+      :key="item.path"
+      :cur-route="item"
+    >
+    </AsideNavRecurItem>
+  </el-submenu>
+  <el-menu-item
+    v-else
+    :index="curRoute.path"
+    :abc="curRoute.path"
+  >
+    <template v-if="curRoute.children">
+      <SvgIcon :icon-class="curRoute.children[0].meta.icon"></SvgIcon>
+      <span slot="title">
+        {{curRoute.children[0].meta.title}}
+      </span>
+    </template>
+    <template v-else>
+      <SvgIcon :icon-class="curRoute.meta.icon"></SvgIcon>
+      <span slot="title">
+        {{curRoute.meta.title}}
+      </span>
+    </template>
+  </el-menu-item>
+  <!-- <div v-if="!curRoute.hidden">
+    <el-submenu
+      v-if="curRoute.children && (curRoute.alwaysShow || curRoute.children.length > 1)"
+      :index="curRoute.path"
+      :abc="curRoute.path"
+      background-color="#304156"
+      text-color="#BFCBD9"
+      active-text-color="#409EFF"
+      :router='true'
+    >
+      <template slot="title">
+        <SvgIcon :icon-class="curRoute.meta.icon"></SvgIcon>
+        <span slot="title">
+          {{curRoute.meta.title}}
+        </span>
+      </template>
+      <AsideNavRecurItem
+        v-for="item in curRoute.children"
+        :key="item.path"
+        :cur-route="item"
+      >
+      </AsideNavRecurItem>
+    </el-submenu>
+    <el-menu-item
+      v-else
+      :index="curRoute.path"
+      :abc="curRoute.path"
+    >
+      <template v-if="curRoute.children">
+        <SvgIcon :icon-class="curRoute.children[0].meta.icon"></SvgIcon>
+        <span slot="title">
+          {{curRoute.children[0].meta.title}}
+        </span>
+      </template>
+      <template v-else>
+        <SvgIcon :icon-class="curRoute.meta.icon"></SvgIcon>
+        <span slot="title">
+          {{curRoute.meta.title}}
+        </span>
+      </template>
+    </el-menu-item> 
+  </div> -->
+
+</template>
+
+<script>
+import SvgIcon from '@/icons/SvgIcon';
+export default {
+  name: 'AsideNavRecurItem',
+  components: {
+    SvgIcon,
+  },
+  props: {
+    curRoute: {
+      type: Object,
+      required: true,
+    },
+  },
+  // data() {
+  //   return {
+  //     marginTop: 0,
+  //   };
+  // },
+  // computed: {
+  //   ...mapGetters(['isCollapse']),
+  //   defaultActive() {
+  //     let { breadCrumbs } = this.$store.getters;
+  //     return  breadCrumbs.length ? breadCrumbs[breadCrumbs.length - 1].path : null;
+  //   },
+  // },
+  // methods: {
+  //   ...mapMutations(['setCollapsing', 'toggleCollapse']),
+  //   componentRoute(route) {
+  //     return route.filter((curRoute) => curRoute.component);
+  //   },
+  //   scroll({ wheelDeltaY }) {
+  //     let menuHeight = this.$refs.menu.$el.offsetHeight,
+  //       wrapperHeight =
+  //         window.innerHeight -
+  //         parseInt(getComputedStyle(this.$el).paddingBottom),
+  //       { marginTop } = this;
+  //     // 往上滑为正
+  //     if (wheelDeltaY > 0) {
+  //       // 如果当前marginTop 小于0 肯定要往上滑
+  //       if (marginTop < 0) {
+  //         // 往上滚了
+  //         this.marginTop = Math.min(0, this.marginTop + wheelDeltaY);
+  //       } // 0 + 700 < 800
+  //     } else if (-marginTop + wrapperHeight < menuHeight) {
+  //       // 0 - 180 = -180 和 700 - 800
+  //       this.marginTop = Math.max(
+  //         marginTop + wheelDeltaY,
+  //         wrapperHeight - menuHeight
+  //       );
+  //     }
+  //   },
+  //   actionEnd({ propertyName }) {
+  //     // 理论上只要监听width就行了 但是有时候width会不触发...?
+  //     if (propertyName === 'width' || propertyName === 'opacity') {
+  //       this.$store.commit('setCollapsing', false);
+  //     }
+  //   },
+  // },
+  // mounted() {
+  //   this.$bus.$on('burgerClick', () => {
+  //     this.setCollapsing(true);
+  //     let menu = this.$refs.menu,
+  //       submenus = menu.submenus;
+  //     this.marginTop = 0;
+  //     for (let key in submenus) {
+  //       menu.close(key);
+  //     }
+  //     setTimeout(() => {
+  //       this.toggleCollapse();
+  //     }, 300);
+  //   });
+  // },
+};
+</script>
+
+<style lang='scss' scoped>
+.svg-icon {
+  vertical-align: middle;
+  margin-right: 5px;
+  width: 24px;
+  text-align: center;
+  font-size: 15px;
+}
+::v-deep {
+  // 如果写成.is-active > .el-submenu__title 的话 第一层的submenu不会亮
+  // 原因是 第一层恰好是匹配::v-deep的 写在里面只选择子元素而不会选择自身
+  &.is-active > .el-submenu__title {
+    color: #409eff !important;
+  }
+  // 只要不是最外层的ul都会加上该类名
+  .el-menu--inline {
+    .el-menu-item,
+    .el-submenu__title {
+      background-color: #1f2d3d !important;
+      min-width: 0;
+      &:hover {
+        background-color: #001528 !important;
+      }
+    }
+  }
+  // 添加箭头旋转效果 .is-opened表示鼠标移入的submenu 注意后面必须是 > .el-submenu__title 表示它自己的title
+  // 而不包括它的子菜单还含有的el-submenu的title 
+  // 而且因为是鼠标移入submenu时旋转 所以不是给.el-icon-arrow-right:hover 设置
+  .is-opened > .el-submenu__title .el-icon-arrow-right{
+    transform: rotateZ(180deg) !important;
+  }
+}
+</style>
+//亲人 爱人 朋友
