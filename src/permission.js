@@ -29,7 +29,10 @@ router.beforeEach(async (to, from, next) => {
         try {
           // 拉取用户信息
           let { roles } = await store.dispatch('user/getInfo');
-          let accessRoutes = await store.dispatch('permission/generateRoutes', roles);
+          let accessRoutes = await store.dispatch(
+            'permission/generateRoutes',
+            roles
+          );
 
           router.addRoutes(accessRoutes);
           // 怎么确保next执行时addRoutes已完成?
@@ -42,7 +45,6 @@ router.beforeEach(async (to, from, next) => {
             next(`/login?redirect=${to.path}`);
           });
         }
-
       }
     }
   } else {
@@ -50,7 +52,6 @@ router.beforeEach(async (to, from, next) => {
       next();
     } else {
       // /被转义成了 => '%2F'
-      console.log('/login.to.path', to.path);
       next(`/login?redirect=${to.path}`);
     }
     // 要保证调用一次beforeEnter函数只触发一次next函数 所以这里要放在else里面
@@ -58,5 +59,6 @@ router.beforeEach(async (to, from, next) => {
 });
 
 router.afterEach(() => {
+  console.log('Nprogress.done()');
   NProgress.done();
 });

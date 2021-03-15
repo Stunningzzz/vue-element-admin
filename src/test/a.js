@@ -1,11 +1,10 @@
 
 
-
-async function testAwait(){
-  try {
-    Promise.reject('出错拉')
-  } catch (error) {
-    console.log('error --- ',error);
-  }
+let arr = {
+  name:'luzhihao',
 }
-testAwait();
+
+console.log(arr?.name);//=> luzhihao
+console.log(arr?.['name']);//=> luzhihao
+
+

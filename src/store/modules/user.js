@@ -55,7 +55,6 @@ export default {
       return new Promise((resolve, reject) => {
         userGetInfo(state.token)
           .then(data => {
-            console.log('getInfo.data ---- ',data);
             
             if (!data) {
               reject('验证失败 请重新登录!');

@@ -1,8 +1,11 @@
 <template>
-  <div v-if="curRoute.hidden">
+  <!-- 如果当前children的长度为0 那么不会显示成空的下拉菜单 (注意这和没有chilren属性不同!!!) -->
+  <div v-if="curRoute.hidden || (curRoute.children && curRoute.children.length === 0)">
   </div>
+  <!-- 一定是非hidden 要么chilren属性为空 要么有children属性而且长度大于0 -->
+  <!-- 不能只单纯判断children不为空就认定有子路由 因为经过筛选后 即使有children属性 子路由的长度也可能为0 -->
   <el-submenu
-    v-else-if="curRoute.children && (curRoute.alwaysShow || curRoute.children.length > 1)"
+    v-else-if="curRoute.children && (curRoute.children.length > 1 || curRoute.alwaysShow)"
     :index="curRoute.path"
     :abc="curRoute.path"
     :popper-append-to-body="false"
@@ -24,24 +27,17 @@
     >
     </AsideNavRecurItem>
   </el-submenu>
+
   <el-menu-item
     v-else
-    :index="curRoute.path"
-    :abc="curRoute.path"
+    :index="curRouteItem.path"
   >
-    <template v-if="curRoute.children">
-      <SvgIcon :icon-class="curRoute.children[0].meta.icon"></SvgIcon>
-      <span slot="title">
-        {{curRoute.children[0].meta.title}}
-      </span>
-    </template>
-    <template v-else>
-      <SvgIcon :icon-class="curRoute.meta.icon"></SvgIcon>
-      <span slot="title">
-        {{curRoute.meta.title}}
-      </span>
-    </template>
+    <SvgIcon :icon-class="curRouteItem.meta.icon"></SvgIcon>
+    <span slot="title">
+      {{curRouteItem.meta.title}}
+    </span>
   </el-menu-item>
+
   <!-- <div v-if="!curRoute.hidden">
     <el-submenu
       v-if="curRoute.children && (curRoute.alwaysShow || curRoute.children.length > 1)"
@@ -89,6 +85,7 @@
 
 <script>
 import SvgIcon from '@/icons/SvgIcon';
+import { mapActions } from 'vuex';
 export default {
   name: 'AsideNavRecurItem',
   components: {
@@ -99,6 +96,22 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  computed: {
+    curRouteItem() {
+      let {curRoute} = this;
+      // 如果有children的话 它的alwaysShow一定是false 且长度一定为1
+      return curRoute.children ? curRoute.children[0] :curRoute;
+    },
+  },
+  created(){
+    let {curRoute} = this;
+    if (curRoute.children?.length === 1 && !curRoute.alwaysShow) {
+      this.setBreadCrumbsExcludePath(curRoute.path);
+    }
+  },
+  methods: {
+    ...mapActions('app', ['setBreadCrumbsExcludePath']),
   },
   // data() {
   //   return {
@@ -168,7 +181,7 @@ export default {
   margin-right: 5px;
   width: 24px;
   text-align: center;
-  font-size: 15px;
+  font-size: 12px;
 }
 ::v-deep {
   // 如果写成.is-active > .el-submenu__title 的话 第一层的submenu不会亮
@@ -188,9 +201,9 @@ export default {
     }
   }
   // 添加箭头旋转效果 .is-opened表示鼠标移入的submenu 注意后面必须是 > .el-submenu__title 表示它自己的title
-  // 而不包括它的子菜单还含有的el-submenu的title 
+  // 而不包括它的子菜单还含有的el-submenu的title
   // 而且因为是鼠标移入submenu时旋转 所以不是给.el-icon-arrow-right:hover 设置
-  .is-opened > .el-submenu__title .el-icon-arrow-right{
+  .is-opened > .el-submenu__title .el-icon-arrow-right {
     transform: rotateZ(180deg) !important;
   }
 }

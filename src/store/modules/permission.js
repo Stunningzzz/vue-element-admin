@@ -48,7 +48,6 @@ export default {
         }
         commit('SET_ADDROUTES', accessAsyncRoutes);
         commit('SET_ACCESSROUTES', [...constantRoutes,...accessAsyncRoutes]);
-        console.log('accessAsyncRoutes --- ',accessAsyncRoutes);
         resolve(accessAsyncRoutes);
       });
     },

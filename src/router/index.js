@@ -37,6 +37,9 @@ export const constantRoutes = [
   },
 ];
 
+// alwaysShow 只是影响显示效果 即当children.length === 1 时 是否显示成下拉菜单的样子 还是说直接覆盖父亲而显示成item
+// 但是有一点 如果当前路由的children大于1 但是要跳转到默认路由没有权限访问 那么在点击当前路由的面包屑跳转到默认
+// 路由的时候会出现404
 export const asyncRoutes = [
   {
     path: '/nested',
@@ -45,23 +48,41 @@ export const asyncRoutes = [
     redirect: '/nested/Menu1',
     children: [
       {
-        // 把最后一个/menu1换成
         path: '/nested/menu1',
         name: 'Menu1',
         meta: { title: '菜单1' },
         component: () => import('@/views/nested/menu1/Menu1'),
         redirect: '/nested/menu1/menu1-1',
+        alwaysShow:true,
         children: [
           {
-            path: '/nested/menu1/menu1-1',
+            path:'/nested/menu1/menu1-1',
+            redirect:'/nested/menu1/menu1-1/menu1-1-1',
             name: 'Menu1-1',
             meta: { title: '菜单1-1' },
-            component: () => import('@/views/nested/menu1/Menu1-1'),
+            alwaysShow:true,
+            component: () => import('@/views/nested/menu1/menu1-1/Menu1-1'),
+            children:[
+              {
+                path: '/nested/menu1/menu1-1/menu1-1-1',
+                name: 'Menu1-1-1',
+                meta: { title: '菜单1-1-1'},
+                component: () =>
+                  import('@/views/nested/menu1/menu1-1/Menu1-1-1'),
+              },
+               {
+                path: '/nested/menu1/menu1-1/menu1-1-2',
+                name: 'Menu1-1-2',
+                meta: { title: '菜单1-1-2' },
+                component: () =>
+                  import('@/views/nested/menu1/menu1-1/Menu1-1-2'),
+              },
+            ]
           },
           {
             path: '/nested/menu1/menu1-2',
             name: 'Menu1-2',
-            meta: { title: '菜单1-2' },
+            meta: { title: '菜单1-2',roles:['admin'] },
             component: () => import('@/views/nested/menu1/menu1-2/Menu1-2'),
             redirect: '/nested/menu1/menu1-2/menu1-2-1',
             children: [
@@ -101,7 +122,10 @@ export const asyncRoutes = [
         meta: { title: '菜单3' },
         alwaysShow:true,
         component: () => import('@/views/nested/menu3/Menu3'),
-        redirect:'/nested/menu3/menu3-1',
+        // 当有redirect时 目标路由的roles权限必须是当前路由权限相同!
+        // 也就是说能看到当前页面的必定也能看到目标页面
+        // 否则的话会导致点击跳转到401
+        redirect: '/nested/menu3/menu3-1',
         children: [
           {
             path: '/nested/menu3/menu3-1',
@@ -110,6 +134,21 @@ export const asyncRoutes = [
             component: () => import('@/views/nested/menu3/Menu3-1'),
           },
         ],
+      },
+    ],
+  },
+  {
+    path: '/permission',
+    component: Layout,
+    redirect: '/permission/page',
+    children: [
+      {
+        path:'/permission/page',
+        component: () => import('@/views/permission/Permission'),
+        meta: {
+          title: '权限',
+          icon:'lock',
+        },
       },
     ],
   },

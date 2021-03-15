@@ -1,5 +1,8 @@
 <template>
-  <div class="aside-nav">
+  <div
+    class="aside-nav"
+    @transitionend="actionEnd"
+  >
     <!-- <div
       class="wrapper"
       :style="{marginTop:marginTop+'px'}"
@@ -25,6 +28,7 @@
       ref="menu"
       :router='true'
       :collapse="asideNavStatus"
+      :default-active="defaultActive"
     >
       <AsideNavRecurItem
         v-for="item in accessRoutes"
@@ -44,13 +48,28 @@ export default {
     AsideNavRecurItem,
   },
   computed: {
-    ...mapGetters(['asideNavStatus', 'asideNavIsCollapsing', 'accessRoutes']),
+    ...mapGetters([
+      'asideNavStatus',
+      'asideNavIsCollapsing',
+      'accessRoutes',
+      'breadCrumbs',
+    ]),
+    defaultActive() {
+      
+      return this.breadCrumbs?.[this.breadCrumbs.length - 1]?.path;
+    },
   },
   methods: {
-    ...mapMutations('app',['setAsideNavIsCollapsing', 'toggleAsideNavStatus']),
+    ...mapMutations('app', ['setAsideNavIsCollapsing', 'toggleAsideNavStatus']),
+    actionEnd({propertyName}) {
+      // 正常来说只需要监听width 就够了 但有时候展开的时候不会触发width!
+      if (['width','opacity'].indexOf(propertyName) !== -1) {
+        this.setAsideNavIsCollapsing(false);
+      }
+    },
   },
-  created(){
-    this.$bus.$on('toggleAsideNavStatus',() => {
+  created() {
+    this.$bus.$on('toggleAsideNavStatus', () => {
       this.setAsideNavIsCollapsing(true);
       let menu = this.$refs.menu,
         submenus = menu.submenus;
@@ -61,15 +80,14 @@ export default {
       setTimeout(() => {
         this.toggleAsideNavStatus();
       }, 300);
-    })
+    });
   },
- 
 };
 </script>
 <style lang="scss" scoped>
 .aside-nav {
   height: 100vh;
-  // 
+  //
   // overflow: hidden;
   flex-shrink: 0;
   background-color: #304156;

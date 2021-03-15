@@ -1,12 +1,12 @@
 <template>
   <h2>
-    菜单 1-1
+    这是菜单1-1-1
   </h2>
 </template>
 
 <script>
 export default {
-  name:'nested1-1'
+  name:'Menu1-1-1'
 }
 </script>
 

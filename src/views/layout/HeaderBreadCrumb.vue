@@ -7,9 +7,8 @@
       <el-breadcrumb-item
         v-for="item in breadCrumbs"
         :key="item.path"
-        :to="item.path"
+        :to="breadCrumbsItemPath(item)"
         :class="item.class"
-        @click="itemClick(item.path)"
       >
         {{item.title}}
       </el-breadcrumb-item>
@@ -22,13 +21,12 @@ export default {
   name: 'HeaderBreadCrumb',
   props:{
     breadCrumbs:Array,
-
   },
-  methods: {
-    itemClick() {
-      return false;
-    },
-  },
+  methods:{
+    breadCrumbsItemPath(item){
+      return item.nodirect ? '' : item.path;
+    }
+  }
 };
 </script>
 
