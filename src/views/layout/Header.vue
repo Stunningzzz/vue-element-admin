@@ -14,13 +14,13 @@
         :bread-crumbs="breadCrumbs"
       />
     </div>
-    <!-- <HeaderLogoDropdown /> -->
+    <HeaderRightSettings />
   </el-header>
 </template>
 <script>
 import HamburgerButton from '@/components/common/HamburgerButton';
 import HeaderBreadCrumb from './HeaderBreadCrumb';
-import HeaderLogoDropdown from './HeaderLogoDropdown';
+import HeaderRightSettings from './HeaderRightSettings';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
@@ -28,7 +28,7 @@ export default {
   components: {
     HamburgerButton,
     HeaderBreadCrumb,
-    HeaderLogoDropdown,
+    HeaderRightSettings
   },
   computed: {
     ...mapGetters([
@@ -59,8 +59,10 @@ export default {
           unAccessPath.push(path);
           // 这样会影响到this.$route.matched 导致nodirect为true的永远变不了false
           // matched[i].nodirect = true
+          matched[i] = {...matched[i],nodirect:true}
         }
       }
+
 
       // 因为404/401 没有title 一过滤再取[0]就会报错 而除他们之外的因为外层都有Layout 和 内层自己的组件
       // 所以length 一定大于 1

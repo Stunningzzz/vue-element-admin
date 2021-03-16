@@ -15,7 +15,7 @@
     :router='true'
   >
     <template slot="title">
-      <SvgIcon :icon-class="curRoute.meta.icon"></SvgIcon>
+      <svg-icon :icon-class="curRoute.meta.icon"></svg-icon>
       <span slot="title">
         {{curRoute.meta.title}}
       </span>
@@ -32,7 +32,7 @@
     v-else
     :index="curRouteItem.path"
   >
-    <SvgIcon :icon-class="curRouteItem.meta.icon"></SvgIcon>
+    <svg-icon :icon-class="curRouteItem.meta.icon"></svg-icon>
     <span slot="title">
       {{curRouteItem.meta.title}}
     </span>
@@ -49,7 +49,7 @@
       :router='true'
     >
       <template slot="title">
-        <SvgIcon :icon-class="curRoute.meta.icon"></SvgIcon>
+        <svg-icon :icon-class="curRoute.meta.icon"></svg-icon>
         <span slot="title">
           {{curRoute.meta.title}}
         </span>
@@ -67,13 +67,13 @@
       :abc="curRoute.path"
     >
       <template v-if="curRoute.children">
-        <SvgIcon :icon-class="curRoute.children[0].meta.icon"></SvgIcon>
+        <svg-icon :icon-class="curRoute.children[0].meta.icon"></svg-icon>
         <span slot="title">
           {{curRoute.children[0].meta.title}}
         </span>
       </template>
       <template v-else>
-        <SvgIcon :icon-class="curRoute.meta.icon"></SvgIcon>
+        <svg-icon :icon-class="curRoute.meta.icon"></svg-icon>
         <span slot="title">
           {{curRoute.meta.title}}
         </span>
@@ -84,18 +84,16 @@
 </template>
 
 <script>
-import SvgIcon from '@/icons/SvgIcon';
 import { mapActions } from 'vuex';
 export default {
   name: 'AsideNavRecurItem',
-  components: {
-    SvgIcon,
-  },
+ 
   props: {
     curRoute: {
       type: Object,
       required: true,
     },
+    
   },
   computed: {
     curRouteItem() {

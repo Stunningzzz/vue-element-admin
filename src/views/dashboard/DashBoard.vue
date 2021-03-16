@@ -1,16 +1,32 @@
 <template>
-  <div>
-    <h2>哈哈哈哈哈哈</h2>
+  <div class="dashboard-container">
+    <component :is="currentRole" />
   </div>
 </template>
 
 <script>
-import SvgIcon from '@/icons/SvgIcon';
+import AdminDashBoard from './AdminDashBoard';
+import EditorDashBoard from './EditorDashBoard';
+import {mapGetters} from 'vuex';
 
 export default {
   name: 'DashBoard',
   components: {
-    SvgIcon,
+    AdminDashBoard,
+    EditorDashBoard
+  },
+  data(){
+    return {
+      currentRole:'AdminDashBoard'
+    }
+  },
+  computed:{
+    ...mapGetters(['roles'])
+  },
+  created(){
+    if (!this.roles.includes('admin')) {
+      this.currentRole = 'EditorDasBboard';
+    }
   },
 };
 </script>

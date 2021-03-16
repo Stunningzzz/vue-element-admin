@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./iconfont.js"></script>
+  <title>Document</title>
+  <style>
+    .outer {
+      width: 400px;
+      height: 400px;
+      background-color: #bfa;
+    }
+
+    .outer::after{
+      display: inline-block;
+      content: '';
+      vertical-align: middle;
+      height: 100%;
+    }
+
+    .img {
+      width: 150px;
+      height: 150px;
+      vertical-align: middle;
+    }
+
+    input {
+      height: 100px;
+    }
+
+    .other {
+      width: 50px;
+      height: 50px;
+      background-color: orange;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="outer">
+    <div style="display: inline-block;">
+      <img src="./login-bg.png" class="img">
+      <img src="./login-bg.png" class="img">
+    </div>
+
+
+  </div>
+</body>
+
+</html>

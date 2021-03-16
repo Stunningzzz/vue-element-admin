@@ -55,7 +55,6 @@ export default {
       'breadCrumbs',
     ]),
     defaultActive() {
-      
       return this.breadCrumbs?.[this.breadCrumbs.length - 1]?.path;
     },
   },
