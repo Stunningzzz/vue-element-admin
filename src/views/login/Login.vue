@@ -184,7 +184,7 @@ export default {
   /* 把当前盒子当成画框 把背景当成画布 background-position是移动画布 那就相当于把画框往反方向拉 */
   background-position: 1700px 0px;
   /* 背景图片是不会撑起元素的高度的 只有元素的高度去决定背景图片的高度 */
-  height: 658px;
+  height: 858px;
 
   text-align: center;
   color: #fff;

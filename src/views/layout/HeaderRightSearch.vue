@@ -6,21 +6,20 @@
     <svg-icon
       class="search-icon"
       icon-class="search"
-      @click.native="searchClick"
+      @click.native.stop="searchClick"
     />
-    <!-- <input style="height:100px"/> -->
     <transition name="select">
       <el-select
         v-show="isShow"
         ref="headerSearchSelect"
-        v-model="inputText"
+        v-model="selectValue"
         placeholder="Search"
         :remote-method="querySearch"
         filterable
         remote
         default-first-option
         class="header-search-select"
-        @change="inputTextChange"
+        @change="selectChange"
       >
         <el-option
           v-for="item in options"
@@ -36,69 +35,77 @@
 <script>
 import Fuse from 'fuse.js';
 import path from 'path';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'HeaderRightSearch',
   data() {
     return {
-      isShow: true,
+      isShow: false,
       // 用户输入的字符串
-      inputText: '',
-      searchPool: [],
+      selectValue: null,
+      // searchPool: [],
       fuse: null,
       options: [],
     };
   },
   computed: {
-    routes() {
-      return this.$store.getters.accessRoutes;
-    }
+    // routes() {
+    //   return this.$store.getters.accessRoutes;
+    // }
+    ...mapGetters(['accessRoutes']),
   },
   watch: {
-    routes() {
-      // 将可访问的路由进一步筛选 用于搜索结果
-      this.searchPool = this.generateRoutes(this.routes)
+    accessRoutes(newAccessRoutes) {
+      this.initFuse(this.generateRoutes(newAccessRoutes));
     },
-    searchPool(list) {
-      this.initFuse(list)
-    },
-    isShow(value) {
+    // routes() {
+    //   // 将可访问的路由进一步筛选 用于搜索结果
+    //   this.searchPool = this.generateRoutes(this.routes)
+    // },
+    // searchPool(list) {
+    //   this.initFuse(list)
+    // },
+    isShow(newValue) {
       // 在body内除文本框中的点击都要让select菜单收起
       // 一展开就把事件添加到body上面 一收起就移除监听
-      if (value) {
-        document.body.addEventListener('click', this.close)
+      console.log('isShow --- ', newValue);
+      if (newValue) {
+        document.body.addEventListener('click', this.searchClose);
       } else {
-        document.body.removeEventListener('click', this.close)
+        document.body.removeEventListener('click', this.searchClose);
       }
-    }
+    },
   },
   mounted() {
-    this.searchPool = this.generateRoutes(this.routes)
+    this.initFuse(this.generateRoutes(this.accessRoutes));
   },
+  // mounted() {
+  //   this.searchPool = this.generateRoutes(this.routes)
+  // },
   methods: {
     // 文本框展开
     searchClick() {
       console.log('searchClick');
       this.isShow = !this.isShow;
-      // 搜索框获取焦点
+      // 搜索框获取焦点异常 虽然关闭闪烁但是不能输入
+      this.$nextTick(() => {
+        this.$refs.headerSearchSelect?.focus();
+      });
     },
     // 文本框关闭
     searchClose() {
-      this.$refs.headerSearchSelect && this.$refs.headerSearchSelect.blur()
-      this.options = []
-      this.isShow = false
+      this.$refs.headerSearchSelect?.blur();
+      this.options = [];
+      this.isShow = false;
     },
-    querySearch() {},
-    inputTextChange() {},
     // change事件是在选择不同的选项的时候触发 而不是在输入搜索字符的时候触发
-    change(val) {
-      this.$router.push(val.path)
-      this.search = ''
-      this.options = []
-      // 为什么要用nextTick?
-      this.$nextTick(() => {
-        this.show = false
-      })
+    selectChange(val) {
+      this.$router.push(val.path);
+      console.log(this.selectValue);
+      this.selectValue = null;
+      this.options = [];
+      this.isShow = false;
     },
     // 初始化fuse
     initFuse(list) {
@@ -109,93 +116,92 @@ export default {
         distance: 100,
         maxPatternLength: 32,
         minMatchCharLength: 1,
-        keys: [{
-          name: 'title',
-          weight: 0.7
-        }, {
-          name: 'path',
-          weight: 0.3
-        }]
-      })
+        keys: [
+          {
+            name: 'title',
+            weight: 0.7,
+          },
+          {
+            name: 'path',
+            weight: 0.3,
+          },
+        ],
+      });
     },
     // Filter out the routes that can be displayed in the sidebar
     // And generate the internationalized title
     generateRoutes(routes, basePath = '/', prefixTitle = []) {
-      // 该搜索的功能只是输入路由标题然后提供内容跳转 并不能搜索内容
-      // 首先res是个对象数组 每个对象包含两个属性: 
-      //   path:点击跳转的目标路径
-      //   title:显示在搜索框中的标题 
-      // 比如Menu1下面的Menu1-1 就需要显示成 Menu1 > Menu1-1
-
-      let res = []
+      let res = [];
 
       for (const router of routes) {
         // skip hidden router
-        if (router.hidden) { continue }
-        // 因为
-        const data = {
-          path: path.resolve(basePath, router.path),
-          title: [...prefixTitle]
+        if (router.hidden) {
+          continue;
         }
+        // 用resolve比用join
+        const data = {
+          // 这里用join不好吗? 不太好 因为如果在嵌套的过程中有某个使用了绝对路径的话就乱套了
+          // 用resolve的话 即使其中的某个子路由用了绝对路径也无妨
+          path: path.resolve(basePath, router.path),
+          title: [...prefixTitle],
+        };
 
-        if (router.meta && router.meta.title) {
-          data.title = [...data.title, router.meta.title]
-
+        if (router.meta?.title) {
+          data.title = [...data.title, router.meta.title];
+          // direct = 'noRedirect' 表示在面包屑中变灰 初始的noRedirect是为了让
           if (router.redirect !== 'noRedirect') {
             // only push the routes with title
             // special case: need to exclude parent router without redirect
-            res.push(data)
+            res.push(data);
           }
         }
 
         // recursive child routes
         if (router.children) {
-          const tempRoutes = this.generateRoutes(router.children, data.path, data.title)
-          if (tempRoutes.length >= 1) {
-            res = [...res, ...tempRoutes]
+          const tempRoutes = this.generateRoutes(
+            router.children,
+            data.path,
+            data.title
+          );
+          if (tempRoutes.length > 0) {
+            res = [...res, ...tempRoutes];
           }
         }
       }
-      return res
+      return res;
     },
     querySearch(query) {
       if (query !== '') {
-        this.options = this.fuse.search(query)
+        this.options = this.fuse.search(query);
       } else {
-        this.options = []
+        this.options = [];
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang='scss' scoped>
 .el-select {
-  width: 200px;
+  width: 250px;
 }
 .select-enter-active,
 .select-leave-active {
-  transition: all 0.2s;
+  transition: all 0.2s linear;
 }
 .select-enter,
 .select-leave-to {
   width: 0;
 }
 ::v-deep.header-search {
-  // 直接给最外层设置
-  display: inline-block;
-  .search-icon {
-    cursor: pointer;
-    font-size: 20px;
-    color: #5a5e66;
-    vertical-align: middle;
-  }
-  .el-input__inner {
-    border: none;
-    border-bottom: 1px solid black !important;
-    border-radius: 0;
-    padding: 0;
+  .el-select {
     margin-left: 10px;
+    .el-input__inner {
+      border: none;
+      border-bottom: 1px solid black !important;
+      border-radius: 0;
+      padding: 0;
+    }
   }
 }
 </style>

@@ -22,13 +22,14 @@ import HamburgerButton from '@/components/common/HamburgerButton';
 import HeaderBreadCrumb from './HeaderBreadCrumb';
 import HeaderRightSettings from './HeaderRightSettings';
 import { mapGetters, mapMutations } from 'vuex';
+import path from 'path';
 
 export default {
   name: 'Header',
   components: {
     HamburgerButton,
     HeaderBreadCrumb,
-    HeaderRightSettings
+    HeaderRightSettings,
   },
   computed: {
     ...mapGetters([
@@ -45,27 +46,28 @@ export default {
     },
     getBreadCrumbs() {
       let matched = [...this.$route.matched];
-      // 包括跳转到当前路径的也变黑
-      console.log(this.$route.path);
+
       let unAccessPath = [this.$route.path];
-      
       for (let i = matched.length - 1; i >= 0; i--) {
-        let {redirect,path} = matched[i];
-        if (
-          redirect &&
-          (unAccessPath.includes(redirect) ||
-            this.$router.getMatchedComponents(redirect).length === 1)
-        ) {
-          unAccessPath.push(path);
-          // 这样会影响到this.$route.matched 导致nodirect为true的永远变不了false
-          // matched[i].nodirect = true
-          matched[i] = {...matched[i],nodirect:true}
+        let { redirect, path: routePath,parent } = matched[i];
+        if (redirect) {
+          // 用resolve比用join好的地方是 不需要自己去判断是绝对路径还是相对路径了
+          let redirectPath = path.resolve(parent ? parent.path : '/',redirect);
+          
+          // 说明无权限访问或跳转到当前页面
+          if (
+            unAccessPath.includes(redirectPath) ||
+            this.$router.getMatchedComponents(redirectPath).length === 1
+          ) {
+            unAccessPath.push(routePath);
+            matched[i] = { ...matched[i], redirect: 'noRedirect' };
+          }
         }
       }
 
-
       // 因为404/401 没有title 一过滤再取[0]就会报错 而除他们之外的因为外层都有Layout 和 内层自己的组件
       // 所以length 一定大于 1
+      console.log('matched --- ',matched);
       if (matched.length > 1) {
         let breadCrumbs = matched
           .filter(
@@ -73,11 +75,11 @@ export default {
               item.meta.title &&
               !this.breadCrumbsExcludePath.includes(item.path)
           )
-          .map(({ path, meta: { title },nodirect }, index) => {
+          .map(({ path, meta: { title }, redirect }, index) => {
             return {
               path,
               title,
-              nodirect,
+              redirect,
               class: 'crumb-item',
             };
           });

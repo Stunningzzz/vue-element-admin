@@ -24,7 +24,7 @@ export default {
   },
   methods:{
     breadCrumbsItemPath(item){
-      return item.nodirect ? '' : item.path;
+      return item.redirect === 'noRedirect' ?  '' : item.path;
     }
   }
 };
@@ -45,12 +45,8 @@ export default {
   opacity: 0;
 }
 ::v-deep {
-  // 设置最后一个的颜色
+  // 设置最后一个不显示 ' > ' 这里不能用last-child 因为切换的时候会变成倒数第二个
   .crumb-item-last {
-    .el-breadcrumb__inner {
-      font-weight: 400 !important;
-      color: #97a8be !important;
-    }
     .el-breadcrumb__separator {
       display: none;
     }

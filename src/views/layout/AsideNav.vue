@@ -1,6 +1,6 @@
 <template>
   <div
-    class="aside-nav"
+    class="aside-nav-container"
     @transitionend="actionEnd"
   >
     <!-- <div
@@ -21,21 +21,27 @@
       
       </el-menu>
     </div> -->
-    <el-menu
-      background-color="#304156"
-      text-color="#BFCBD9"
-      active-text-color="#409EFF"
-      ref="menu"
-      :router='true'
-      :collapse="asideNavStatus"
-      :default-active="defaultActive"
-    >
-      <AsideNavRecurItem
-        v-for="item in accessRoutes"
-        :key="item.path"
-        :cur-route="item"
-      />
-    </el-menu>
+    <!-- 在这里 el-menu必须设置固定高度 然后是通过el-submenu的打开和关闭来改变高度 
+          el-scrollbar通过监听视口高度和el-menu的高度的关系来调整是否出现滚动条和滚动条的长度 -->
+    <el-scrollbar>
+      <el-menu
+        background-color="#304156"
+        text-color="#BFCBD9"
+        active-text-color="#409EFF"
+        ref="menu"
+        :router='true'
+        :collapse="asideNavStatus"
+        :default-active="defaultActive"
+        mode="vertical"
+      >
+        <AsideNavRecurItem
+          v-for="item in accessRoutes"
+          :key="item.path"
+          :cur-route="item"
+          base-path="/"
+        />
+      </el-menu>
+    </el-scrollbar>
   </div>
 </template>
 <script>
@@ -55,14 +61,14 @@ export default {
       'breadCrumbs',
     ]),
     defaultActive() {
-      return this.breadCrumbs?.[this.breadCrumbs.length - 1]?.path;
+      return this.$route.path;
     },
   },
   methods: {
     ...mapMutations('app', ['setAsideNavIsCollapsing', 'toggleAsideNavStatus']),
-    actionEnd({propertyName}) {
+    actionEnd({ propertyName }) {
       // 正常来说只需要监听width 就够了 但有时候展开的时候不会触发width!
-      if (['width','opacity'].indexOf(propertyName) !== -1) {
+      if (['width', 'opacity'].indexOf(propertyName) !== -1) {
         this.setAsideNavIsCollapsing(false);
       }
     },
@@ -84,13 +90,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.aside-nav {
-  height: 100vh;
-  //
+.aside-nav-container {
+  height: 100%;
   // overflow: hidden;
   flex-shrink: 0;
   background-color: #304156;
-  padding-bottom: 20px;
   .wrapper {
     float: left;
   }
@@ -98,5 +102,14 @@ export default {
 
 .el-menu:not(.el-menu--collapse) {
   width: 180px;
+  padding-bottom: 20px;
+}
+
+
+::v-deep.el-scrollbar{
+  height: 100%;
+  .el-scrollbar__wrap{
+    overflow-x: hidden;
+  }
 }
 </style>

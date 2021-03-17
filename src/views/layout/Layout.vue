@@ -1,8 +1,7 @@
 <template>
   <el-container>
     <AsideNav/>
-    <el-container direction="vertical"
-      class="container-right">
+    <el-container direction="vertical">
       <Header />
       <Main />
     </el-container>
@@ -26,9 +25,10 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.container-right {
-  height: 100vh;
+.el-container{
+  height: 100%;
   overflow: auto;
 }
+
 </style>
 //亲人 爱人 朋友

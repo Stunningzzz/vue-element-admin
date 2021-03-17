@@ -6,8 +6,7 @@
   <!-- 不能只单纯判断children不为空就认定有子路由 因为经过筛选后 即使有children属性 子路由的长度也可能为0 -->
   <el-submenu
     v-else-if="curRoute.children && (curRoute.children.length > 1 || curRoute.alwaysShow)"
-    :index="curRoute.path"
-    :abc="curRoute.path"
+    :index="getFullPath(curRoute)"
     :popper-append-to-body="false"
     background-color="#304156"
     text-color="#BFCBD9"
@@ -24,13 +23,14 @@
       v-for="item in curRoute.children"
       :key="item.path"
       :cur-route="item"
+      :base-path="getFullPath(curRoute)"
     >
     </AsideNavRecurItem>
   </el-submenu>
 
   <el-menu-item
     v-else
-    :index="curRouteItem.path"
+    :index="getFullPath(curRouteItem)"
   >
     <svg-icon :icon-class="curRouteItem.meta.icon"></svg-icon>
     <span slot="title">
@@ -85,6 +85,8 @@
 
 <script>
 import { mapActions } from 'vuex';
+import path from 'path';
+
 export default {
   name: 'AsideNavRecurItem',
  
@@ -93,7 +95,7 @@ export default {
       type: Object,
       required: true,
     },
-    
+    basePath:String,
   },
   computed: {
     curRouteItem() {
@@ -110,6 +112,9 @@ export default {
   },
   methods: {
     ...mapActions('app', ['setBreadCrumbsExcludePath']),
+    getFullPath(route){
+      return path.resolve(this.basePath,route.path);
+    }
   },
   // data() {
   //   return {
