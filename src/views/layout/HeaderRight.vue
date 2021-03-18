@@ -11,7 +11,7 @@ import HeaderRightScreenFull from './HeaderRightScreenFull';
 import HeaderRightSizeSelect from './HeaderRightSizeSelect';
 
 export default {
-  name: 'HeaderRightSettings',
+  name: 'HeaderRight',
   components: {
     HeaderRightSearch,
     HeaderRightScreenFull,

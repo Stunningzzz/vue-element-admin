@@ -14,13 +14,13 @@
         :bread-crumbs="breadCrumbs"
       />
     </div>
-    <HeaderRightSettings />
+    <HeaderRight />
   </el-header>
 </template>
 <script>
 import HamburgerButton from '@/components/common/HamburgerButton';
 import HeaderBreadCrumb from './HeaderBreadCrumb';
-import HeaderRightSettings from './HeaderRightSettings';
+import HeaderRight from './HeaderRight';
 import { mapGetters, mapMutations } from 'vuex';
 import path from 'path';
 
@@ -29,7 +29,7 @@ export default {
   components: {
     HamburgerButton,
     HeaderBreadCrumb,
-    HeaderRightSettings,
+    HeaderRight,
   },
   computed: {
     ...mapGetters([
