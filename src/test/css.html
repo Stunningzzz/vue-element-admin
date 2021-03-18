@@ -8,47 +8,37 @@
   <script src="./iconfont.js"></script>
   <title>Document</title>
   <style>
-    .outer{
-      width:500px;
-      height:500px;
-      background-color:skyblue;
+    .box {
+      width: 250px;
     }
-    .outer::before{
-      display: inline-block;
-      content: "";
-      vertical-align: middle;
-      height: 100%;
+
+    .outer {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      background-color: skyblue;
+      overflow-y: hidden;
+      /* 如果overflow-x设置了不同值 且其中一个为visible 的话 那么那个visible会自动变为auto */
     }
-    .box{
-      display: inline-block;
-      background-color: pink;
-      height: 100%;
-    }
-    .inner1{
-      width:100px;
-      height: 200px;
-      background-color:orange;
-      display: inline-block;
-      vertical-align: middle;
-    }
-    .inner2{
-      width:200px;
-      height:200px;
-      background-color:#bfa;
-      vertical-align: middle;
+
+    .inner {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: #bfa;
+
+      left: 200px;
     }
   </style>
 </head>
 
 <body>
-  <div class="outer">
-    <div class="box"> 
-      <div class="inner1">
-      </div>
-      <!-- <input type="text" name="" id="" style="height:50px"> -->
+  <div class="box">
+    <div class="outer">
+      <div class="inner"></div>
     </div>
-    <svg class="inner2"></svg>
   </div>
+
 </body>
 
 </html>

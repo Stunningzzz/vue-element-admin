@@ -7,11 +7,12 @@
 <script>
 export default {
   name: 'App',
+  
 };
 </script>
 
 <style>
-  :root{
-    user-select: none;
-  }
+:root {
+  user-select: none;
+}
 </style>

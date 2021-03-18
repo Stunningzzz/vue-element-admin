@@ -21,7 +21,7 @@
 import HamburgerButton from '@/components/common/HamburgerButton';
 import HeaderBreadCrumb from './HeaderBreadCrumb';
 import HeaderRight from './HeaderRight';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapGetters } from 'vuex';
 import path from 'path';
 
 export default {
@@ -31,16 +31,19 @@ export default {
     HeaderBreadCrumb,
     HeaderRight,
   },
+  data() {
+    return {
+      breadCrumbs: [],
+    };
+  },
   computed: {
     ...mapGetters([
       'asideNavStatus',
       'asideNavIsCollapsing',
-      'breadCrumbs',
       'breadCrumbsExcludePath',
     ]),
   },
   methods: {
-    ...mapMutations('app', ['setBreadCrumbs']),
     burgerClick() {
       this.$bus.$emit('toggleAsideNavStatus');
     },
@@ -49,11 +52,11 @@ export default {
 
       let unAccessPath = [this.$route.path];
       for (let i = matched.length - 1; i >= 0; i--) {
-        let { redirect, path: routePath,parent } = matched[i];
+        let { redirect, path: routePath, parent } = matched[i];
         if (redirect) {
           // 用resolve比用join好的地方是 不需要自己去判断是绝对路径还是相对路径了
-          let redirectPath = path.resolve(parent ? parent.path : '/',redirect);
-          
+          let redirectPath = path.resolve(parent ? parent.path : '/', redirect);
+
           // 说明无权限访问或跳转到当前页面
           if (
             unAccessPath.includes(redirectPath) ||
@@ -67,7 +70,7 @@ export default {
 
       // 因为404/401 没有title 一过滤再取[0]就会报错 而除他们之外的因为外层都有Layout 和 内层自己的组件
       // 所以length 一定大于 1
-      console.log('matched --- ',matched);
+      console.log('matched --- ', matched);
       if (matched.length > 1) {
         let breadCrumbs = matched
           .filter(
@@ -92,7 +95,7 @@ export default {
         }
         breadCrumbs[breadCrumbs.length - 1].class = 'crumb-item-last';
 
-        this.setBreadCrumbs(breadCrumbs);
+        this.breadCrumbs = breadCrumbs;
       }
     },
   },

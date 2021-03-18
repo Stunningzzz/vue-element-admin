@@ -9,10 +9,7 @@ export default {
   name:'HeaderRightGlobalSize',
   methods:{
     handleSetSize(){
-      this.$router.push({
-        path:`/redirect${this.$route.path}`,
-        replace:true,
-      })
+      this.$bus.$emit('reload')
     }
   },
 }

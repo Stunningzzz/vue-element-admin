@@ -1,8 +1,8 @@
 <template>
   <h2>
-    <el-tooltip content="avcdasd">
-      <Child :key.sync="key" />
-    </el-tooltip>
+    {{num}}
+    <button @click="click">按钮啊啊啊</button>
+    <button @click="handleReload">123asd</button>
   </h2>
 </template>
 
@@ -10,18 +10,22 @@
 import Child from './Child';
 export default {
   name: 'Permission',
+  inject:['reload'],
   components: {
     Child,
   },
-  data() {
+  data(){
     return {
-      key: 0,
-    };
+      num:0
+    }
   },
-  methods: {
-    click() {
-      this.key++;
+  methods:{
+    click(){
+      this.num++;
     },
+    handleReload(){
+      this.reload();
+    }
   },
 };
 </script>

@@ -1,14 +1,11 @@
 <template>
-  <RouterTransition></RouterTransition>
+  <router-view/>
 </template>
 
 <script>
-import RouterTransition from '@/components/content/RouterTransition';
 export default {
   name:'nested1-1',
-  components:{
-    RouterTransition
-  },
+  
 }
 </script>
 

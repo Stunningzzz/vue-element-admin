@@ -3,27 +3,10 @@
     class="aside-nav-container"
     @transitionend="actionEnd"
   >
-    <!-- <div
-      class="wrapper"
-      :style="{marginTop:marginTop+'px'}"
-      @mousewheel="scroll"
-      @transitionend="actionEnd"
-    >
-      <el-menu
-        background-color="#304156"
-        text-color="#BFCBD9"
-        active-text-color="#409EFF"
-        :default-active="defaultActive"
-        :collapse="asideNavStatus"
-        ref="menu"
-        :router='true'
-      >
-      
-      </el-menu>
-    </div> -->
-    <!-- 在这里 el-menu必须设置固定高度 然后是通过el-submenu的打开和关闭来改变高度 
+
+    <!-- 在这里 el-menu通过el-submenu的打开和关闭来改变高度 
           el-scrollbar通过监听视口高度和el-menu的高度的关系来调整是否出现滚动条和滚动条的长度 -->
-    <el-scrollbar>
+    <el-scrollbar :wrap-style="scrollbarWrapStyle" ref="scrollbar">
       <el-menu
         background-color="#304156"
         text-color="#BFCBD9"
@@ -53,13 +36,9 @@ export default {
   components: {
     AsideNavRecurItem,
   },
+ 
   computed: {
-    ...mapGetters([
-      'asideNavStatus',
-      'asideNavIsCollapsing',
-      'accessRoutes',
-      'breadCrumbs',
-    ]),
+    ...mapGetters(['asideNavStatus', 'asideNavIsCollapsing', 'accessRoutes']),
     defaultActive() {
       return this.$route.path;
     },
@@ -87,6 +66,9 @@ export default {
       }, 300);
     });
   },
+  mounted(){
+    console.log(this.$refs.scrollbar);
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -105,11 +87,15 @@ export default {
   padding-bottom: 20px;
 }
 
-
-::v-deep.el-scrollbar{
+::v-deep.el-scrollbar {
   height: 100%;
-  .el-scrollbar__wrap{
-    overflow-x: hidden;
+  // 去除默认的overflow-hidden
+  overflow: visible;
+  .el-scrollbar__wrap {
+    // overflow-x: hidden;
+    // 去除原先的overflow-scroll 
+    overflow: visible;
+    margin-right: 0px !important;
   }
 }
 </style>

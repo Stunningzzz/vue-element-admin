@@ -38,48 +38,6 @@
     </span>
   </el-menu-item>
 
-  <!-- <div v-if="!curRoute.hidden">
-    <el-submenu
-      v-if="curRoute.children && (curRoute.alwaysShow || curRoute.children.length > 1)"
-      :index="curRoute.path"
-      :abc="curRoute.path"
-      background-color="#304156"
-      text-color="#BFCBD9"
-      active-text-color="#409EFF"
-      :router='true'
-    >
-      <template slot="title">
-        <svg-icon :icon-class="curRoute.meta.icon"></svg-icon>
-        <span slot="title">
-          {{curRoute.meta.title}}
-        </span>
-      </template>
-      <AsideNavRecurItem
-        v-for="item in curRoute.children"
-        :key="item.path"
-        :cur-route="item"
-      >
-      </AsideNavRecurItem>
-    </el-submenu>
-    <el-menu-item
-      v-else
-      :index="curRoute.path"
-      :abc="curRoute.path"
-    >
-      <template v-if="curRoute.children">
-        <svg-icon :icon-class="curRoute.children[0].meta.icon"></svg-icon>
-        <span slot="title">
-          {{curRoute.children[0].meta.title}}
-        </span>
-      </template>
-      <template v-else>
-        <svg-icon :icon-class="curRoute.meta.icon"></svg-icon>
-        <span slot="title">
-          {{curRoute.meta.title}}
-        </span>
-      </template>
-    </el-menu-item> 
-  </div> -->
 
 </template>
 
@@ -116,65 +74,6 @@ export default {
       return path.resolve(this.basePath,route.path);
     }
   },
-  // data() {
-  //   return {
-  //     marginTop: 0,
-  //   };
-  // },
-  // computed: {
-  //   ...mapGetters(['isCollapse']),
-  //   defaultActive() {
-  //     let { breadCrumbs } = this.$store.getters;
-  //     return  breadCrumbs.length ? breadCrumbs[breadCrumbs.length - 1].path : null;
-  //   },
-  // },
-  // methods: {
-  //   ...mapMutations(['setCollapsing', 'toggleCollapse']),
-  //   componentRoute(route) {
-  //     return route.filter((curRoute) => curRoute.component);
-  //   },
-  //   scroll({ wheelDeltaY }) {
-  //     let menuHeight = this.$refs.menu.$el.offsetHeight,
-  //       wrapperHeight =
-  //         window.innerHeight -
-  //         parseInt(getComputedStyle(this.$el).paddingBottom),
-  //       { marginTop } = this;
-  //     // 往上滑为正
-  //     if (wheelDeltaY > 0) {
-  //       // 如果当前marginTop 小于0 肯定要往上滑
-  //       if (marginTop < 0) {
-  //         // 往上滚了
-  //         this.marginTop = Math.min(0, this.marginTop + wheelDeltaY);
-  //       } // 0 + 700 < 800
-  //     } else if (-marginTop + wrapperHeight < menuHeight) {
-  //       // 0 - 180 = -180 和 700 - 800
-  //       this.marginTop = Math.max(
-  //         marginTop + wheelDeltaY,
-  //         wrapperHeight - menuHeight
-  //       );
-  //     }
-  //   },
-  //   actionEnd({ propertyName }) {
-  //     // 理论上只要监听width就行了 但是有时候width会不触发...?
-  //     if (propertyName === 'width' || propertyName === 'opacity') {
-  //       this.$store.commit('setCollapsing', false);
-  //     }
-  //   },
-  // },
-  // mounted() {
-  //   this.$bus.$on('burgerClick', () => {
-  //     this.setCollapsing(true);
-  //     let menu = this.$refs.menu,
-  //       submenus = menu.submenus;
-  //     this.marginTop = 0;
-  //     for (let key in submenus) {
-  //       menu.close(key);
-  //     }
-  //     setTimeout(() => {
-  //       this.toggleCollapse();
-  //     }, 300);
-  //   });
-  // },
 };
 </script>
 
