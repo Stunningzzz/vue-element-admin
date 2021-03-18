@@ -13,14 +13,12 @@ Vue.use(VueRouter);
 export const constantRoutes = [
   {
     path:'/redirect/:path(.*)',
-    // 直接写 redirect:'/:path' 会把 '/' 转义成 '%2F' 导致路径错误
-    // 如果redirect的路径和当前路径相同是不会跳转到
-    // 要真正进到path里面去再跳转才能真正刷新
     redirect:to => {
-      console.log(to);
+      console.log('redirect fn');
       return to.params.path;
     },
     hidden:true,
+    // keep-alive 那怎么实现exclude呢? 
   },
   {
     path: '/login',

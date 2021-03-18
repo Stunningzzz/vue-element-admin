@@ -10,7 +10,7 @@ export default {
   methods:{
     handleSetSize(){
       this.$router.push({
-        path:`/redirect${this.$route.path}?`,
+        path:`/redirect${this.$route.path}`,
         replace:true,
       })
     }
