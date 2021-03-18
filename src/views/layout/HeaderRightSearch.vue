@@ -1,24 +1,31 @@
 <template>
-  <div
-    :class="{'show':isShow}"
-    class="header-search"
-  >
-    <svg-icon
-      class="search-icon"
-      icon-class="search"
-      @click.native.stop="searchClick"
-    />
-    <transition name="select">
+  <div class="header-search">
+    <el-tooltip
+      :content="tooltipConent"
+      placement="bottom"
+      :key="key"
+    >
+      <svg-icon
+        class="search-icon"
+        icon-class="search"
+        ref="icon"
+        @click.stop="searchClick"
+      />
+    </el-tooltip>
+    <transition
+      name="select"
+      @after-enter="toggleKey"
+      @after-leave="toggleKey"
+    >
       <el-select
-        v-show="isShow"
         ref="headerSearchSelect"
+        v-show="isShow"
         v-model="selectValue"
         placeholder="Search"
         :remote-method="querySearch"
         filterable
         remote
         default-first-option
-        class="header-search-select"
         @change="selectChange"
       >
         <el-option
@@ -39,39 +46,39 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'HeaderRightSearch',
+  props: {
+    comp: Object,
+  },
   data() {
     return {
       isShow: false,
-      // 用户输入的字符串
       selectValue: null,
-      // searchPool: [],
       fuse: null,
       options: [],
+      tooltipConent: '搜索',
+      key: false,
+      // 第一次点击 重新渲染 且 isShow还是false 这里的isShow应该为true才对
+      // 第二次点击 不重新渲染 且 isShow 变true
+      // 第三次点击 重新渲染 且 isShow为false
     };
   },
   computed: {
-    // routes() {
-    //   return this.$store.getters.accessRoutes;
-    // }
     ...mapGetters(['accessRoutes']),
   },
   watch: {
     accessRoutes(newAccessRoutes) {
       this.initFuse(this.generateRoutes(newAccessRoutes));
     },
-    // routes() {
-    //   // 将可访问的路由进一步筛选 用于搜索结果
-    //   this.searchPool = this.generateRoutes(this.routes)
-    // },
-    // searchPool(list) {
-    //   this.initFuse(list)
-    // },
+    // 这里不能放在click里面 因为改变isShow的地方还有searchClick函数
     isShow(newValue) {
       // 在body内除文本框中的点击都要让select菜单收起
       // 一展开就把事件添加到body上面 一收起就移除监听
-      console.log('isShow --- ', newValue);
       if (newValue) {
         document.body.addEventListener('click', this.searchClose);
+        this.$nextTick(() => {
+          // 搜索框获取焦点异常 虽然关闭闪烁但是不能输入
+          this.$refs.headerSearchSelect?.focus();
+        });
       } else {
         document.body.removeEventListener('click', this.searchClose);
       }
@@ -80,18 +87,15 @@ export default {
   mounted() {
     this.initFuse(this.generateRoutes(this.accessRoutes));
   },
-  // mounted() {
-  //   this.searchPool = this.generateRoutes(this.routes)
-  // },
   methods: {
+    toggleKey() {
+      this.key = !this.key;
+      this.tooltipConent = this.key ? '关闭搜索' : '搜索';
+    },
     // 文本框展开
     searchClick() {
-      console.log('searchClick');
-      this.isShow = !this.isShow;
-      // 搜索框获取焦点异常 虽然关闭闪烁但是不能输入
-      this.$nextTick(() => {
-        this.$refs.headerSearchSelect?.focus();
-      });
+      // 通过点击按钮关闭的时候 因为搜索按钮还是hover状态
+      this.isShow ? this.searchClose() : (this.isShow = true);
     },
     // 文本框关闭
     searchClose() {
@@ -102,7 +106,6 @@ export default {
     // change事件是在选择不同的选项的时候触发 而不是在输入搜索字符的时候触发
     selectChange(val) {
       this.$router.push(val.path);
-      console.log(this.selectValue);
       this.selectValue = null;
       this.options = [];
       this.isShow = false;

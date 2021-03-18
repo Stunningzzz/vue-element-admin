@@ -1,17 +1,21 @@
 <template>
   <div class="header-right">
     <HeaderRightSearch />
-    <HeaderRightFullScreen />
+    <HeaderRightScreenFull />
+    <HeaderRightSizeSelect />
   </div>
 </template>
 <script>
 import HeaderRightSearch from './HeaderRightSearch';
-import HeaderRightFullScreen from './HeaderRightFullScreen';
+import HeaderRightScreenFull from './HeaderRightScreenFull';
+import HeaderRightSizeSelect from './HeaderRightSizeSelect';
+
 export default {
   name: 'HeaderRightSettings',
   components: {
     HeaderRightSearch,
-    HeaderRightFullScreen,
+    HeaderRightScreenFull,
+    HeaderRightSizeSelect,
   },
 };
 </script>
@@ -30,7 +34,7 @@ export default {
     color: #5a5e66;
     vertical-align: middle;
   }
-  > div{
+  > div {
     display: inline-block;
     padding: 0 8px;
   }
