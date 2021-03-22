@@ -1,44 +1,46 @@
 <template>
-  <!-- 如果当前children的长度为0 那么不会显示成空的下拉菜单 (注意这和没有chilren属性不同!!!) -->
-  <div v-if="curRoute.hidden || (curRoute.children && curRoute.children.length === 0)">
-  </div>
-  <!-- 一定是非hidden 要么chilren属性为空 要么有children属性而且长度大于0 -->
-  <!-- 不能只单纯判断children不为空就认定有子路由 因为经过筛选后 即使有children属性 子路由的长度也可能为0 -->
-  <el-submenu
-    v-else-if="curRoute.children && (curRoute.children.length > 1 || curRoute.alwaysShow)"
-    :index="getFullPath(curRoute)"
-    :popper-append-to-body="false"
-    background-color="#304156"
-    text-color="#BFCBD9"
-    active-text-color="#409EFF"
-    :router='true'
-  >
-    <template slot="title">
-      <svg-icon :icon-class="curRoute.meta.icon"></svg-icon>
-      <span slot="title">
-        {{curRoute.meta.title}}
-      </span>
-    </template>
-    <AsideNavRecurItem
-      v-for="item in curRoute.children"
-      :key="item.path"
-      :cur-route="item"
-      :base-path="getFullPath(curRoute)"
+<!-- 如果有children的话 children的length必须大于0 -->
+  <div v-if="!curRoute.hidden && (!curRoute.children || curRoute.children.length > 0)">
+    <!-- 一定是非hidden 要么chilren属性为空 要么有children属性而且长度大于0 -->
+    <!-- 不能只单纯判断children不为空就认定有子路由 因为经过筛选后 即使有children属性 子路由的长度也可能为0 -->
+    <el-submenu
+      v-if="curRoute.children && (curRoute.children.length > 1 || curRoute.alwaysShow)"
+      :index="getFullPath(curRoute)"
+      popper-append-to-body
+      background-color="#304156"
+      text-color="#BFCBD9"
+      active-text-color="#409EFF"
+      :router='true'
     >
-    </AsideNavRecurItem>
-  </el-submenu>
+      <template slot="title">
+        <svg-icon :icon-class="curRoute.meta.icon"></svg-icon>
+        <span slot="title">
+          {{curRoute.meta.title}}
+        </span>
+      </template>
+      <AsideNavRecurItem
+        v-for="item in curRoute.children"
+        :key="item.path"
+        :cur-route="item"
+        :base-path="getFullPath(curRoute)"
+      >
+      </AsideNavRecurItem>
+    </el-submenu>
 
-  <el-menu-item
-    v-else
-    :index="getFullPath(curRouteItem)"
-  >
-    <svg-icon :icon-class="curRouteItem.meta.icon"></svg-icon>
-    <span slot="title">
-      {{curRouteItem.meta.title}}
-    </span>
-  </el-menu-item>
+    <el-menu-item
+      v-else
+      :index="getFullPath(curRouteItem)"
+    >
+      <svg-icon :icon-class="curRouteItem.meta.icon"></svg-icon>
+      <span slot="title">
+        {{curRouteItem.meta.title}}
+      </span>
+    </el-menu-item>
+  </div>
 
-
+  <!-- 如果当前children的长度为0 那么不会显示成空的下拉菜单 (注意这和没有chilren属性不同!!!)
+  <div v-if="curRoute.hidden || (curRoute.children && curRoute.children.length === 0)">
+  </div> -->
 </template>
 
 <script>
@@ -47,32 +49,32 @@ import path from 'path';
 
 export default {
   name: 'AsideNavRecurItem',
- 
+
   props: {
     curRoute: {
       type: Object,
       required: true,
     },
-    basePath:String,
+    basePath: String,
   },
   computed: {
     curRouteItem() {
-      let {curRoute} = this;
+      let { curRoute } = this;
       // 如果有children的话 它的alwaysShow一定是false 且长度一定为1
-      return curRoute.children ? curRoute.children[0] :curRoute;
+      return curRoute.children ? curRoute.children[0] : curRoute;
     },
   },
-  created(){
-    let {curRoute} = this;
+  created() {
+    let { curRoute } = this;
     if (curRoute.children?.length === 1 && !curRoute.alwaysShow) {
       this.setBreadCrumbsExcludePath(curRoute.path);
     }
   },
   methods: {
     ...mapActions('app', ['setBreadCrumbsExcludePath']),
-    getFullPath(route){
-      return path.resolve(this.basePath,route.path);
-    }
+    getFullPath(route) {
+      return path.resolve(this.basePath, route.path);
+    },
   },
 };
 </script>

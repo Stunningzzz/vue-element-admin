@@ -3,12 +3,15 @@
     <HeaderRightSearch />
     <HeaderRightScreenFull />
     <HeaderRightSizeSelect />
+    <HeaderRightAvatarDropDown/>
   </div>
 </template>
 <script>
 import HeaderRightSearch from './HeaderRightSearch';
 import HeaderRightScreenFull from './HeaderRightScreenFull';
 import HeaderRightSizeSelect from './HeaderRightSizeSelect';
+import HeaderRightAvatarDropDown from "./HeaderRightAvatarDropDown";
+
 
 export default {
   name: 'HeaderRight',
@@ -16,6 +19,7 @@ export default {
     HeaderRightSearch,
     HeaderRightScreenFull,
     HeaderRightSizeSelect,
+    HeaderRightAvatarDropDown
   },
 };
 </script>

@@ -6,7 +6,7 @@
 
     <!-- 在这里 el-menu通过el-submenu的打开和关闭来改变高度 
           el-scrollbar通过监听视口高度和el-menu的高度的关系来调整是否出现滚动条和滚动条的长度 -->
-    <el-scrollbar :wrap-style="scrollbarWrapStyle" ref="scrollbar">
+    <el-scrollbar >
       <el-menu
         background-color="#304156"
         text-color="#BFCBD9"
@@ -66,9 +66,7 @@ export default {
       }, 300);
     });
   },
-  mounted(){
-    console.log(this.$refs.scrollbar);
-  },
+  
 };
 </script>
 <style lang="scss" scoped>
@@ -89,13 +87,8 @@ export default {
 
 ::v-deep.el-scrollbar {
   height: 100%;
-  // 去除默认的overflow-hidden
-  overflow: visible;
   .el-scrollbar__wrap {
-    // overflow-x: hidden;
-    // 去除原先的overflow-scroll 
-    overflow: visible;
-    margin-right: 0px !important;
+    overflow-x:hidden;
   }
 }
 </style>
