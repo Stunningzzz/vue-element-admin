@@ -6,7 +6,7 @@
 
     <!-- 在这里 el-menu通过el-submenu的打开和关闭来改变高度 
           el-scrollbar通过监听视口高度和el-menu的高度的关系来调整是否出现滚动条和滚动条的长度 -->
-    <el-scrollbar >
+    <el-scrollbar>
       <el-menu
         background-color="#304156"
         text-color="#BFCBD9"
@@ -36,7 +36,7 @@ export default {
   components: {
     AsideNavRecurItem,
   },
- 
+
   computed: {
     ...mapGetters(['asideNavStatus', 'asideNavIsCollapsing', 'accessRoutes']),
     defaultActive() {
@@ -66,7 +66,6 @@ export default {
       }, 300);
     });
   },
-  
 };
 </script>
 <style lang="scss" scoped>
@@ -88,7 +87,37 @@ export default {
 ::v-deep.el-scrollbar {
   height: 100%;
   .el-scrollbar__wrap {
-    overflow-x:hidden;
+    overflow-x: hidden;
+  }
+}
+
+::v-deep.el-menu--collapse {
+  // 这里必须用 > 表示下一层 否则的话会设置所有的submenu
+  > div > .el-submenu > .el-submenu__title {
+    // 隐藏箭头
+    .el-submenu__icon-arrow {
+      display: none;
+    }
+    // 隐藏文本
+    span {
+      height: 0;
+      width: 0;
+      overflow: hidden;
+      visibility: hidden;
+      display: inline-block;
+    }
+  }
+  > div > .el-menu-item {
+    .el-submenu__icon-arrow {
+      display: none;
+    }
+    span {
+      height: 0;
+      width: 0;
+      overflow: hidden;
+      visibility: hidden;
+      display: inline-block;
+    }
   }
 }
 </style>

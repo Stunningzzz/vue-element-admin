@@ -185,6 +185,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+
 .el-select {
   width: 250px;
 }
@@ -199,6 +200,7 @@ export default {
 ::v-deep.header-search {
   .el-select {
     margin-left: 10px;
+    vertical-align: baseline !important;
     .el-input__inner {
       border: none;
       border-bottom: 1px solid black !important;

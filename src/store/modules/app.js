@@ -8,7 +8,7 @@ export default {
     asideNavIsCollapsing: false,
     // 侧边栏当前是打开还是关闭
     asideNavStatus: getItem('asideNavStatus') === 'true',
-    globalSize:'default'
+    globalSize:getItem('globalSize') || 'default',
   },
   actions: {
     setBreadCrumbsExcludePath({ commit }, payload) {
@@ -20,6 +20,7 @@ export default {
   mutations: {
     setGlobalSize(state,payload){
       state.globalSize = payload;
+      setItem('globalSize', state.globalSize);
     },
     setAsideNavIsCollapsing(state, payload) {
       state.asideNavIsCollapsing = payload;

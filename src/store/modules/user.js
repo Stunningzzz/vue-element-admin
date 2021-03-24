@@ -6,6 +6,8 @@ import {
   setUserInfo,
   removeUserInfo,
 } from '@/common/storage';
+import router,{resetRouter} from '@/router';
+
 export default {
   namespaced:true,
   state: {
@@ -53,9 +55,9 @@ export default {
     },
     getInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
+        // 根据token去拿的角色信息 也就是说先该token 然后再拉取一次用户信息即可
         userGetInfo(state.token)
           .then(data => {
-            
             if (!data) {
               reject('验证失败 请重新登录!');
             }
@@ -83,8 +85,7 @@ export default {
             removeToken();
             commit('SET_ROLES', []);
 
-            // resetRouter()
-
+            resetRouter()
             resolve();
           })
           .catch(reason => {
@@ -92,7 +93,7 @@ export default {
           });
       });
     },
-    resetToken({ commit }) {
+    clearToken({ commit }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '');
         removeToken();
@@ -108,11 +109,10 @@ export default {
       commit('SET_TOKEN', token);
       setToken(token);
 
-      const { roles } = await dispatch('user/getInfo');
+      const { roles } = await dispatch('getInfo');
 
       resetRouter();
 
-      // generate accessible routes map based on roles
       const accessRoutes = await dispatch('permission/generateRoutes', roles, {
         root: true,
       });
@@ -120,7 +120,7 @@ export default {
       router.addRoutes(accessRoutes);
 
       // reset visited views and cached views
-      dispatch('tagsView/delAllViews', null, { root: true });
+      // dispatch('tagsView/delAllViews', null, { root: true });
     },
   },
 };

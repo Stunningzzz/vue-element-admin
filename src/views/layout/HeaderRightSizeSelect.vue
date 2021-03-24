@@ -3,13 +3,15 @@
     <el-dropdown
       trigger="click"
       @command="handleSelect"
+      size="mini"
+      @visible-change="toggleTooltip"
     >
       <div>
-        <el-tooltip :content="tooltip">
+        <el-tooltip :content="tooltip" :disabled="isVisible" :key="isVisible">
           <svg-icon icon-class="size" />
         </el-tooltip>
       </div>
-      <el-dropdown-menu slot="dropdown">
+      <el-dropdown-menu slot="dropdown" >
         <el-dropdown-item
           v-for="option in sizeOptions"
           :key="option.value"
@@ -36,7 +38,12 @@ export default {
         { label: 'Small', value: 'small' },
         { label: 'Mini', value: 'mini' },
       ],
+      isVisible:false,
     };
+    
+  },
+  mounted(){
+    console.log('this.$refs.dropdown --- ',this.$refs.dropdown  );
   },
   computed: {
     ...mapGetters(['globalSize']),
@@ -56,6 +63,9 @@ export default {
     },
     reload(){
       this.$bus.$emit('reload');
+    },
+    toggleTooltip(isVisible){
+      this.isVisible = isVisible;
     }
   },
 };

@@ -5,7 +5,7 @@
       placement="bottom"
       :key="tooltipConent"
     >
-    <!-- 加了key就不会看到切换文字了 -->
+      <!-- 加了key就不会看到切换文字了 -->
       <svg-icon
         :icon-class="isFullscreen?'exit-fullscreen':'fullscreen'"
         @click="click"
@@ -18,7 +18,7 @@
 import screenfull from 'screenfull';
 
 export default {
-  name: 'HeaderRightScreenFull',
+  name: 'HeaderRightFullScreen',
   data() {
     return {
       isFullscreen: false,

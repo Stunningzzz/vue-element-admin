@@ -27,13 +27,16 @@ export default {
   },
   created() {
     console.log(this.$route);
-    this.$bus.$on('reload', () => {
+    this.$bus.$on('reload',this.reload);
+  },
+  methods: {
+    reload() {
       console.log('reload');
       this.isRouterAlive = false;
       this.$nextTick(function () {
         this.isRouterAlive = true;
       });
-    });
+    },
   },
 };
 </script>

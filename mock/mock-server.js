@@ -51,7 +51,7 @@ const responseFake = (url, type, respond) => {
         res.json(
           Mock.mock(respond instanceof Function ? respond(req, res) : respond)
         );
-      }, 500);
+      }, 300);
     },
   };
 };

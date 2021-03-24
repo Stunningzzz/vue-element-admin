@@ -1,22 +1,49 @@
 <template>
-  <div
-    class="header-avatar"
-    @command="handleSelect"
-  >
-    <el-dropdown trigger="click">
+  <div class="header-avatar">
+    <el-dropdown
+      trigger="click"
+      size="small"
+    >
       <div>
-        <img :src="avatar" class="user-avatar" />
+        <img
+          :src="avatar"
+          class="user-avatar"
+        />
         <i class="el-icon-caret-bottom" />
       </div>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item
-            v-for="item in operationType"
-            :key="item.type"
-            :command="item.type"
-            :divide="item.divide"
+          <router-link to="/profile">
+            <el-dropdown-item>
+              Profile
+            </el-dropdown-item>
+          </router-link>
+          <router-link to="/dashboard">
+            <el-dropdown-item>
+              Dashboard
+            </el-dropdown-item>
+          </router-link>
+          <a
+            :href="githubHref"
+            target="_blank"
           >
-            {{item.type}}
+            <el-dropdown-item>
+              Github
+            </el-dropdown-item>
+          </a>
+          <a
+            :href="docsHref"
+            target="_blank"
+          >
+            <el-dropdown-item>
+              Docs
+            </el-dropdown-item>
+          </a>
+          <el-dropdown-item
+            @click.native="logout"
+            divided
+          >
+            Log Out
           </el-dropdown-item>
         </el-dropdown-menu>
       </template>
@@ -30,45 +57,31 @@ export default {
   name: 'HeaderRightAvatarDropDown',
   data() {
     return {
-      operationType: [
-        {
-          type: 'Profile',
-        },
-        {
-          type:'DashBoard',
-        },
-        {
-          type:'Github',
-        },
-        {
-          type:'Docs',
-        },
-        {
-          type: 'Log Out',
-          divide: true,
-        },
-      ],
+      githubHref: 'https://github.com/myLYQ/vue-element-my-admin',
+      docsHref: 'https://panjiachen.github.io/vue-element-admin-site/#/',
     };
   },
   computed: {
     ...mapGetters(['avatar']),
   },
   methods: {
-    handleSelect(operation) {
-      console.log(operation);
+    async logout() {
+      await this.$store.dispatch('user/logout');
+      this.$router.push(`/login?redirect=${this.$route.fullPath}`);
     },
+    
   },
 };
 </script>
 
 <style lang='scss' scoped>
-.user-avatar{
+.user-avatar {
   width: 40px;
   height: 40px;
   border-radius: 10px;
   vertical-align: middle;
 }
-[class^=el-icon-]{
+[class^='el-icon-'] {
   vertical-align: bottom;
   padding-left: 5px;
 }

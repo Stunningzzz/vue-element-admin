@@ -6,7 +6,6 @@ import '@/icons';
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 
-
 import App from '@/App.vue'
 import store from '@/store'
 import router from '@/router'
@@ -14,7 +13,11 @@ import '@/assets/css/base.scss';
 import '@/permission';
 
 Vue.config.productionTip = false
-Vue.use(ElementUI);
+
+Vue.use(ElementUI, {
+  size: store.getters.globalSize, // set element-ui default size
+  // locale: enLang // 如果使用中文，无需设置，请删除
+})
 Vue.prototype.$bus = new Vue();
 
 new Vue({

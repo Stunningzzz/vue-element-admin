@@ -1,25 +1,24 @@
 <template>
   <div class="header-right">
     <HeaderRightSearch />
-    <HeaderRightScreenFull />
+    <HeaderRightFullScreen />
     <HeaderRightSizeSelect />
     <HeaderRightAvatarDropDown/>
   </div>
 </template>
 <script>
 import HeaderRightSearch from './HeaderRightSearch';
-import HeaderRightScreenFull from './HeaderRightScreenFull';
+import HeaderRightFullScreen from './HeaderRightFullScreen';
 import HeaderRightSizeSelect from './HeaderRightSizeSelect';
-import HeaderRightAvatarDropDown from "./HeaderRightAvatarDropDown";
-
+import HeaderRightAvatarDropDown from './HeaderRightAvatarDropDown';
 
 export default {
   name: 'HeaderRight',
   components: {
     HeaderRightSearch,
-    HeaderRightScreenFull,
+    HeaderRightFullScreen,
     HeaderRightSizeSelect,
-    HeaderRightAvatarDropDown
+    HeaderRightAvatarDropDown,
   },
 };
 </script>

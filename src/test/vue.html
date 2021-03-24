@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app" v-permission>
+    {{num}}
+  </div>
+</body>
+<script>
+  let permission = {
+    inserted(){
+      console.log('print directive inserted');
+    }
+  }
+
+  const install = function (Vue) {
+    console.log('install函数');
+    Vue.directive('permission', permission)
+  }
+  permission.install = install
+  if (window.Vue) {
+    window['permission'] = permission
+    Vue.use(install); // eslint-disable-line
+  }
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        num: 100
+      }
+    },
+  })
+</script>
+
+</html>

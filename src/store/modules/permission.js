@@ -5,7 +5,7 @@ function hasPermission(roles,{meta}){
 }
 
 function getAccessAsyncRoutes(asyncRoutes, roles) {
-  // 为什么是一个数组呢? 因为对于最外层而言是一个数组 对于子路由而言也是一个数组
+  // 为什么是一个数组呢? 因为对于最外层的async而言是一个数组 对于子路由而言也是一个数组
   const res = []
   asyncRoutes.forEach(route => {
     // 浅克隆 为什么不直接用呢? 因为这里会改变route对象的children属性

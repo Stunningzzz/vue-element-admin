@@ -28,7 +28,7 @@ instance.interceptors.response.use( ({data: {code,data,message}}) => {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        store.dispatch('user/resetToken').then(() => {
+        store.dispatch('user/clearToken').then(() => {
           location.reload()
         })
       })

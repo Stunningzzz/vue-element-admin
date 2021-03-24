@@ -1,5 +1,5 @@
 <template>
-<!-- 如果有children的话 children的length必须大于0 -->
+  <!-- 如果有children的话 children的length必须大于0 -->
   <div v-if="!curRoute.hidden && (!curRoute.children || curRoute.children.length > 0)">
     <!-- 一定是非hidden 要么chilren属性为空 要么有children属性而且长度大于0 -->
     <!-- 不能只单纯判断children不为空就认定有子路由 因为经过筛选后 即使有children属性 子路由的长度也可能为0 -->
@@ -59,15 +59,29 @@ export default {
   },
   computed: {
     curRouteItem() {
-      let { curRoute } = this;
+      let { curRoute } = this,
+        { isAbsolute, join, resolve } = path;
       // 如果有children的话 它的alwaysShow一定是false 且长度一定为1
-      return curRoute.children ? curRoute.children[0] : curRoute;
+      // 但是这种情况下 basePath还是爷路由的path 那么在下面的getFullPath中 如果子路由是相对路径的话
+      // 它的basePath不对会出错 所以如果有children的话 加上当前的path
+      let res;
+      if (curRoute.children) {
+        let childPath =
+          isAbsolute(curRoute.path) || isAbsolute(curRoute.children[0].path)
+            ? resolve(curRoute.path, curRoute.children[0].path)
+            : join(curRoute.path, curRoute.children[0].path);
+        res = { ...curRoute.children[0], path: childPath };
+      } else {
+        res = curRoute;
+      }
+      return res;
     },
   },
   created() {
-    let { curRoute } = this;
+    let { curRoute,basePath } = this;
     if (curRoute.children?.length === 1 && !curRoute.alwaysShow) {
-      this.setBreadCrumbsExcludePath(curRoute.path);
+      // 如果当前path属性是写的相对路径的话会出错
+      this.setBreadCrumbsExcludePath(path.resolve(basePath,curRoute.path));
     }
   },
   methods: {
@@ -107,9 +121,9 @@ export default {
   // 添加箭头旋转效果 .is-opened表示鼠标移入的submenu 注意后面必须是 > .el-submenu__title 表示它自己的title
   // 而不包括它的子菜单还含有的el-submenu的title
   // 而且因为是鼠标移入submenu时旋转 所以不是给.el-icon-arrow-right:hover 设置
-  .is-opened > .el-submenu__title .el-icon-arrow-right {
-    transform: rotateZ(180deg) !important;
-  }
+  // .is-opened > .el-submenu__title .el-icon-arrow-right {
+  //   transform: rotateZ(180deg) !important;
+  // }
 }
 </style>
 //亲人 爱人 朋友

@@ -51,6 +51,7 @@ export default {
       let matched = [...this.$route.matched];
 
       let unAccessPath = [this.$route.path];
+      // 如果重定向的目标路径没有访问权限的话 面包屑不能点击
       for (let i = matched.length - 1; i >= 0; i--) {
         let { redirect, path: routePath, parent } = matched[i];
         if (redirect) {
