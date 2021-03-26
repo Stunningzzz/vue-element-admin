@@ -23,7 +23,14 @@ export default {
         path:'directive',
         component: () => import('@/views/permission/DirectivePermission'),
         meta:{
-          title:'权限指令',
+          title:'指令权限',
+        }
+      },
+      {
+        path:'roles',
+        component: () => import('@/views/permission/RolesPermission'),
+        meta:{
+          title:'角色权限',
         }
       }
     ],

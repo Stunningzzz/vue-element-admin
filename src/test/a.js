@@ -1,6 +1,6 @@
-let path = require('path');
 
-console.log(path.join('a','/b'));
+function name({name,obj,age}){
+  console.log(name);
+}
 
-console.log(path.isAbsolute('/abc'));
-console.log(path.isAbsolute('abc'));
+name();

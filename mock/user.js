@@ -50,8 +50,6 @@ module.exports = [
 
   // get user info
   {
-    // baseAPI => /dev-api  new RegExp('/dev-api/user/info.*')
-    // url: /\/user\/info.*/,
     url: '/user/info.*',
     type: 'get',
     response: config => {

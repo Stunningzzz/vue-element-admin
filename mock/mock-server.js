@@ -42,7 +42,10 @@ function unregisterRoutes() {
 // url / type / respond 都是Mock模块所导出的route对象的属性
 const responseFake = (url, type, respond) => {
   return {
-    // 必须是字符串而不能是正则 
+    // 因为在前面还需要添加东西 如果url是正则的话根本拼接不了 所以只能是字符串 
+    // 既然都是字符串了 那如果我写的url是要正则呢? 所以不如全部都转成正则吧
+    // 注意事项就是: 原来的单反斜杠变成双反斜杠 如 \d => \\d 
+    // 而如果本来的url是要表示字符串的话 注意一些特殊字符
     url: new RegExp(`${process.env.VUE_APP_BASE_API}${url}`),
     type: type || 'get',
     response(req, res) {

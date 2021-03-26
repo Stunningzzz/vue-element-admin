@@ -1,21 +1,15 @@
+// 注意这个文件夹下面的不能用import 因为在vue.config.js中也是用的require引入的该模块
 const Mock = require('mockjs')
 const { param2Obj } = require('./utils')
 
 const user = require('./user')
-// const role = require('./role')
+const role = require('./role')
 // const article = require('./article')
 // const search = require('./remote-search')
 
 const mocks = [
   ...user,
-  {
-    url:'/dev-api/mock',
-    response: _ => {
-      return {
-        data:'这是一些数据啊'
-      }
-    }
-  }
+  ...role,
 ]
 
 // for front mock

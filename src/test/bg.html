@@ -5,18 +5,38 @@
   <meta charset="UTF-8">
   <title>Document</title>
   <style>
-    .inline-block{
-      width:150px;
-      line-height:150px;
-      background-color:#bfa;
+    .outer{
+      width: 300px;
+      background-color: #bfa;
+      font-size: 14px;
+      font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
     }
+    label{
+      line-height: 40px;
+      font-weight: 700;
+      float: left;
+      width: 100px;
+    }
+    
+    .inner{
+      height: 50px;
+      background-color: skyblue;
+      width: 100%;
+    }
+   
   </style>
 </head>
 
 <body>
-  <div class="inline-block">
-    111
+  <div class="outer">
+    <label>Name</label>
+    <div class="box clearfix">
+      <input type="text" class="inner">
+      <!-- <div class="inner"></div> -->
+    </div>
+    
   </div>
+  
 </body>
 <script>
 </script>

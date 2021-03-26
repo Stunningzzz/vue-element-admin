@@ -4,7 +4,6 @@
 import permission from '@/directives/permission';
 import SwitchRoles from './SwitchRoles';
 import checkPermission from '@/common/permission';
-import store from '@/store';
 
 export default {
   name: 'DirectivePermission',
@@ -55,7 +54,6 @@ export default {
           class="tags-wrapper"
         >
           <el-tag
-            v-permission="['editor']"
             type="success"
           >
             Only
@@ -98,19 +96,19 @@ export default {
       </aside>
       <div class="function-tags">
         <el-tabs type="border-card">
-          <el-tab-pane label="Editor" v-if="checkPermission(['editor'])">
+          <el-tab-pane label="Editor" v-permission="['admin']">
             Editor can see this 
             <el-tag type="info">
               v-if="checkPermission(['editor'])"
             </el-tag>
           </el-tab-pane>
-           <el-tab-pane label="Admin" v-if="checkPermission(['admin'])">
+           <el-tab-pane label="Admin" v-permission="['editor']">
             Admin can see this 
             <el-tag type="info">
               v-if="checkPermission(['admin'])"
             </el-tag>
           </el-tab-pane>
-          <el-tab-pane label="Admin-OR-Editor" v-if="checkPermission(['admin','editor'])">
+          <el-tab-pane label="Admin-OR-Editor" v-permission="['editor','admin']">
             Both admin or editor can see this
             <el-tag type="info">
               v-if="checkPermission(['admin','editor'])"

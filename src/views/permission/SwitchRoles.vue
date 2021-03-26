@@ -32,5 +32,8 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+  p{
+    margin-top: 0;
+  }
 </style>
 //亲人 爱人 朋友
