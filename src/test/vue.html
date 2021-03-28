@@ -7,34 +7,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <title>Document</title>
+  <style>
+
+  </style>
 </head>
 
 <body>
-  <div id="app" v-permission>
-    {{num}}
-  </div>
+  <h2 id="app">
+    {{user}}
+    <Child :user="user"/>
+  </h2>
 </body>
 <script>
-  let permission = {
-    inserted(){
-      console.log('print directive inserted');
-    }
-  }
-
-  const install = function (Vue) {
-    console.log('install函数');
-    Vue.directive('permission', permission)
-  }
-  permission.install = install
-  if (window.Vue) {
-    window['permission'] = permission
-    Vue.use(install); // eslint-disable-line
-  }
-  new Vue({
+  let app = new Vue({
     el: '#app',
-    data() {
+    data(){
       return {
-        num: 100
+        user:{name:'luzhihao'}
+      }
+    },
+    methods:{
+      click1(){
+        this.user = {
+          name:'luzhihao',
+        }
+      },
+      click2(){
+        this.user.name = "liangyiqi";
+      }
+    },
+    components: {
+      Child: {
+        template: `
+          <h2>
+            props => firstName: {{fullName}}
+            <br/>
+            data => userName: {{userName}} 
+          </h2>
+        `,
+        props: {
+          firstName: String,
+          user:Object,
+        },
+        data() {
+          return {
+            userName:  'ZhiHao',
+          }
+        },
+        created(){
+          // this.firstName = 'asda';
+          this.user.name = "dasdasd";
+        },
+        computed: {
+          fullName() {
+            console.log('data => ', this.userName);
+            console.log('props => ', this.firstName);
+            console.log('refs => ', this.$refs.div);
+            return 'LuZhiHao';
+          }
+        },
+        
       }
     },
   })

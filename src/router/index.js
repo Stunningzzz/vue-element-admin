@@ -33,9 +33,24 @@ export const constantRoutes = [
     hidden: true,
   },
   {
+    path:'/profile',
+    component:Layout,
+    hidden:true,
+    redirect:'/profile/index',
+    children:[
+      {
+        path:'index',
+        name:'Profile',
+        component: () => import('@/views/profile/Profile'), 
+        meta:{
+          title:'Profile',
+        }
+      }
+    ]
+  },
+  {
     path: '/',
     component: Layout,
-    name: 'Layout',
     redirect: '/dashboard',
     children: [
       {
@@ -55,6 +70,22 @@ export const constantRoutes = [
 export const asyncRoutes = [
   nested,
   permission,
+  {
+    path:'/icons',
+    component:Layout,
+    redirect:'icons/index',
+    children:[
+      {
+        path:'index',
+        name:'Icons',
+        component: () => import('@/views/icons/Icons'), 
+        meta:{
+          title:'图标库',
+          icon:'icon'
+        }
+      }
+    ]
+  },
   {
     path: '*',
     component: () => import('@/components/common/NotFoundPage'),

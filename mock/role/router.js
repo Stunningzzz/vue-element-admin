@@ -65,6 +65,7 @@ module.exports = [
             meta: { title: '菜单1-2' },
             component: 'views/nested/menu1/menu1-2/Menu1-2',
             redirect: 'menu1-2/menu1-2-1',
+            // children的length为0 
             children: [
               {
                 path: 'menu1-2-1',

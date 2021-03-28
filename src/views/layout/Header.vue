@@ -43,13 +43,22 @@ export default {
       'breadCrumbsExcludePath',
     ]),
   },
+   watch: {
+    $route() {
+      this.getBreadCrumbs();
+    },
+  },
+  created() {
+    // 刷新或者从登录页面进入时 因为header组件还没生成 所以不会调用watch:$route方法 所以在这样要额外调用一次
+    this.getBreadCrumbs();
+  },
   methods: {
     burgerClick() {
       this.$bus.$emit('toggleAsideNavStatus');
     },
     getBreadCrumbs() {
       let matched = [...this.$route.matched];
-
+      // 跳转到unAccessPath的会变灰
       let unAccessPath = [this.$route.path];
       // 如果重定向的目标路径没有访问权限的话 面包屑不能点击
       for (let i = matched.length - 1; i >= 0; i--) {
@@ -71,7 +80,6 @@ export default {
 
       // 因为404/401 没有title 一过滤再取[0]就会报错 而除他们之外的因为外层都有Layout 和 内层自己的组件
       // 所以length 一定大于 1
-      console.log('matched --- ', matched);
       if (matched.length > 1) {
         let breadCrumbs = matched
           .filter(
@@ -100,15 +108,7 @@ export default {
       }
     },
   },
-  watch: {
-    $route() {
-      this.getBreadCrumbs();
-    },
-  },
-  created() {
-    // 刷新或者从登录页面进入时 因为header组件还没生成 所以不会调用watch:$route方法 所以在这样要额外调用一次
-    this.getBreadCrumbs();
-  },
+ 
 };
 </script>
 <style lang="scss" scoped>

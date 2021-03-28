@@ -43,7 +43,6 @@ export default {
     
   },
   mounted(){
-    console.log('this.$refs.dropdown --- ',this.$refs.dropdown  );
   },
   computed: {
     ...mapGetters(['globalSize']),

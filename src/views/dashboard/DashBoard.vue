@@ -27,7 +27,6 @@ export default {
     if (!this.roles.includes('admin')) {
       this.currentRole = 'EditorDashBoard';
     }
-    console.log('this.$router',this.$router);
   },
 };
 </script>

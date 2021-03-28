@@ -96,19 +96,19 @@ export default {
       </aside>
       <div class="function-tags">
         <el-tabs type="border-card">
-          <el-tab-pane label="Editor" v-permission="['admin']">
+          <el-tab-pane label="Editor" v-if="checkPermission(['admin'])">
             Editor can see this 
             <el-tag type="info">
               v-if="checkPermission(['editor'])"
             </el-tag>
           </el-tab-pane>
-           <el-tab-pane label="Admin" v-permission="['editor']">
+           <el-tab-pane label="Admin" v-if="checkPermission(['editor'])">
             Admin can see this 
             <el-tag type="info">
               v-if="checkPermission(['admin'])"
             </el-tag>
           </el-tab-pane>
-          <el-tab-pane label="Admin-OR-Editor" v-permission="['editor','admin']">
+          <el-tab-pane label="Admin-OR-Editor" v-if="checkPermission(['editor','admin'])">
             Both admin or editor can see this
             <el-tag type="info">
               v-if="checkPermission(['admin','editor'])"

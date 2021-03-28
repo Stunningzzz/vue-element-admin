@@ -51,7 +51,7 @@ export default {
             {
               path: 'menu1-2-2',
               name: 'Menu1-2-2',
-              meta: { title: '菜单1-2-2' },
+              meta: { title: '菜单1-2-2',roles:['admin']  },
               component: () => import('@/views/nested/menu1/menu1-2/Menu1-2-2'),
             },
           ],

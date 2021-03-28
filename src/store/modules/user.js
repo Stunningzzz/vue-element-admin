@@ -61,7 +61,7 @@ export default {
             if (!data) {
               reject('验证失败 请重新登录!');
             }
-            const { roles, username, avatar, introduction } = data;
+            const { roles, name:username, avatar, introduction } = data;
             if (roles && roles.length > 0) {
               commit('SET_ROLES', roles);
             } else {
