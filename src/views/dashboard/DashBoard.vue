@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import AdminDashBoard from './AdminDashBoard';
+import AdminDashBoard from './AdminDashBoard/index';
 import EditorDashBoard from './EditorDashBoard';
 import { mapGetters } from 'vuex';
 

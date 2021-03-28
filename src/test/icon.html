@@ -9,24 +9,49 @@
   <script src="./iconfont.js"></script>
   <style>
     .icon {
-      width: 1em;
-      height: 1em;
       vertical-align: -0.15em;
       fill: currentColor;
       overflow: hidden;
     }
-    .outer{
-      font-size: 50px;
+
+    .outer {
+      height: 100px;
+      width: 300px;
+    }
+
+    .div1 {
+      width: 500px;
+    }
+
+    .div2 {
+      width: 100%;
+      height: 0;
+      padding-bottom: 100%;
+      background-color: #0f8bcb;
+    }
+    .div3{
+      width:100%;
+      height:100%;
+      background-color:#bfa;
     }
   </style>
 </head>
 
 <body>
-  <div class="outer">
+  <!-- <div class="outer">
     <svg class="icon" aria-hidden="true">
       <use xlink:href="#icon-xiaoshoue"></use>
     </svg>
+  </div> -->
+  <div class="div1">
+    <div class="div2">
+      <svg class="icon div3" aria-hidden="true">
+        <use xlink:href="#icon-xiaoshoue"></use>
+      </svg>
+    </div>
   </div>
+
+
 
 </body>
 
