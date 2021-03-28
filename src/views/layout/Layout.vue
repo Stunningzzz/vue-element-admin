@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container class="padding-layout">
     <AsideNav/>
     <el-container direction="vertical">
       <Header />

@@ -1,11 +1,11 @@
 <template>
-  <el-main class="main">
+  <el-main>
     <transition
       name="router"
       mode="out-in"
     >
       <keep-alive v-if="isRouterAlive">
-        <router-view :key="$route.path">
+        <router-view :key="$route.path" class="route-view">
         </router-view>
       </keep-alive>
     </transition>
@@ -43,7 +43,20 @@ export default {
 // 默认的overflow是auto 这会导致在main里面生成滚动条
 .el-main {
   overflow: visible;
+  padding: 0;
+  .route-view{
+    padding: 20px;
+    height: 100%;
+    &.no-padding{
+      padding: 0;
+    }
+    &::before{
+      content: '';
+      display: table;
+    }
+  }
 }
+
 .router-enter-active,
 .router-leave-active {
   transition: all 0.3s;

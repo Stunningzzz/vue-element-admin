@@ -12,7 +12,5 @@ export default {
 </script>
 
 <style>
-:root {
-  user-select: none;
-}
+
 </style>

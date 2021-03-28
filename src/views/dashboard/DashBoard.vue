@@ -1,29 +1,27 @@
 <template>
-  <div class="dashboard-container">
-    <component :is="currentRole" />
-  </div>
+  <component :is="currentRole" />
 </template>
 
 <script>
 import AdminDashBoard from './AdminDashBoard';
 import EditorDashBoard from './EditorDashBoard';
-import {mapGetters} from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'DashBoard',
   components: {
     AdminDashBoard,
-    EditorDashBoard
+    EditorDashBoard,
   },
-  data(){
+  data() {
     return {
-      currentRole:'AdminDashBoard'
-    }
+      currentRole: 'AdminDashBoard',
+    };
   },
-  computed:{
-    ...mapGetters(['roles'])
+  computed: {
+    ...mapGetters(['roles']),
   },
-  created(){
+  created() {
     if (!this.roles.includes('admin')) {
       this.currentRole = 'EditorDashBoard';
     }

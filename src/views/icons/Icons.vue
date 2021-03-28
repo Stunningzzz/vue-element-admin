@@ -15,14 +15,35 @@
           :key="item.icon"
           class="icon-item"
         >
-          <el-tooltip :content="item.text">
+          <el-tooltip :content="item.text" placement="top">
             <div
               class="icon-wrapper"
-              @click="handleCopy(item.text,$event)"
+              @click.once="handleCopy(item.text,$event)"
               ref="wrapper"
             >
               <svg-icon :icon-class="item.icon">
               </svg-icon>
+              <div class="icon-text">
+                {{item.icon}}
+              </div>
+            </div>
+          </el-tooltip>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="Elemenu-UI Icons">
+        <div
+          v-for="item in ElementIcons"
+          :key="item.icon"
+          class="icon-item"
+        >
+          <el-tooltip :content="item.text" placement="top">
+            <div
+              class="icon-wrapper"
+              @click.once="handleCopy(item.text,$event)"
+              ref="wrapper"
+            >
+              <i :class="`el-icon-${item.icon}`">
+              </i>
               <div class="icon-text">
                 {{item.icon}}
               </div>
@@ -90,15 +111,15 @@ export default {
     top: 50%;
     transform: translate(-50%, -50%);
     cursor: pointer;
+    font-size: 30px;
   }
   .icon-text {
     margin-top: 10px;
     font-size: 17px;
+    // 让下面的文字不断行
     white-space: nowrap;
   }
-  .svg-icon {
-    font-size: 30px;
-  }
+  //<i class="el-icon-ice-cream-round" />
 }
 </style>
 //亲人 爱人 朋友
