@@ -4,7 +4,15 @@
     <GitHubCorner class="github-corner" />
     <div class="dashboard-wrapper">
       <PanelGroup />
-      <ChartLine :chart-data="chartData" />
+      <ChartBarLine
+        :chart-data="lineChartData"
+        class="chart-line"
+      />
+      <div class="various-charts">
+        <ChartPie :chart-data="chartDataSet.pieChart"></ChartPie>
+        <ChartSunBurst :chart-data="chartDataSet.sunBurstChart"></ChartSunBurst>
+        <ChartTree :chart-data="chartDataSet.treeChart"></ChartTree>
+      </div>
     </div>
   </div>
 </template>
@@ -12,17 +20,24 @@
 <script>
 import GitHubCorner from '@/components/common/GitHubCorner';
 import PanelGroup from './PanelGroup';
-import ChartLine from './ChartLine';
+import ChartBarLine from './ChartBarLine';
+import ChartPie from './ChartPie';
+import ChartSunBurst from './ChartSunBurst';
+import ChartTree from './ChartTree';
+
 export default {
   name: 'AdminDashBoard',
   components: {
     GitHubCorner,
     PanelGroup,
-    ChartLine,
+    ChartBarLine,
+    ChartPie,
+    ChartSunBurst,
+    ChartTree,
   },
   provide() {
     return {
-      activeItem:this.activeItem,
+      activeItem: this.activeItem,
     };
   },
   data() {
@@ -31,28 +46,218 @@ export default {
         class: 'peoples',
       },
       chartDataSet: {
-        peoples: {
-          expectedData: [100, 120, 161, 134, 105, 160, 165],
-          actualData: [120, 82, 91, 154, 162, 140, 145],
+        treeChart: [
+          {
+            name: 'Front End',
+            children: [
+              {
+                name: 'HTML',
+                children: [
+                  {
+                    name: 'Jade',
+                    value: 5,
+                  },
+                  {
+                    name: 'Pug',
+                    value: 5,
+                  },
+                ],
+              },
+              {
+                name: 'CSS',
+                children: [
+                  {
+                    name: 'Sass',
+                    value: 10,
+                  },
+                  {
+                    name: 'Less',
+                    value: 10,
+                  },
+                  {
+                    name: 'Stylus',
+                    value: 10,
+                  },
+                  {
+                    name: 'Scss',
+                    value: 10,
+                  },
+                ],
+              },
+              {
+                name: 'JavaScript',
+                children: [
+                  {
+                    name: 'ECMA Script',
+                  },
+                  {
+                    name: 'AJAX',
+                    children: [
+                      {
+                        name: 'Axios',
+                        value: 5,
+                      },
+                    ],
+                  },
+                  {
+                    name: 'Vue',
+                    children: [
+                      {
+                        name: 'Vue-Router',
+                        value: 10,
+                      },
+                      {
+                        name: 'VueX',
+                        value: 10,
+                      },
+                      {
+                        name: 'ElementUI',
+                        value: 20,
+                      },
+                      {
+                        name: 'Vant',
+                        value: 20,
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+        lineChart: {
+          peoples: {
+            expectedData: [100, 120, 161, 134, 105, 160, 165, 100, 150, 180],
+            actualData: [120, 82, 91, 154, 162, 140, 145, 120, 90, 130],
+          },
+          message: {
+            expectedData: [200, 192, 120, 144, 160, 130, 140, 100, 120, 161],
+            actualData: [180, 160, 151, 106, 145, 150, 130, 130, 140, 100],
+          },
+          money: {
+            expectedData: [80, 100, 121, 104, 105, 90, 100, 142, 130, 130],
+            actualData: [120, 90, 100, 138, 142, 130, 130, 105, 90, 100],
+          },
+          shopping: {
+            expectedData: [130, 140, 141, 142, 145, 150, 160, 90, 100, 142],
+            actualData: [120, 82, 91, 154, 162, 140, 130, 145, 150, 160],
+          },
         },
-        message: {
-          expectedData: [200, 192, 120, 144, 160, 130, 140],
-          actualData: [180, 160, 151, 106, 145, 150, 130],
-        },
-        money: {
-          expectedData: [80, 100, 121, 104, 105, 90, 100],
-          actualData: [120, 90, 100, 138, 142, 130, 130],
-        },
-        shopping: {
-          expectedData: [130, 140, 141, 142, 145, 150, 160],
-          actualData: [120, 82, 91, 154, 162, 140, 130],
-        },
+        pieChart: [
+          {
+            value: 320,
+            name: 'Industries',
+            itemStyle: { color: '#5470C6' },
+            label: { color: '#5470C6' },
+          },
+          {
+            value: 240,
+            name: 'Technology',
+            itemStyle: { color: '#91CC75' },
+            label: { color: '#91CC75' },
+          },
+          {
+            value: 150,
+            name: 'Forex',
+            itemStyle: { color: '#FAC858' },
+            label: { color: '#FAC858' },
+          },
+          {
+            value: 100,
+            name: 'Science',
+            itemStyle: { color: '#EE6666' },
+            label: { color: '#EE6666' },
+          },
+          {
+            value: 80,
+            name: 'Biology',
+            itemStyle: { color: '#3BA272' },
+            label: { color: '#3BA272' },
+            
+          },
+          { value: 80, name: 'Physical',itemStyle: { color: '#2EC7C9' },
+            label: { color: '#2EC7C9' }, },
+        ],
+        sunBurstChart: [
+          {
+            name: 'Front End',
+            children: [
+              {
+                name: 'HTML',
+                value: 5,
+                children: [
+                  {
+                    name: 'Jade',
+                    name: 3,
+                  },
+                ],
+              },
+              {
+                name: 'CSS',
+                value: 15,
+                children: [
+                  {
+                    name: 'Sass',
+                    value: 5,
+                  },
+                  {
+                    name: 'Less',
+                    value: 5,
+                  },
+                  {
+                    name: 'Stylus',
+                    value: 5,
+                  },
+                ],
+              },
+              {
+                name: 'JS',
+                value: 30,
+                children: [
+                  {
+                    name: 'AJAX',
+                    children: [
+                      {
+                        name: 'Axios',
+                        value: 5,
+                      },
+                    ],
+                  },
+                  {
+                    name: 'ECMA Script',
+                    value: 10,
+                    children: [
+                      {
+                        name: 'ES6',
+                        value: 8,
+                      },
+                    ],
+                  },
+                  {
+                    name: 'Vue',
+                    value: 15,
+                    children: [
+                      {
+                        name: 'ElementUI',
+                        value: 5,
+                      },
+                      {
+                        name: 'VAnt',
+                        value: 5,
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       },
     };
   },
   computed: {
-    chartData() {
-      return this.chartDataSet[this.activeItem.class];
+    lineChartData() {
+      return this.chartDataSet.lineChart[this.activeItem.class];
     },
   },
 };
@@ -68,6 +273,17 @@ export default {
   }
   .dashboard-wrapper {
     padding: 40px;
+  }
+  .various-charts {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+
+    > div {
+      width: 31.5%;
+      background-color: #fff;
+      height: 320px;
+    }
   }
 }
 </style>

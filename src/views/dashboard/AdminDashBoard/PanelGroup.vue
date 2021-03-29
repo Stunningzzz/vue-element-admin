@@ -50,7 +50,6 @@ export default {
 .panel-group {
   display: flex;
   justify-content: space-between;
-  
 }
 </style>
 //亲人 爱人 朋友
