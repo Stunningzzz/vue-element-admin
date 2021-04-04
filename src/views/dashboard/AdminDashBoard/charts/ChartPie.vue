@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="chart-pie">
 
   </div>
 </template>
@@ -47,5 +47,6 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+
 </style>
 //亲人 爱人 朋友

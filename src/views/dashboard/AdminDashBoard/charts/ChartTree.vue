@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div class="chart-tree"></div>
 </template>
 
 <script>
@@ -80,9 +80,7 @@ export default {
       return res;
     },
   },
-  created() {
-    console.log(this.tooltips);
-  },
+  
   computed: {
     tooltips() {
       // 通过name来识别并拿到相应的tooltip 要保证name唯一
@@ -93,5 +91,6 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+
 </style>
 //亲人 爱人 朋友

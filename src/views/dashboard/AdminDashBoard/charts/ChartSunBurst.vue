@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="chart-sunburst">
 
   </div>
 </template>
@@ -41,5 +41,6 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+
 </style>
 //亲人 爱人 朋友

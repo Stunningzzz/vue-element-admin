@@ -1,31 +1,16 @@
 <template>
   <el-container class="layout-container">
-    <AsideNav />
+    <!-- 在上面的先设置iscollapsing就能看到关菜单了 否则的话看不到 -->
+    <AsideNav class="asidenav-sticky"/>
+    <AsideNav :placeholder="true"/>
     <el-container
       direction="vertical"
       class="main-container"
     >
       <Header />
       <Main />
-      <div class="drawer-wrapper">
-        <el-button
-          type="primary"
-          @click="settingsDrawerVisible = !settingsDrawerVisible"
-          :icon="drawerSwitchIcon"
-        >
-        </el-button>
-        <el-drawer
-          title="Page style setting"
-          :visible.sync="settingsDrawerVisible"
-          :with-header="false"
-          :modal-append-to-body='false'
-        >
-        </el-drawer>
-      </div>
-      <button @click="settingsDrawerVisible = !settingsDrawerVisible">
-        按钮
-      </button>
     </el-container>
+    <PageSettings/>
   </el-container>
 </template>
 
@@ -33,23 +18,16 @@
 import Header from './Header';
 import Main from './MainRouter';
 import AsideNav from './AsideNav';
+import PageSettings from '@/views/PageSettings/PageSettings';
 
 export default {
   name: 'Layout',
-  data() {
-    return {
-      settingsDrawerVisible: false,
-    };
-  },
-  computed: {
-    drawerSwitchIcon() {
-      return `el-icon-${this.settingsDrawerVisible ? 'close' : 'setting'}`;
-    },
-  },
+  
   components: {
     Header,
     Main,
     AsideNav,
+    PageSettings
   },
 };
 </script>
@@ -57,24 +35,18 @@ export default {
 <style lang='scss' scoped>
 .el-container {
   height: 100%;
-  overflow: auto;
 }
 .main-container{
-  position: relative;
+  align-self: flex-start;
 }
-.el-button {
-  position: absolute;
-  top: 250px;
-  right: 0;
-  width: 48px;
-  height: 48px;
-  padding: 0;
-  font-size: 24px;
-  overflow: visible;
-  text-align: center;
+
+.asidenav-sticky{
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
 }
-[class^='el-icon-'] {
-  font-size: 25px;
-}
+
 </style>
 //亲人 爱人 朋友

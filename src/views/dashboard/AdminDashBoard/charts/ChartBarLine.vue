@@ -126,7 +126,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.chart-line {
+.chart-bar-line {
   width: 100%;
   height: 350px;
   background-color: #fff;

@@ -1,5 +1,7 @@
 import * as echarts from 'echarts';
-require('echarts/theme/macarons'); // echarts theme
+import 'echarts/theme/macarons'; // echarts theme
+import resize from './resize';
+
 export default {
   props: {
     autoResize: {
@@ -7,10 +9,10 @@ export default {
       default: true,
     },
     chartData: {
-      type: Array | Object,
-      // required: true,
+      type: [Array,Object],
     },
   },
+  mixins:[resize],
   data() {
     return {
       chart: {},

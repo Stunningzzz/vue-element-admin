@@ -6,12 +6,21 @@
       <PanelGroup />
       <ChartBarLine
         :chart-data="lineChartData"
-        class="chart-line"
+        class="chart"
       />
       <div class="various-charts">
-        <ChartPie :chart-data="chartDataSet.pieChart"></ChartPie>
-        <ChartSunBurst :chart-data="chartDataSet.sunBurstChart"></ChartSunBurst>
-        <ChartTree :chart-data="chartDataSet.treeChart"></ChartTree>
+        <ChartPie
+          :chart-data="chartDataSet.pieChart"
+          class="chart"
+        ></ChartPie>
+        <ChartSunBurst
+          :chart-data="chartDataSet.sunBurstChart"
+          class="chart"
+        ></ChartSunBurst>
+        <ChartTree
+          :chart-data="chartDataSet.treeChart"
+          class="chart"
+        ></ChartTree>
       </div>
       <el-row
         :gutter="10"
@@ -55,7 +64,7 @@ export default {
     ChartTree,
     BottomTransactionTable,
     BottomTodoList,
-    BottomPostCard
+    BottomPostCard,
   },
   provide() {
     return {
@@ -292,7 +301,6 @@ export default {
       this.transactionData.forEach((item) => {
         item.price = `¥ ${item.price}`;
       });
-      console.log(items);
     });
   },
 };
@@ -320,9 +328,13 @@ export default {
       height: 320px;
     }
   }
-.dashboard-bottom{
-  margin-top: 30px;
-}
+  .dashboard-bottom {
+    margin-top: 30px;
+  }
+  // 避免闪
+  .chart{
+    overflow: hidden;
+  }
 }
 </style>
 //亲人 爱人 朋友
