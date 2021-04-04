@@ -13,6 +13,20 @@
         <ChartSunBurst :chart-data="chartDataSet.sunBurstChart"></ChartSunBurst>
         <ChartTree :chart-data="chartDataSet.treeChart"></ChartTree>
       </div>
+      <el-row
+        :gutter="10"
+        class="dashboard-bottom"
+      >
+        <el-col :span="12">
+          <BottomTransactionTable :transaction-data="transactionData" />
+        </el-col>
+        <el-col :span="6">
+          <BottomTodoList />
+        </el-col>
+        <el-col :span="6">
+          <BottomPostCard />
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -20,10 +34,15 @@
 <script>
 import GitHubCorner from '@/components/common/GitHubCorner';
 import PanelGroup from './PanelGroup';
-import ChartBarLine from './ChartBarLine';
-import ChartPie from './ChartPie';
-import ChartSunBurst from './ChartSunBurst';
-import ChartTree from './ChartTree';
+import ChartBarLine from './charts/ChartBarLine';
+import ChartPie from './charts/ChartPie';
+import ChartSunBurst from './charts/ChartSunBurst';
+import ChartTree from './charts/ChartTree';
+import BottomTransactionTable from './BottomTransactionTable';
+import BottomTodoList from './bottomtodolist/index';
+import BottomPostCard from './BottomPostCard';
+
+import { transactionList } from '@/network/remote-search';
 
 export default {
   name: 'AdminDashBoard',
@@ -34,6 +53,9 @@ export default {
     ChartPie,
     ChartSunBurst,
     ChartTree,
+    BottomTransactionTable,
+    BottomTodoList,
+    BottomPostCard
   },
   provide() {
     return {
@@ -173,10 +195,13 @@ export default {
             name: 'Biology',
             itemStyle: { color: '#3BA272' },
             label: { color: '#3BA272' },
-            
           },
-          { value: 80, name: 'Physical',itemStyle: { color: '#2EC7C9' },
-            label: { color: '#2EC7C9' }, },
+          {
+            value: 80,
+            name: 'Physical',
+            itemStyle: { color: '#2EC7C9' },
+            label: { color: '#2EC7C9' },
+          },
         ],
         sunBurstChart: [
           {
@@ -253,12 +278,22 @@ export default {
           },
         ],
       },
+      transactionData: [],
     };
   },
   computed: {
     lineChartData() {
       return this.chartDataSet.lineChart[this.activeItem.class];
     },
+  },
+  created() {
+    transactionList().then(({ items }) => {
+      this.transactionData = items.slice(-8);
+      this.transactionData.forEach((item) => {
+        item.price = `¥ ${item.price}`;
+      });
+      console.log(items);
+    });
   },
 };
 </script>
@@ -285,6 +320,9 @@ export default {
       height: 320px;
     }
   }
+.dashboard-bottom{
+  margin-top: 30px;
+}
 }
 </style>
 //亲人 爱人 朋友

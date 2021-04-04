@@ -1,6 +1,9 @@
 
-function name({name,obj,age}){
-  console.log(name);
-}
 
-name();
+let obj = {
+  name:'luzhihao',
+  age:19
+}
+delete obj.age;
+console.log(obj.age);
+console.log(obj);

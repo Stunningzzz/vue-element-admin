@@ -36,6 +36,7 @@ export default {
             label: {
               show: true,
             },
+            animationDuration: 1000,
             data: this.chartData,
           },
         ],

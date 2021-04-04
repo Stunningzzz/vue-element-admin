@@ -59,5 +59,8 @@ export default {
       color: #97a8be;
     }
   }
+  .el-breadcrumb__inner:not(.is-link){
+    color:#97A8BE;
+  }
 }
 </style>

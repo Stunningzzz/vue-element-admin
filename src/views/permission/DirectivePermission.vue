@@ -32,7 +32,8 @@ export default {
     <SwitchRoles @change="handleRoleChage"/>
     <!-- 在inserted里面取消挂载的el是没有办法在update里面重新挂载的 只能通过重新渲染一个并让他不取消挂载
     所以为了在切换时能全部重新创建 要在最外层套个key -->
-    <div :key="key">
+    <!-- 但如果SwitchRoles有调用reload的话就不需要外面嵌套再加key了 -->
+    <div >
       <div class="directive-tags">
         <div
           v-permission="['admin']"
@@ -96,13 +97,13 @@ export default {
       </aside>
       <div class="function-tags">
         <el-tabs type="border-card">
-          <el-tab-pane label="Editor" v-if="checkPermission(['admin'])">
+          <el-tab-pane label="Editor" v-if="checkPermission(['editor'])">
             Editor can see this 
             <el-tag type="info">
               v-if="checkPermission(['editor'])"
             </el-tag>
           </el-tab-pane>
-           <el-tab-pane label="Admin" v-if="checkPermission(['editor'])">
+           <el-tab-pane label="Admin" v-if="checkPermission(['admin'])">
             Admin can see this 
             <el-tag type="info">
               v-if="checkPermission(['admin'])"

@@ -20,6 +20,7 @@ export default {
           label: {
             rotate: 0, // 设置文字不旋转
           },
+          animationDuration: 1000,
           emphasis: {
             focus: 'descendant',
           },

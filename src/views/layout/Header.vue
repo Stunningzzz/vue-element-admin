@@ -102,7 +102,11 @@ export default {
             class: 'crumb-item',
           });
         }
-        breadCrumbs[breadCrumbs.length - 1].class = 'crumb-item-last';
+        breadCrumbs[breadCrumbs.length - 1] = {
+          ...breadCrumbs[breadCrumbs.length - 1],
+          class: 'crumb-item-last',
+          redirect:'noRedirect'
+        }
 
         this.breadCrumbs = breadCrumbs;
       }

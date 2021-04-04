@@ -14,6 +14,7 @@ export default {
   data() {
     return {
       chart: {},
+      animationDuration:2800,
     };
   },
   watch: {

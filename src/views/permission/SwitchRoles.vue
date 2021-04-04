@@ -24,7 +24,7 @@ export default {
       async set(newRole){
         await this.$store.dispatch('user/changeRoles',newRole);
         this.$emit('change');
-
+        this.reload();
       }
     }
   },

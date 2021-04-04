@@ -14,6 +14,7 @@ import VueRouter from 'vue-router';
 const Layout = () => import('@/views/layout/Layout');
 import nested from './modules/nested';
 import permission from './modules/permission';
+import componentlibs from './modules/componentlibs';
 
 Vue.use(VueRouter);
 export const constantRoutes = [
@@ -70,6 +71,7 @@ export const constantRoutes = [
 export const asyncRoutes = [
   nested,
   permission,
+  componentlibs,
   {
     path:'/icons',
     component:Layout,

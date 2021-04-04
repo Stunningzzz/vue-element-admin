@@ -5,7 +5,10 @@
       mode="out-in"
     >
       <keep-alive v-if="isRouterAlive">
-        <router-view :key="$route.path" class="route-view">
+        <router-view
+          :key="$route.path"
+          class="route-view"
+        >
         </router-view>
       </keep-alive>
     </transition>
@@ -26,7 +29,7 @@ export default {
     };
   },
   created() {
-    this.$bus.$on('reload',this.reload);
+    this.$bus.$on('reload', this.reload);
   },
   methods: {
     reload() {
@@ -44,17 +47,18 @@ export default {
 .el-main {
   overflow: visible;
   padding: 0;
-  .route-view{
+  .route-view {
     padding: 20px;
     height: 100%;
-    &.no-padding{
+    &.no-padding {
       padding: 0;
     }
-    &::before{
+    &::before {
       content: '';
       display: table;
     }
   }
+  
 }
 
 .router-enter-active,

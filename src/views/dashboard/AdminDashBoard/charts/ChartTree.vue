@@ -18,7 +18,6 @@ export default {
         series: [
           {
             name: 'Front End Type',
-
             type: 'tree',
             data: this.chartData,
             top: '5%',
@@ -58,6 +57,7 @@ export default {
             emphasis: {
               focus: 'descendant',
             },
+            animationDuration: 1000,
           },
         ],
       });

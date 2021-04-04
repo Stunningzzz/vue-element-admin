@@ -1,6 +1,8 @@
 <template>
-  <div class="hamburger-container"
-    @click="burgerClick">
+  <div
+    class="hamburger-container"
+    @click="burgerClick"
+  >
     <div class="hamburger-line"></div>
     <div class="hamburger-line"></div>
     <div class="hamburger-line"></div>
@@ -28,7 +30,10 @@ export default {
   mounted() {
     let domStyle = this.$el.style;
     if (this.defaultState === 'flip') {
+      let temp = domStyle.transition;
+      domStyle.transition = null;
       domStyle.transform = 'rotateZ(90deg)';
+      domStyle.transition = temp;
     }
   },
 };

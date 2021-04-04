@@ -89,7 +89,7 @@ export default {
 
             type: 'bar',
             data: expectedData,
-            animationDuration: 2800,
+            animationDuration: 2000,
             animationEasing: 'cubicInOut',
           },
           {
@@ -104,7 +104,7 @@ export default {
             },
 
             data: actualData,
-            animationDuration: 2800,
+            animationDuration: 2000,
             animationEasing: 'quadraticOut',
           },
           {
@@ -116,7 +116,7 @@ export default {
             yAxisIndex: 1,
             smooth: false,
             data: sellAmount,
-            animationDuration: 2800,
+            animationDuration: this.animationDuration,
             animationEasing: 'quadraticOut',
           },
         ],

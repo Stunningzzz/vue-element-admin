@@ -14,8 +14,9 @@
 
 <body>
   <h2 id="app">
-    {{user}}
-    <Child :user="user"/>
+    <div v-html="content" class="av">
+      zzz
+    </div>
   </h2>
 </body>
 <script>
@@ -23,52 +24,13 @@
     el: '#app',
     data(){
       return {
-        user:{name:'luzhihao'}
-      }
-    },
-    methods:{
-      click1(){
-        this.user = {
-          name:'luzhihao',
-        }
-      },
-      click2(){
-        this.user.name = "liangyiqi";
-      }
-    },
-    components: {
-      Child: {
-        template: `
-          <h2>
-            props => firstName: {{fullName}}
-            <br/>
-            data => userName: {{userName}} 
-          </h2>
+        content:`
+         
         `,
-        props: {
-          firstName: String,
-          user:Object,
-        },
-        data() {
-          return {
-            userName:  'ZhiHao',
-          }
-        },
-        created(){
-          // this.firstName = 'asda';
-          this.user.name = "dasdasd";
-        },
-        computed: {
-          fullName() {
-            console.log('data => ', this.userName);
-            console.log('props => ', this.firstName);
-            console.log('refs => ', this.$refs.div);
-            return 'LuZhiHao';
-          }
-        },
-        
+        arr:[1,2,3,4,5],
       }
     },
+    
   })
 </script>
 
