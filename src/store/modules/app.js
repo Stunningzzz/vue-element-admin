@@ -9,6 +9,10 @@ export default {
     // 侧边栏当前是打开还是关闭
     asideNavStatus: getItem('asideNavStatus') === 'true',
     globalSize:getItem('globalSize') || 'default',
+    // Page Style Setting
+    fixedHeader:getItem('fixedHeader') || 0,
+    sidebarLogo:getItem('sidebarLogo') || 0,
+
   },
   actions: {
     setBreadCrumbsExcludePath({ commit }, payload) {
@@ -36,5 +40,13 @@ export default {
     appendBreadCrumbsExcludePath(state, payload) {
       state.breadCrumbsExcludePath.push(payload);
     },
+    setFixedHeader(state,payload){
+      state.fixedHeader = payload;
+      setItem('fixedHeader', payload);
+    },
+    setSidebarLogo(state,payload){
+      state.sidebarLogo = payload;
+      setItem('sidebarLogo', payload);
+    }
   },
 };

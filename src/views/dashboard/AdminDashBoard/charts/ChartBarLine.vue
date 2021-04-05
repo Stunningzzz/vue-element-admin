@@ -35,9 +35,7 @@ export default {
           axisTick: {
             show: false,
           },
-          // axisPointer: {
-          //   type: 'shadow',
-          // },
+         
         },
         yAxis: [
           {

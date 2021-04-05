@@ -7,6 +7,8 @@ export default {
   asideNavIsCollapsing: state => state.app.asideNavIsCollapsing,
   breadCrumbsExcludePath: state => state.app.breadCrumbsExcludePath,
   globalSize: state => state.app.globalSize,
+  fixedHeader: state => state.app.fixedHeader,
+  sidebarLogo: state => state.app.sidebarLogo,
   accessRoutes: state => state.permission.accessRoutes,
   addRoutes: state => state.permission.addRoutes,
 };

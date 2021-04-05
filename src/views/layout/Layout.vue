@@ -8,6 +8,7 @@
       class="main-container"
     >
       <Header />
+      <Header :placeholder="true"/>
       <Main />
     </el-container>
     <PageSettings/>
@@ -29,6 +30,7 @@ export default {
     AsideNav,
     PageSettings
   },
+
 };
 </script>
 

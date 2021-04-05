@@ -28,7 +28,7 @@ export default {
     },
   },
   mounted() {
-    this.chart = echarts.init(this.$el, 'macarons');
+    this.chart = echarts.init(this.$el);
     this.setOptions();
   },
   beforeDestroy() {

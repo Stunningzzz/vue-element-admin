@@ -2,6 +2,7 @@
   <el-header
     id="header"
     height="50px"
+    :style="headerStyle"
   >
     <div class="burger-crumb">
       <HamburgerButton
@@ -31,6 +32,9 @@ export default {
     HeaderBreadCrumb,
     HeaderRight,
   },
+  props:{
+    placeholder:Boolean,
+  },
   data() {
     return {
       breadCrumbs: [],
@@ -41,7 +45,15 @@ export default {
       'asideNavStatus',
       'asideNavIsCollapsing',
       'breadCrumbsExcludePath',
+      'fixedHeader',
     ]),
+    headerStyle(){
+      let {placeholder,fixedHeader} = this;
+      return !placeholder && fixedHeader && {
+        position:'fixed',
+        top:0,
+      }
+    }
   },
    watch: {
     $route() {
