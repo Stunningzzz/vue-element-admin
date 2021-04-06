@@ -43,6 +43,7 @@ export default {
   width: 20px;
   height: 27px;
   transition: transform 0.3s ease-in-out;
+  cursor: pointer;
 }
 .hamburger-line {
   height: 25%;

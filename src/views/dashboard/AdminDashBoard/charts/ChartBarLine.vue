@@ -15,7 +15,6 @@ export default {
       for (let i = 0; i < expectedData.length; i++) {
         sellAmount[i] = Math.max(expectedData[i], actualData[i]) * 10;
       }
-      // console.log('sellAmount --- ',sellAmount);
 
       this.chart.setOption({
         xAxis: {
@@ -89,6 +88,7 @@ export default {
             data: expectedData,
             animationDuration: 2000,
             animationEasing: 'cubicInOut',
+            // animationDurationUpdate:1000,// 数据更新时的重绘而不包括resize
           },
           {
             name: 'actual',
@@ -104,6 +104,7 @@ export default {
             data: actualData,
             animationDuration: 2000,
             animationEasing: 'quadraticOut',
+            // animationDurationUpdate:1000,
           },
           {
             name: 'sellamount',
@@ -116,6 +117,7 @@ export default {
             data: sellAmount,
             animationDuration: this.animationDuration,
             animationEasing: 'quadraticOut',
+            // animationDurationUpdate:1000,
           },
         ],
       });

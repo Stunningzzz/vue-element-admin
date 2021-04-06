@@ -24,8 +24,8 @@ export default {
   },
   methods:{
     breadCrumbsItemPath(item){
-      return item.redirect === 'noRedirect' ?  '' : item.path;
-    }
+    return item.redirect === 'noRedirect' ?  '' : item.path;
+    }                  
   }
 };
 </script>
@@ -54,13 +54,10 @@ export default {
 
   .bread-leave-active {
     position: absolute;
-    .el-breadcrumb__inner.is-link {
-      font-weight: 400;
-      color: #97a8be;
-    }
   }
   .el-breadcrumb__inner:not(.is-link){
-    color:#97A8BE;
+    color:#97A8BE !important;
+    cursor: initial;
   }
 }
 </style>

@@ -8,7 +8,7 @@
       class="main-container"
     >
       <Header />
-      <Header :placeholder="true"/>
+      <!-- <Header :placeholder="true"/> -->
       <Main />
     </el-container>
     <PageSettings/>

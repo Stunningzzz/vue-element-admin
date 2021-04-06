@@ -2,7 +2,6 @@
   <el-header
     id="header"
     height="50px"
-    :style="headerStyle"
   >
     <div class="burger-crumb">
       <HamburgerButton
@@ -32,8 +31,8 @@ export default {
     HeaderBreadCrumb,
     HeaderRight,
   },
-  props:{
-    placeholder:Boolean,
+  props: {
+    placeholder: Boolean,
   },
   data() {
     return {
@@ -47,15 +46,9 @@ export default {
       'breadCrumbsExcludePath',
       'fixedHeader',
     ]),
-    headerStyle(){
-      let {placeholder,fixedHeader} = this;
-      return !placeholder && fixedHeader && {
-        position:'fixed',
-        top:0,
-      }
-    }
+   
   },
-   watch: {
+  watch: {
     $route() {
       this.getBreadCrumbs();
     },
@@ -117,14 +110,13 @@ export default {
         breadCrumbs[breadCrumbs.length - 1] = {
           ...breadCrumbs[breadCrumbs.length - 1],
           class: 'crumb-item-last',
-          redirect:'noRedirect'
-        }
+          redirect: 'noRedirect',
+        };
 
         this.breadCrumbs = breadCrumbs;
       }
     },
   },
- 
 };
 </script>
 <style lang="scss" scoped>
@@ -138,6 +130,7 @@ export default {
 }
 
 .burger-crumb {
+  height: 100%;
   display: flex;
   width: 600px;
   align-items: center;

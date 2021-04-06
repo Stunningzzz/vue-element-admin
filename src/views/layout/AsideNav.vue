@@ -1,5 +1,4 @@
 <template>
-  <!--  @transitionend="actionEnd" -->
   <div
     class="aside-nav-container"
     @transitionend="actionEnd"
@@ -8,7 +7,11 @@
     <!-- 在这里 el-menu通过el-submenu的打开和关闭来改变高度 
           el-scrollbar通过监听视口高度和el-menu的高度的关系来调整是否出现滚动条和滚动条的长度 -->
     <el-scrollbar>
-      <el-menu v-if="placeholder" ref="menu" :collapse="asideNavStatus">
+      <el-menu
+        v-if="placeholder"
+        ref="menu"
+        :collapse="asideNavStatus"
+      >
 
       </el-menu>
       <el-menu
@@ -21,6 +24,7 @@
         :collapse="asideNavStatus"
         :default-active="defaultActive"
         mode="vertical"
+        :collapse-transition="false"
       >
         <AsideNavRecurItem
           v-for="item in accessRoutes"
@@ -54,6 +58,7 @@ export default {
   methods: {
     ...mapMutations('app', ['setAsideNavIsCollapsing', 'toggleAsideNavStatus']),
     actionEnd({ propertyName }) {
+      console.log(propertyName);
       // 正常来说只需要监听width 就够了 但有时候展开的时候不会触发width!
       if (['width', 'opacity'].indexOf(propertyName) !== -1) {
         this.asideNavIsCollapsing && this.setAsideNavIsCollapsing(false);
@@ -65,16 +70,36 @@ export default {
       if (!this.asideNavIsCollapsing) {
         this.setAsideNavIsCollapsing(true);
         let menu = this.$refs.menu,
-          submenus = menu.submenus;
-        // this.marginTop = 0;
-        for (let key in submenus) {
-          menu.close(key);
-        }
-        setTimeout(() => {
+          openedMenus = menu.openedMenus,
+          openedCount = openedMenus.length;
+        if (!openedCount) {
           this.toggleAsideNavStatus();
-        }, 300);
+        } else {
+          let handleTransitionend = ({ propertyName }) => {
+            if (propertyName === 'height') {
+              console.log('height');
+              openedCount--;
+              if (!openedCount) {
+                this.toggleAsideNavStatus();
+                menu.$el.removeEventListener(
+                  'transitionend',
+                  handleTransitionend
+                );
+              }
+            }
+          };
+          menu.$el.addEventListener('transitionend', handleTransitionend);
+          for (let openedMenu of [...openedMenus]) {
+            menu.close(openedMenu);
+          }
+        }
       }
     });
+  },
+  mounted() {
+    // this.$el.addEventListener('transitionend',e => {
+    //   console.log(e);
+    // })
   },
 };
 </script>
@@ -100,7 +125,9 @@ export default {
     overflow-x: hidden;
   }
 }
-
+::v-deep .el-menu *{
+  transition: all .3s !important;
+}
 ::v-deep.el-menu--collapse {
   // 这里必须用 > 表示下一层 否则的话会设置所有的submenu
   > div > .el-submenu > .el-submenu__title {

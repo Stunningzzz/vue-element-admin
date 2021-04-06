@@ -4,9 +4,9 @@ export default {
   state: {
     // 被覆盖的el-menu 不会显示在面包屑上
     breadCrumbsExcludePath: [],
-    // 侧边栏是否正在打开或关闭
+    // 侧边栏是否正在打开或关闭 
     asideNavIsCollapsing: false,
-    // 侧边栏当前是打开还是关闭
+    // 侧边栏当前是打开还是关闭 
     asideNavStatus: getItem('asideNavStatus') === 'true',
     globalSize:getItem('globalSize') || 'default',
     // Page Style Setting

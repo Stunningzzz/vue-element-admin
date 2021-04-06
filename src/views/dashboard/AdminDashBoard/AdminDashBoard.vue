@@ -331,7 +331,7 @@ export default {
   .dashboard-bottom {
     margin-top: 30px;
   }
-  // 避免闪
+  // 避免闪屏
   .chart{
     overflow: hidden;
   }
