@@ -31,8 +31,8 @@
           </span>
           <el-switch
             :value="_self[item.storeName]"
-            active-value="1"
-            inactive-value="0"
+            :active-value="1"
+            :inactive-value="0"
             @change="(newVal) => switchChange(item.storeName,newVal)"
           ></el-switch>
         </div>

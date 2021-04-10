@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="aside-nav-container"
-    @transitionend="actionEnd"
-  >
-
+  <div class="aside-nav-container">
     <!-- 在这里 el-menu通过el-submenu的打开和关闭来改变高度 
           el-scrollbar通过监听视口高度和el-menu的高度的关系来调整是否出现滚动条和滚动条的长度 -->
     <el-scrollbar>
@@ -12,27 +8,37 @@
         ref="menu"
         :collapse="asideNavStatus"
       >
-
       </el-menu>
-      <el-menu
-        v-else
-        background-color="#304156"
-        text-color="#BFCBD9"
-        active-text-color="#409EFF"
-        ref="menu"
-        :router='true'
-        :collapse="asideNavStatus"
-        :default-active="defaultActive"
-        mode="vertical"
-        :collapse-transition="false"
-      >
-        <AsideNavRecurItem
-          v-for="item in accessRoutes"
-          :key="item.path"
-          :cur-route="item"
-          base-path="/"
-        />
-      </el-menu>
+      <template v-else>
+        <el-menu
+          background-color="#304156"
+          text-color="#BFCBD9"
+          active-text-color="#409EFF"
+          ref="menu"
+          :router='true'
+          :collapse="asideNavStatus"
+          :default-active="defaultActive"
+          mode="vertical"
+          :style="menuStyle"
+        >
+          <AsideNavRecurItem
+            v-for="item in accessRoutes"
+            :key="item.path"
+            :cur-route="item"
+            base-path="/"
+          />
+        </el-menu>
+        <div
+          @click="$router.push('/')"
+          class="sidebar-logo"
+          v-show="sidebarLogo"
+        >
+          <img :src="sideBarLogo" />
+          <span class="title">
+            {{projectTitle}}
+          </span>
+        </div>
+      </template>
     </el-scrollbar>
   </div>
 </template>
@@ -46,23 +52,41 @@ export default {
     placeholder: Boolean,
     default: false,
   },
+  data() {
+    return {
+      sideBarLogo:
+        'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png',
+      projectTitle: 'Vue Element Admin',
+    };
+  },
   components: {
     AsideNavRecurItem,
   },
   computed: {
-    ...mapGetters(['asideNavStatus', 'asideNavIsCollapsing', 'accessRoutes']),
+    ...mapGetters([
+      'asideNavStatus',
+      'asideNavIsCollapsing',
+      'accessRoutes',
+      'sidebarLogo',
+    ]),
     defaultActive() {
       return this.$route.path;
+    },
+    menuStyle() {
+      return this.sidebarLogo
+        ? {
+            paddingTop: '56px',
+          }
+        : {};
     },
   },
   methods: {
     ...mapMutations('app', ['setAsideNavIsCollapsing', 'toggleAsideNavStatus']),
-    actionEnd({ propertyName }) {
-      console.log(propertyName);
-      // 正常来说只需要监听width 就够了 但有时候展开的时候不会触发width!
-      if (['width', 'opacity'].indexOf(propertyName) !== -1) {
-        this.asideNavIsCollapsing && this.setAsideNavIsCollapsing(false);
-      }
+
+    asyncSetAsideNavIsCollapsing() {
+      setTimeout(() => {
+        this.setAsideNavIsCollapsing(false);
+      }, 300);
     },
   },
   created() {
@@ -74,48 +98,58 @@ export default {
           openedCount = openedMenus.length;
         if (!openedCount) {
           this.toggleAsideNavStatus();
+          this.asyncSetAsideNavIsCollapsing();
         } else {
-          let handleTransitionend = ({ propertyName }) => {
-            if (propertyName === 'height') {
-              console.log('height');
-              openedCount--;
-              if (!openedCount) {
-                this.toggleAsideNavStatus();
-                menu.$el.removeEventListener(
-                  'transitionend',
-                  handleTransitionend
-                );
-              }
-            }
-          };
-          menu.$el.addEventListener('transitionend', handleTransitionend);
           for (let openedMenu of [...openedMenus]) {
             menu.close(openedMenu);
           }
+          setTimeout(() => {
+            this.toggleAsideNavStatus();
+            this.asyncSetAsideNavIsCollapsing();
+          }, 300);
         }
       }
     });
   },
-  mounted() {
-    // this.$el.addEventListener('transitionend',e => {
-    //   console.log(e);
-    // })
-  },
 };
 </script>
 <style lang="scss" scoped>
-.aside-nav-container {
+::v-deep.aside-nav-container {
   height: 100%;
-  // overflow: hidden;
   flex-shrink: 0;
   background-color: #304156;
-  .wrapper {
-    float: left;
+  .sidebar-logo {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    top: 0;
+    background-color: #2b2f3a !important;
+    font-weight: bolder;
+    font-size: 14px;
+    color: #fff !important;
+    // 因为字体和其font-size的原因 最终高度会比line-height稍高一点
+    height: 56px;
+    line-height: 56px;
+    white-space: nowrap;
+    cursor: pointer;
+    * {
+      vertical-align: middle;
+    }
+    // & > .el-tooltip为收缩时
+    &,
+    & > .el-tooltip {
+      padding: 0 20px !important;
+    }
+    img {
+      width: 30px;
+      height: 25px;
+      margin-right: 5px;
+    }
   }
 }
 
 .el-menu:not(.el-menu--collapse) {
-  width: 180px;
+  width: 200px;
   padding-bottom: 20px;
 }
 
@@ -125,10 +159,11 @@ export default {
     overflow-x: hidden;
   }
 }
-::v-deep .el-menu *{
-  transition: all .3s !important;
-}
+
 ::v-deep.el-menu--collapse {
+  & + .sidebar-logo .title {
+    display: none;
+  }
   // 这里必须用 > 表示下一层 否则的话会设置所有的submenu
   > div > .el-submenu > .el-submenu__title {
     // 隐藏箭头

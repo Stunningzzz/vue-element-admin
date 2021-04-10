@@ -1,4 +1,5 @@
 <template>
+  <!-- 绝对定位占满其父元素 -->
   <div class="rotate-avatar">
     <!-- 需要实现的是 hover不动的frame时进行动画 但因为avatar-img是绝对定位 所以被盖着的时候是hover不到
         frame的 然后如果hover整个round-avatar的话就会把 avatar-img也算上 导致有点小瑕疵 所以在这里是用一个
@@ -26,6 +27,9 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+.rotate-avatar{
+  position: relative;
+}
 .hover-area,
 .avatar-img {
   top: 0;

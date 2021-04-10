@@ -1,5 +1,5 @@
 <template>
-  <el-main>
+  <div class="main">
     <transition
       name="router"
       mode="out-in"
@@ -12,7 +12,7 @@
         </router-view>
       </keep-alive>
     </transition>
-  </el-main>
+  </div>
 </template>
 
 <script>
@@ -44,11 +44,11 @@ export default {
 
 <style lang='scss' scoped>
 // 默认的overflow是auto 这会导致在main里面生成滚动条
-.el-main {
+.main {
   overflow: visible;
   padding: 0;
   .route-view {
-    padding: 20px;
+    padding: 20px 40px;
     height: 100%;
     &.no-padding {
       padding: 0;

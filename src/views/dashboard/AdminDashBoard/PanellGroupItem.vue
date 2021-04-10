@@ -12,15 +12,19 @@
         {{item.itemDesc}}
       </div>
       <div class="panel-text-num">
-        {{item.itemNum}}
+        <CountTo :start-val="0" :end-val="item.itemNum"></CountTo>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import CountTo from 'vue-count-to';
 export default {
   name: 'PanellGroupItem',
+  components:{
+    CountTo,
+  },
   inject: ['activeItem'],
   props: {
     item: {

@@ -3,14 +3,12 @@
     <!-- 在上面的先设置iscollapsing就能看到关菜单了 否则的话看不到 -->
     <AsideNav class="asidenav-sticky"/>
     <AsideNav :placeholder="true"/>
-    <el-container
-      direction="vertical"
+    <div
       class="main-container"
     >
       <Header />
-      <!-- <Header :placeholder="true"/> -->
       <Main />
-    </el-container>
+    </div>
     <PageSettings/>
   </el-container>
 </template>
@@ -19,11 +17,10 @@
 import Header from './Header';
 import Main from './MainRouter';
 import AsideNav from './AsideNav';
-import PageSettings from '@/views/PageSettings/PageSettings';
+import PageSettings from '@/views/pagesettings/PageSettings';
 
 export default {
   name: 'Layout',
-  
   components: {
     Header,
     Main,
@@ -40,6 +37,8 @@ export default {
 }
 .main-container{
   align-self: flex-start;
+  height: 100%;
+  flex:1;
 }
 
 .asidenav-sticky{

@@ -5,7 +5,7 @@
         <div class="avatar-frame">
           Hello {{user.roles[0]}}
         </div>
-        <RotateAvatar :avatar-url="user.avatar"/>
+        <RotateAvatar :avatar-url="user.avatar" />
       </div>
       <div class="strong-margin">{{user.username}}</div>
       {{user.roles | rolesFilter}}
@@ -42,29 +42,25 @@ import SkillsAdapted from '@/components/SkillsAdapted';
 import RotateAvatar from '@/components/RotateAvatar';
 export default {
   name: 'ProfileLeftAboutMe',
-  components:{
+  components: {
     SkillsAdapted,
-    RotateAvatar
+    RotateAvatar,
   },
-  props:{
-    user:{
-      type:Object,
-      required:true,
-    }
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
   },
-  filters:{
-    rolesFilter(roles){
+  filters: {
+    rolesFilter(roles) {
       return roles.join('|');
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang='scss' scoped>
-.round-avatar {
-  position: relative;
-  display: inline-block;
-}
 ::v-deep.el-card:not(.is-always-shadow) {
   border: none;
   font-size: 14px;
@@ -81,21 +77,30 @@ export default {
 .about-top {
   text-align: center;
   padding: 15px 0;
+  .round-avatar {
+    position: relative;
+    display: inline-block;
+    .avatar-frame {
+      width: 100px;
+      height: 100px;
+      padding: 15px;
+      border-radius: 50%;
+      text-align: center;
+      border: solid 5px #f2f2f2;
+    }
+    .rotate-avatar{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  }
+  .strong-margin {
+    font-weight: bold;
+    margin: 10px 0;
+    color: black;
+  }
 }
-.strong-margin {
-  font-weight: bold;
-  margin: 10px 0;
-  color: black;
-}
-.avatar-frame {
-  width: 100px;
-  height: 100px;
-  padding: 15px;
-  border-radius: 50%;
-  text-align: center;
-  border: solid 5px #f2f2f2;
-  position: relative;
-}
-
 </style>
 //亲人 爱人 朋友

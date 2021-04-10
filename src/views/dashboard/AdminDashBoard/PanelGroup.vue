@@ -23,22 +23,22 @@ export default {
         {
           itemClass: 'peoples',
           itemDesc: 'New Visits',
-          itemNum: '102,400',
+          itemNum: 10240,
         },
         {
           itemClass: 'message',
           itemDesc: 'New Visits',
-          itemNum: '102,400',
+          itemNum: 7080,
         },
         {
           itemClass: 'money',
           itemDesc: 'New Visits',
-          itemNum: '102,400',
+          itemNum: 999,
         },
         {
           itemClass: 'shopping',
           itemDesc: 'New Visits',
-          itemNum: '102,400',
+          itemNum: 1234,
         },
       ],
     };

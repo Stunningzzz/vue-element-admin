@@ -42,7 +42,8 @@ export default {
       let { username, password } = userInfo;
       return new Promise((resolve, reject) => {
         userLogin({ username: username.trim(), password })
-          .then(({ token }) => {
+          .then((response) => {
+            let { token } = response.data;
             setToken(token);
             commit('SET_TOKEN', token);
             // setUserInfo(userInfo, { expires: 7 });
@@ -57,7 +58,8 @@ export default {
       return new Promise((resolve, reject) => {
         // 根据token去拿的角色信息 也就是说先该token 然后再拉取一次用户信息即可
         userGetInfo(state.token)
-          .then(data => {
+          .then(response => {
+            let {data } = response;
             if (!data) {
               reject('验证失败 请重新登录!');
             }

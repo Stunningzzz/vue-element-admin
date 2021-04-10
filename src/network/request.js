@@ -19,8 +19,9 @@ instance.interceptors.request.use = (config => {
   return Promise.reject(error);
 })
 
-instance.interceptors.response.use( ({data: {code,data,message}}) => {
-  if (code !== 200) {
+instance.interceptors.response.use( ({data}) => {
+  let {code,message} = data;
+  if (code && code !== 200) {
     // token(登录)过期
     if (code === 401) {
       MessageBox.confirm('您已经登出，您可以取消留在此页面，或重新登录', '确认登出', {

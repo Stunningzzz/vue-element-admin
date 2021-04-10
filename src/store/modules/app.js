@@ -10,8 +10,8 @@ export default {
     asideNavStatus: getItem('asideNavStatus') === 'true',
     globalSize:getItem('globalSize') || 'default',
     // Page Style Setting
-    fixedHeader:getItem('fixedHeader') || 0,
-    sidebarLogo:getItem('sidebarLogo') || 0,
+    fixedHeader:parseInt(getItem('fixedHeader')) || 0,
+    sidebarLogo:parseInt(getItem('sidebarLogo')) || 0,
 
   },
   actions: {

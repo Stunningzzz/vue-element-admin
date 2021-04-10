@@ -224,7 +224,7 @@ export default {
           console.log('keys --- ',this.$refs.tree.getCheckedKeys());
           console.log('serverRoutes --- ',serverRole.routes);
           if (title === 'New Role') {
-            let { key } = await addRole(serverRole);
+            let {data:{key}} = await addRole(serverRole);
             role.key = key;
             this.roleList.push(role);
           } else {
@@ -277,7 +277,7 @@ export default {
     },
 
     async getRoutes() {
-      const routes = await getRoutes();
+      const {data:routes} = await getRoutes();
       // 而serviceRoutes保存的是完整的从服务器那边拿过来的routes
       // 那么怎么基于keys去生成一份完整的routes呢?
       // 如果includes这个path的话 就添加进结果里面
@@ -287,7 +287,7 @@ export default {
       this.routes = this.generateRoutes(routes);
     },
     async getRoles() {
-      const roles = await getRoles();
+      const {data:roles} = await getRoles();
       // 先进this.generateRoutes(roles)筛一遍 把hidden什么的都筛掉
       this.roleList = roles.map((role) => {
         return {

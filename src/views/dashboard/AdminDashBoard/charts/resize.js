@@ -4,7 +4,6 @@ import { debounce } from '@/common/utils';
  *   在mounted函数中调用initListener 在activated中 因为初始化时既调用mounted又调用activated 为了防止重复监听
  *   要判断$_resizeHandler是否已经存在 
  *   在beforeDestroy 和 deactivated 中都调用destroyListener取消监听浏览器的resize事件
- * 
  */
 export default {
   data() {
@@ -28,9 +27,11 @@ export default {
      * 因为在deactivated里面销毁了!! 所以需要每次activated的时候重新监听!!
      * 另外 因为第一次既会调用mounted又会调用mounted 所以要防止init导致重复监听
      */
-    !this.$_resizeHandler && this.initListener();
+    // 第一次是mounted + activated 也就是this.$_resizeHandler存在的情况 存在的话就不需要调用
+    // !this.$_resizeHandler && this.initListener();
     // 每次回来都resize一下是因为 在其他界面改变大小的时候已经取消监听了
-    this.resize();
+    // this.resize();
+    !this.$_resizeHandler && (this.initListener() || this.resize())
   },
   beforeDestroy() {
     this.destroyListener();

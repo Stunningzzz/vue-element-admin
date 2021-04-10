@@ -296,7 +296,8 @@ export default {
     },
   },
   created() {
-    transactionList().then(({ items }) => {
+    transactionList().then((response) => {
+      let { items } = response.data;
       this.transactionData = items.slice(-8);
       this.transactionData.forEach((item) => {
         item.price = `¥ ${item.price}`;

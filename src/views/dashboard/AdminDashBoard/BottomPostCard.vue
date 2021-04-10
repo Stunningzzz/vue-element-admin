@@ -6,6 +6,7 @@
     <div class="user-desc">
       <div class="user-avatar">
         <!-- RotateAvatar 默认把开启定位的祖先元素的padding + width占满且为圆形-->
+        <!-- 如果我把根元素设置为了relative的话就是根据根元素定位  -->
         <RotateAvatar :avatar-url="avatar" />
       </div>
       <TextHoverAnimation text="element-admin" />
@@ -50,7 +51,7 @@ export default {
     &:hover {
       // 设置放大效果
       transform: scale(1.1, 1.1);
-      // 设置滤镜 即提高对比度 看起来就更亮 
+      // 设置滤镜 即提高对比度 看起来就更亮
       filter: contrast(130%);
     }
   }
@@ -62,18 +63,20 @@ export default {
 .user-desc {
   margin-top: -50px;
   .user-avatar {
-    height: 70px;
-    width: 70px;
+    // 提高层级为了放大时能够背景颜色能盖住图片
     position: relative;
-    z-index: 1;
     display: inline-block;
     border-radius: 50%;
     border: 5px solid transparent;
     background-color: #fff;
     vertical-align: bottom;
+    .rotate-avatar {
+      height: 60px;
+      width: 60px;
+    }
   }
-  .text-hover-animation{
-    font-size: 20px;
+  .text-hover-animation {
+    font-size: 19px;
   }
 }
 </style>

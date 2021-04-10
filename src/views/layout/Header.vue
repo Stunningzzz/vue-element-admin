@@ -1,21 +1,28 @@
 <template>
-  <el-header
-    id="header"
-    height="50px"
+  <div
+    class="header-wrapper"
+    :style="{height:headerHeight}"
   >
-    <div class="burger-crumb">
-      <HamburgerButton
-        :default-state="asideNavStatus ? 'flip' : 'normal'"
-        :disabled="asideNavIsCollapsing"
-        @burger-click="burgerClick"
-      />
-      <HeaderBreadCrumb
-        class="header-crumb"
-        :bread-crumbs="breadCrumbs"
-      />
-    </div>
-    <HeaderRight />
-  </el-header>
+    <el-header
+      id="header"
+      :height="headerHeight"
+      :style="headerStyle"
+    >
+      <div class="burger-crumb">
+        <HamburgerButton
+          :default-state="asideNavStatus ? 'flip' : 'normal'"
+          :disabled="asideNavIsCollapsing"
+          @burger-click="burgerClick"
+        />
+        <HeaderBreadCrumb
+          class="header-crumb"
+          :bread-crumbs="breadCrumbs"
+        />
+      </div>
+      <HeaderRight />
+    </el-header>
+  </div>
+
 </template>
 <script>
 import HamburgerButton from '@/components/common/HamburgerButton';
@@ -32,11 +39,12 @@ export default {
     HeaderRight,
   },
   props: {
-    placeholder: Boolean,
+    fixed: Boolean,
   },
   data() {
     return {
       breadCrumbs: [],
+      headerHeight: '50px',
     };
   },
   computed: {
@@ -46,7 +54,19 @@ export default {
       'breadCrumbsExcludePath',
       'fixedHeader',
     ]),
-   
+    headerStyle() {
+      let { asideNavStatus, fixedHeader } = this;
+      return fixedHeader
+        ? {
+            position: 'fixed',
+            width: asideNavStatus ? 'calc(100% - 64px)' : 'calc(100% - 200px)',
+            zIndex: 1,
+            top: 0,
+            right: 0,
+            transition: 'width .3s ease-in-out',
+          }
+        : {};
+    },
   },
   watch: {
     $route() {
