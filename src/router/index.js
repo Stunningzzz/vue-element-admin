@@ -34,20 +34,20 @@ export const constantRoutes = [
     hidden: true,
   },
   {
-    path:'/profile',
-    component:Layout,
-    hidden:true,
-    redirect:'/profile/index',
-    children:[
+    path: '/profile',
+    component: Layout,
+    hidden: true,
+    redirect: '/profile/index',
+    children: [
       {
-        path:'index',
-        name:'Profile',
-        component: () => import('@/views/profile/Profile'), 
-        meta:{
-          title:'Profile',
-        }
-      }
-    ]
+        path: 'index',
+        name: 'Profile',
+        component: () => import('@/views/profile/Profile'),
+        meta: {
+          title: 'Profile',
+        },
+      },
+    ],
   },
   {
     path: '/',
@@ -73,20 +73,36 @@ export const asyncRoutes = [
   permission,
   componentlibs,
   {
-    path:'/icons',
-    component:Layout,
-    redirect:'icons/index',
-    children:[
+    path: '/theme',
+    component: Layout,
+    redirect: '/theme/index',
+    children: [
       {
-        path:'index',
-        name:'Icons',
-        component: () => import('@/views/icons/Icons'), 
+        path: 'index',
+        name:'Theme',
+        component: () => import('@/views/theme/Theme'),
         meta:{
-          title:'图标库',
-          icon:'icon'
+          title:'Theme',
+          icon:'theme',
         }
-      }
-    ]
+      },
+    ],
+  },
+  {
+    path: '/icons',
+    component: Layout,
+    redirect: 'icons/index',
+    children: [
+      {
+        path: 'index',
+        name: 'Icons',
+        component: () => import('@/views/icons/Icons'),
+        meta: {
+          title: '图标库',
+          icon: 'icon',
+        },
+      },
+    ],
   },
   {
     path: '*',
@@ -98,7 +114,6 @@ export const asyncRoutes = [
 
 function createRouter() {
   return new VueRouter({
-    mode: 'history',
     routes: constantRoutes,
   });
 }
@@ -106,6 +121,6 @@ let router = createRouter();
 export function resetRouter() {
   let newRouter = createRouter();
   router.matcher = newRouter.matcher;
-};
+}
 
 export default router;

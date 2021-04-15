@@ -2,7 +2,7 @@
   <div class="mixin-components">
     <el-card
       class="box-card"
-      header="buttons"
+      header="Components Library"
     >
       <div class="btns-container">
         <router-link
@@ -42,139 +42,86 @@
           Count to
         </router-link>
       </div>
-
     </el-card>
 
-    <!-- <el-row
-      :gutter="20"
-      style="margin-top:50px;"
-    >
-      <el-col :span="6">
-        <el-card class="box-card">
-          <div
-            slot="header"
-            class="clearfix"
+    <div class="components-row2">
+      <el-card header="Material Design's Input">
+        <div class="mdinput-container">
+          <el-form
+            :model="demo"
+            :rules="demoRules"
           >
-            <span>Material Design 的input</span>
+            <el-form-item prop="title">
+              <MDInput
+                v-model="demo.title"
+                icon="el-icon-search"
+                name="title"
+                placeholder="输入标题"
+              >
+                标题
+              </MDInput>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-card>
+      <el-card header="图片hover旋转">
+        <div class="rotate-avatar-container">
+          <div class="rotate-avatar-text">
+            Now You Can See Me!!!
           </div>
-          <div style="height:100px;">
-            <el-form
-              :model="demo"
-              :rules="demoRules"
-            >
-              <el-form-item prop="title">
-                <md-input
-                  v-model="demo.title"
-                  icon="el-icon-search"
-                  name="title"
-                  placeholder="输入标题"
-                >
-                  标题
-                </md-input>
-              </el-form-item>
-            </el-form>
-          </div>
-        </el-card>
-      </el-col>
+          <RotateAvatar :avatar-url="avatarUrl" />
+        </div>
+      </el-card>
 
-      <el-col :span="6">
-        <el-card class="box-card">
-          <div
-            slot="header"
-            class="clearfix"
+      <el-card header="按钮点击水波纹效果">
+        <div class="waves-btn">
+          <el-button
+            v-waves
+            type="primary"
+            :style="{position:'relative'}"
           >
-            <span>图片hover效果</span>
-          </div>
-          <div class="component-item">
-            <pan-thumb
-              width="100px"
-              height="100px"
-              image="https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191"
-            >
-              vue-element-admin
-            </pan-thumb>
-          </div>
-        </el-card>
-      </el-col>
+            水波纹效果
+          </el-button>
+        </div>
+      </el-card>
 
-      <el-col :span="6">
-        <el-card class="box-card">
-          <div
-            slot="header"
-            class="clearfix"
-          >
-            <span>水波纹 waves v-directive</span>
-          </div>
-          <div class="component-item">
-            <el-button
-              v-waves
-              type="primary"
-            >
-              水波纹效果
-            </el-button>
-          </div>
-        </el-card>
-      </el-col>
+      <el-card header="Text-Hover-Animation">
+        <div class="text-hover-animation-container">
+          <TextHoverAnimation
+            class-name="mallki-text"
+            text="Now-You-Can-See-Me!!!"
+          />
+        </div>
+      </el-card>
+    </div>
 
-      <el-col :span="6">
-        <el-card class="box-card">
-          <div
-            slot="header"
-            class="clearfix"
-          >
-            <span>hover text</span>
-          </div>
-          <div class="component-item">
-            <mallki
-              class-name="mallki-text"
-              text="vue-element-admin"
-            />
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
-
-    <el-row
-      :gutter="20"
-      style="margin-top:50px;"
-    >
-      <el-col :span="8">
-        <el-card class="box-card">
-          <div
-            slot="header"
-            class="clearfix"
-          >
-            <span>Share</span>
-          </div>
-          <div
-            class="component-item"
-            style="height:420px;"
-          >
-            <dropdown-menu
-              :items="articleList"
-              style="margin:0 auto;"
-              title="系列文章"
-            />
-          </div>
-        </el-card>
-      </el-col>
-    </el-row> -->
+    <div class="components-row3">
+      <el-card
+        class="dropdown-container"
+        header="分享"
+      >
+        <DropdownMenu
+          :items="articleList"
+          title="系列文章"
+        />
+      </el-card>
+    </div>
   </div>
 </template>
 
 <script>
 import RotateAvatar from '@/components/RotateAvatar';
+import MDInput from './MDInput';
 import TextHoverAnimation from '@/components/TextHoverAnimation';
-import MdInput from './MdInput';
-import DropdownMenu from './DropdownMenu';
+import DropdownMenu from './ShareDropDown';
 import waves from '@/directives/waves/index.js'; // 水波纹指令
 
 export default {
   name: 'ComponentMixinDemo',
   components: {
+    MDInput,
     RotateAvatar,
     TextHoverAnimation,
-    MdInput,
     DropdownMenu,
   },
   directives: {
@@ -183,12 +130,14 @@ export default {
   data() {
     const validate = (rule, value, callback) => {
       if (value.length !== 6) {
-        callback(new Error('请输入六个字符'));
+        callback('请输入六个字符');
       } else {
         callback();
       }
     };
     return {
+      avatarUrl:
+        'https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191',
       demo: {
         title: '',
       },
@@ -240,6 +189,34 @@ export default {
       transition: all 0.6s ease;
       position: relative;
       display: inline-block;
+      &::before,
+      &::after {
+        position: absolute;
+        content: '';
+        width: 0;
+        transition: 400ms ease all;
+      }
+      @mixin hoverTransition($curCol) {
+        background-color: $curCol;
+        &::before {
+          border-top: 2px solid $curCol;
+          right: 0;
+          top: 0;
+        }
+        &::after {
+          border-top: 2px solid $curCol;
+          left: 0;
+          bottom: 0;
+        }
+        &:hover {
+          background-color: #fff;
+          color: $curCol;
+          &::before,
+          &::after {
+            width: 100%;
+          }
+        }
+      }
       $gray: #324157;
       $blue: #3a71a8;
       $red: #e65d6e;
@@ -247,47 +224,83 @@ export default {
       $cyan: #4ab7bd;
       $yellow: #fec171;
       &.gray-btn {
-        background-color: $gray;
-        &::before {
-          position: absolute;
-          content: '';
-          right: 0;
-          top: 0;
-          width: 0;
-          transition: 400ms ease all;
-          border-top: 2px solid $gray;
-        }
-        &::after {
-          position: absolute;
-          content: '';
-          left: 0;
-          bottom: 0;
-          width: 0;
-          transition: 400ms ease all;
-          border-top: 2px solid $gray;
-        }
-        &:hover {
-          background-color: #fff;
-          color: $gray;
-          &::before,&::after {
-            width:100%;
-          }
-        }
+        @include hoverTransition($gray);
       }
       &.blue-btn {
-        background-color: $blue;
+        @include hoverTransition($blue);
       }
       &.red-btn {
-        background-color: $red;
+        @include hoverTransition($red);
       }
       &.green-btn {
-        background-color: $green;
-      }
-      &.cyan-btn {
-        background-color: $cyan;
+        @include hoverTransition($green);
       }
       &.yellow-btn {
-        background-color: $yellow;
+        @include hoverTransition($yellow);
+      }
+      &.cyan-btn {
+        @include hoverTransition($cyan);
+      }
+    }
+  }
+
+  .components-row2 {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    ::v-deep.el-card {
+      width: 23%;
+      .el-card__body {
+        padding-top: 10px;
+        // 总高度是200 header占了55px
+        height: 200px - 55px;
+        position: relative;
+        > div {
+          position: absolute;
+          transform: translate(-50%, -50%);
+          left: 50%;
+          top: 50%;
+        }
+      }
+    }
+    .mdinput-container {
+      width: 80% !important;
+    }
+    .rotate-avatar-container {
+      position: relative;
+      display: inline-block;
+      .rotate-avatar-text {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        text-align: center;
+        border: 5px solid #f2f2f2;
+        padding: 10px;
+        padding-top: 15px;
+        line-height: 20px;
+      }
+      .rotate-avatar {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+      }
+    }
+    .text-hover-animation-container {
+      white-space: nowrap;
+    }
+  }
+  .components-row3 {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    ::v-deep.el-card {
+      width: 30%;
+      .el-card__body {
+        padding-top: 10px;
+        // 总高度是200 header占了55px
+        height: 470px;
       }
     }
   }

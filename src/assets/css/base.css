@@ -12,9 +12,12 @@ label {
 
 html {
   height: 100%;
-  box-sizing: border-box;
-  user-select: none;
-  // 防止切换页面的时候出现滚动条
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   overflow-x: hidden;
 }
 
@@ -25,7 +28,8 @@ html {
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
 }
 
 .padding-content {
@@ -77,15 +81,13 @@ div:focus {
   display: block;
 }
 
-.clearfix {
-  &:after {
-    visibility: hidden;
-    display: block;
-    font-size: 0;
-    content: " ";
-    clear: both;
-    height: 0;
-  }
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
 }
 
 aside {
@@ -100,20 +102,21 @@ aside {
   color: #2c3e50;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  a {
-    color: #337ab7;
-    cursor: pointer;
-
-    &:hover {
-      color: rgb(32, 160, 255);
-    }
-  }
 }
-.text-muted{
+
+aside a {
+  color: #337ab7;
+  cursor: pointer;
+}
+
+aside a:hover {
+  color: #20a0ff;
+}
+
+.text-muted {
   color: #777;
 }
-//main-container全局样式
+
 .app-container {
   padding: 20px;
 }
@@ -128,7 +131,7 @@ aside {
 }
 
 .text-center {
-  text-align: center
+  text-align: center;
 }
 
 .sub-navbar {
@@ -138,44 +141,46 @@ aside {
   width: 100%;
   text-align: right;
   padding-right: 20px;
+  -webkit-transition: 600ms ease position;
   transition: 600ms ease position;
-  background: linear-gradient(90deg, rgba(32, 182, 249, 1) 0%, rgba(32, 182, 249, 1) 0%, rgba(33, 120, 241, 1) 100%, rgba(33, 120, 241, 1) 100%);
+  background: -webkit-gradient(linear, left top, right top, from(#20b6f9), color-stop(0%, #20b6f9), color-stop(100%, #2178f1), to(#2178f1));
+  background: linear-gradient(90deg, #20b6f9 0%, #20b6f9 0%, #2178f1 100%, #2178f1 100%);
+}
 
-  .subtitle {
-    font-size: 20px;
-    color: #fff;
-  }
+.sub-navbar .subtitle {
+  font-size: 20px;
+  color: #fff;
+}
 
-  &.draft {
-    background: #d0d0d0;
-  }
+.sub-navbar.draft {
+  background: #d0d0d0;
+}
 
-  &.deleted {
-    background: #d0d0d0;
-  }
+.sub-navbar.deleted {
+  background: #d0d0d0;
 }
 
 .link-type,
 .link-type:focus {
   color: #337ab7;
   cursor: pointer;
+}
 
-  &:hover {
-    color: rgb(32, 160, 255);
-  }
+.link-type:hover,
+.link-type:focus:hover {
+  color: #20a0ff;
 }
 
 .filter-container {
   padding-bottom: 10px;
-
-  .filter-item {
-    display: inline-block;
-    vertical-align: middle;
-    margin-bottom: 10px;
-  }
 }
 
-//refine vue-multiselect plugin
+.filter-container .filter-item {
+  display: inline-block;
+  vertical-align: middle;
+  margin-bottom: 10px;
+}
+
 .multiselect {
   line-height: 16px;
 }
@@ -183,3 +188,4 @@ aside {
 .multiselect--active {
   z-index: 1000 !important;
 }
+/*# sourceMappingURL=base.css.map */

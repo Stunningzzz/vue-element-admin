@@ -23,8 +23,13 @@ export function debounce(func, wait, immediate) {
       }
     } else {
       timeout = setTimeout(() => {
+        console.log('debounce');
         func.apply(this, arguments);
       }, wait);
     }
   };
+}
+
+export function toggleClass(el,className) {
+  el.classList.toggle(className);
 }

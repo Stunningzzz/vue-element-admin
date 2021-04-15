@@ -187,7 +187,7 @@ export default {
 <style lang='scss' scoped>
 
 .el-select {
-  width: 250px;
+  width: 200px;
 }
 .select-enter-active,
 .select-leave-active {

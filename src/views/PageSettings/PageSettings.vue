@@ -36,6 +36,12 @@
             @change="(newVal) => switchChange(item.storeName,newVal)"
           ></el-switch>
         </div>
+        <div class="setting-item theme-picker-item">
+          <span>
+            Theme Color
+          </span>
+          <ThemePicker />
+        </div>
       </div>
     </div>
   </div>
@@ -43,9 +49,13 @@
 </template>
 
 <script>
-import { mapGetters,mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
+import ThemePicker from './ThemePicker';
 export default {
   name: 'PageSetting',
+  components: {
+    ThemePicker,
+  },
   data() {
     return {
       settingsDrawerVisible: false,
@@ -78,9 +88,11 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('app',['setFixedHeader','setSidebarLogo']),
-    switchChange(storeName,newVal) {
-      let mutationName = `set${storeName[0].toLocaleUpperCase()}${storeName.slice(1)}`;
+    ...mapMutations('settings', ['setFixedHeader', 'setSidebarLogo']),
+    switchChange(storeName, newVal) {
+      let mutationName = `set${storeName[0].toLocaleUpperCase()}${storeName.slice(
+        1
+      )}`;
       this[mutationName](newVal);
     },
   },
@@ -98,6 +110,9 @@ export default {
   font-size: 14px;
   display: flex;
   justify-content: space-between;
+  &.theme-picker-item {
+    line-height: 36px;
+  }
 }
 .drawer-wrapper {
   position: fixed;

@@ -4,10 +4,8 @@
     <GitHubCorner class="github-corner" />
     <div class="dashboard-wrapper">
       <PanelGroup />
-      <ChartBarLine
-        :chart-data="lineChartData"
-        class="chart"
-      />
+      <ChartBarLine :chart-data="lineChartData" class="chart"/>
+
       <div class="various-charts">
         <ChartPie
           :chart-data="chartDataSet.pieChart"
@@ -333,7 +331,7 @@ export default {
     margin-top: 30px;
   }
   // 避免闪屏
-  .chart{
+  .chart {
     overflow: hidden;
   }
 }

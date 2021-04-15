@@ -88,7 +88,7 @@ export default {
             data: expectedData,
             animationDuration: 2000,
             animationEasing: 'cubicInOut',
-            // animationDurationUpdate:1000,// 数据更新时的重绘而不包括resize
+            // animationDurationUpdate:1000,// 数据更新时(不包括resize)的重绘时间
           },
           {
             name: 'actual',
@@ -127,7 +127,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .chart-bar-line {
-  width: 100%;
   height: 350px;
   background-color: #fff;
   margin-top: 30px;

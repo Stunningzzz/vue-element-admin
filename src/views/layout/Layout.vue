@@ -1,16 +1,16 @@
 <template>
-  <el-container class="layout-container">
+  <div class="layout-container">
     <!-- 在上面的先设置iscollapsing就能看到关菜单了 否则的话看不到 -->
-    <AsideNav class="asidenav-sticky"/>
-    <AsideNav :placeholder="true"/>
+    <AsideNav class="asidenav-sticky" />
+    <AsideNav :placeholder="true" />
     <div
       class="main-container"
     >
       <Header />
       <Main />
     </div>
-    <PageSettings/>
-  </el-container>
+    <PageSettings />
+  </div>
 </template>
 
 <script>
@@ -25,29 +25,30 @@ export default {
     Header,
     Main,
     AsideNav,
-    PageSettings
+    PageSettings,
   },
-
 };
 </script>
 
 <style lang='scss' scoped>
-.el-container {
+.layout-container {
   height: 100%;
+  display: flex;
 }
-.main-container{
+.main-container {
   align-self: flex-start;
   height: 100%;
-  flex:1;
+  flex-grow: 1;
+  // 给个初始宽度能解决溢出问题
+  width: 0;
 }
 
-.asidenav-sticky{
+.asidenav-sticky {
   position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
   z-index: 1;
 }
-
 </style>
 //亲人 爱人 朋友
