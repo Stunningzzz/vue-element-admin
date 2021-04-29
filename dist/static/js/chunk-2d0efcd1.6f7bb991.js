@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0efcd1"],{"9a3f":function(e,n,t){"use strict";t.r(n);var a=function(){var e=this,n=e.$createElement,t=e._self._c||n;return t("h2",[e._v(" 这是菜单1-1-2 ")])},c=[],u={name:"Menu1-1-2"},r=u,s=t("2877"),l=Object(s["a"])(r,a,c,!1,null,"46deb81a",null);n["default"]=l.exports}}]);

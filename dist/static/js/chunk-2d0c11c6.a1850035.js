@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0c11c6"],{"453b":function(e,n,t){"use strict";t.r(n);var c=function(){var e=this,n=e.$createElement,t=e._self._c||n;return t("h2",[e._v(" 菜单2 ")])},a=[],s={name:"nested2"},u=s,r=t("2877"),l=Object(r["a"])(u,c,a,!1,null,"771bae41",null);n["default"]=l.exports}}]);
