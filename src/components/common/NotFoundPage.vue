@@ -11,7 +11,7 @@
           很抱歉,页面它不小心迷路了!
         </h2>
         <div class="right-row3">
-          请检查您输入的网址是否正确，请点击以下按钮返回主页或者发送错误报告
+          请检查您输入的网址是否正确，或点击以下按钮返回主页
         </div>
         <el-button type="primary" round @click="$router.replace('/')">
           返回首页

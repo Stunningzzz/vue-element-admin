@@ -1,7 +1,7 @@
 <template>
   <div class="layout-container">
     <!-- 在上面的先设置iscollapsing就能看到关菜单了 否则的话看不到 -->
-    <AsideNav class="asidenav-sticky" />
+    <AsideNav class="asidenav-fixed" />
     <AsideNav :placeholder="true" />
     <div
       class="main-container"
@@ -27,6 +27,9 @@ export default {
     AsideNav,
     PageSettings,
   },
+  created(){
+    console.log('Layout被创建');
+  },
 };
 </script>
 
@@ -43,7 +46,7 @@ export default {
   width: 0;
 }
 
-.asidenav-sticky {
+.asidenav-fixed {
   position: fixed;
   left: 0;
   top: 0;

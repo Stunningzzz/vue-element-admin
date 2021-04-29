@@ -43,10 +43,10 @@ export default {
       component: () => import('@/views/componentlibs/count-to/CountTo'),
     },
     {
-      path:'component-mixin',
-      name:'ComponentMixin',
-      meta:{title:'ComponentMixin'},
-      component: () => import('@/views/componentlibs/component-mixin/ComponentMixin'),
+      path:'widget',
+      name:'Widget',
+      meta:{title:'Widget'},
+      component: () => import('@/views/componentlibs/widget/Widget'),
     },
   ],
 };

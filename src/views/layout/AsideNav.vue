@@ -90,7 +90,8 @@ export default {
     },
   },
   created() {
-    this.$bus.$on('toggleAsideNavStatus', () => {
+    this.toggleCallback = () => {
+      console.log('toggleCallback');
       if (!this.asideNavIsCollapsing) {
         this.setAsideNavIsCollapsing(true);
         let menu = this.$refs.menu,
@@ -109,8 +110,13 @@ export default {
           }, 300);
         }
       }
-    });
+    };
+    this.$bus.$on('toggleAsideNavStatus',this.toggleCallback );
   },
+  beforeDestroy(){
+    console.log('beforeDestroy');
+    this.$bus.$off('toggleAsideNavStatus',this.toggleCallback);
+  }
 };
 </script>
 <style lang="scss" scoped>

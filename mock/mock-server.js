@@ -4,9 +4,6 @@ const chalk = require('chalk');
 const path = require('path');
 const Mock = require('mockjs');
 
-// 不会打印!!
-console.log('mock-server-js');
-
 // 表示mock文件夹
 const mockDir = path.join(process.cwd(), 'mock');
 

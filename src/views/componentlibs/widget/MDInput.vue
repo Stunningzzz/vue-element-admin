@@ -176,7 +176,7 @@ $color-black: black;
       left: 0;
       line-height: $font-size-base;
       color: $color-blue;
-      top: $spacer;
+      top: 15px;
       width: $index-has-icon;
       height: $font-size-base;
       font-size: $font-size-base;
@@ -209,7 +209,7 @@ $color-black: black;
     position: absolute;
     pointer-events: none;
     left: $index;
-    top: 5px;
+    top: 3px;
     transition: $transition;
     font-size: $font-size-small;
   }

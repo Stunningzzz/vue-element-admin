@@ -31,8 +31,11 @@ export default {
     let domStyle = this.$el.style;
     if (this.defaultState === 'flip') {
       let temp = domStyle.transition;
-      domStyle.transition = null;
+      // 设置为''时应用样式表里面的效果 要覆盖得赋值none 
+      domStyle.transition = 'none';
       domStyle.transform = 'rotateZ(90deg)';
+      // 强制浏览器回流 应用transition效果
+      this.$el.offsetTop;
       domStyle.transition = temp;
     }
   },

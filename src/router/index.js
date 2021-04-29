@@ -11,6 +11,7 @@ import VueRouter from 'vue-router';
 // 但是有一点 如果当前路由的children大于1 但是要跳转到默认路由没有权限访问 那么在点击当前路由的面包屑跳转到默认
 // 路由的时候会出现404
 
+
 const Layout = () => import('@/views/layout/Layout');
 import nested from './modules/nested';
 import permission from './modules/permission';
@@ -91,7 +92,7 @@ export const asyncRoutes = [
   {
     path: '/icons',
     component: Layout,
-    redirect: 'icons/index',
+    redirect: '/icons/index',
     children: [
       {
         path: 'index',

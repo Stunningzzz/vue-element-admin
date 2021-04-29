@@ -118,7 +118,7 @@ import DropdownMenu from './ShareDropDown';
 import waves from '@/directives/waves/index.js'; // 水波纹指令
 
 export default {
-  name: 'ComponentMixinDemo',
+  name: 'Widget',
   components: {
     MDInput,
     RotateAvatar,
