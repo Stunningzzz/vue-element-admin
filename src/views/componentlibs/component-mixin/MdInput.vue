@@ -209,7 +209,7 @@ $color-black: black;
     position: absolute;
     pointer-events: none;
     left: $index;
-    top: 0;
+    top: 5px;
     transition: $transition;
     font-size: $font-size-small;
   }

@@ -78,6 +78,7 @@
           <el-button
             v-waves
             type="primary"
+            size="medium"
             :style="{position:'relative'}"
           >
             水波纹效果
