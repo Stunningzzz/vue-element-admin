@@ -157,20 +157,36 @@ export default {
               </template>
             </el-input>
           </el-form-item>
-          <el-button
-            round
-            @click="handleLogin"
-            :loading="isLoading"
-          >
-            起飞
-          </el-button>
-          <el-button
-            round
-            @click.native="openMsgBox"
-          >
-            在?给个账号密码?
-          </el-button>
+
+          <div>
+            <el-button
+              round
+              @click="handleLogin"
+              :loading="isLoading"
+            >
+              起飞
+            </el-button>
+            <el-button
+              round
+              @click.native="openMsgBox"
+            >
+              体验JSX
+            </el-button>
+          </div>
+
         </el-form>
+        <div class="tips">
+          <span>
+            用户名:admin
+          </span>
+          密码:随便填
+        </div>
+        <div class="tips">
+          <span>
+            用户名:editor
+          </span>
+          密码:随便填
+        </div>
       </div>
     </transition>
   </div>
@@ -233,6 +249,14 @@ export default {
 }
 .el-fade-in-linear-enter {
   transform: translate(0, -50px) !important;
+}
+.tips {
+  margin-top: 10px;
+  text-align: left;
+  > span {
+    text-align: left;
+    margin-right: 10px;
+  }
 }
 </style>
 //亲人 爱人 朋友
