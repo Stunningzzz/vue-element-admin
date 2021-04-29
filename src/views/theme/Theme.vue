@@ -122,7 +122,7 @@ export default {
     let link = document.createElement('link');
     link.rel = 'stylesheet';
     link.type = 'text/css';
-    link.href = '/dist/index.css';
+    link.href = './theme/index.css';
     document.head.insertBefore(link,document.head.firstElementChild);
   },
 };
