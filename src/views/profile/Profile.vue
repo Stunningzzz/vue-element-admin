@@ -41,7 +41,6 @@ export default {
     ProfileRightTabsAccount,
   },
   data() {
-    console.log('this --- ', this);
     return {
       user: {},
     };

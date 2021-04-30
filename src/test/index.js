@@ -1,6 +1,10 @@
-let path = require('path');
-console.log(path.join('/abc'));
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
 
-console.log(path.resolve('/foo','/bar','./here') ); //=> /bar/here
-//=> 1覆盖0 2覆盖1
-console.log(path.resolve('/foo','/bar','/here'));//=> /here
+// 用法
+sleep(500).then(() => {
+    // 这里写sleep之后需要去做的事情
+})
+
+console.log('zzz');

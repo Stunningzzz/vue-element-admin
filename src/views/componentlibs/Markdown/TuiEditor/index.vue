@@ -72,7 +72,6 @@ export default {
       this.initEditor();
     },
     height(newValue) {
-      console.log(newValue);
       this.editor.height(newValue);
     },
     mode(newValue) {

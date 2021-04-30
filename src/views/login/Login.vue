@@ -81,7 +81,6 @@ export default {
             .dispatch('user/login', userInfo)
             .then(() => {
               this.isLoading = false;
-              console.log('zzz');
               this.$router.push('/dashboard');
             })
             .catch(() => {

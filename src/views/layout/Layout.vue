@@ -28,7 +28,6 @@ export default {
     PageSettings,
   },
   created(){
-    console.log('Layout被创建');
   },
 };
 </script>

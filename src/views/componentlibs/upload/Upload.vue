@@ -52,7 +52,6 @@ export default {
   },
   methods: {
     cropSuccess(resData) {
-      console.log(resData);
       this.imagecropperShow = false;
       this.imagecropperKey = this.imagecropperKey + 1;
       this.imgUrl = resData.files.avatar;

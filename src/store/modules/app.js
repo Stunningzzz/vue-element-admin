@@ -23,7 +23,6 @@ export default {
       setItem('globalSize', state.globalSize);
     },
     setAsideNavIsCollapsing(state, payload) {
-      console.log('setAsideNavIsCollapsing --- ',payload);
       state.asideNavIsCollapsing = payload;
     },
     toggleAsideNavStatus(state) {

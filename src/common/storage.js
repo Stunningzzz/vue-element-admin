@@ -27,7 +27,6 @@ export function removeToken() {
 
 let userInfoKey = 'userInfo';
 export function setUserInfo(userInfo, option) {
-  console.log('setItem --- ', userInfo);
   setItem(userInfoKey, userInfo, option);
 }
 

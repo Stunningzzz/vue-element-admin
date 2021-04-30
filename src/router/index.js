@@ -20,15 +20,6 @@ import componentlibs from './modules/componentlibs';
 Vue.use(VueRouter);
 export const constantRoutes = [
   {
-    path: '/redirect/:path(.*)',
-    redirect: to => {
-      console.log('redirect fn');
-      return to.params.path;
-    },
-    hidden: true,
-    // keep-alive 那怎么实现exclude呢?
-  },
-  {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/login/Login'),

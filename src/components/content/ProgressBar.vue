@@ -22,7 +22,6 @@ export default {
     // 并不是每次transition结束都会调用 实际是有延迟到
     // 触发多了一次setPercentage 
     actionEnd() {
-      console.log('actionEnd');
       this.$store.commit('setLoading', false);
       let preClass = this.$el.className;
       this.$el.className += ' full';

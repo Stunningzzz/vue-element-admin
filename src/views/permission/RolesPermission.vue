@@ -221,8 +221,6 @@ export default {
               this.$refs.tree.getCheckedKeys()
             ),
           };
-          console.log('keys --- ',this.$refs.tree.getCheckedKeys());
-          console.log('serverRoutes --- ',serverRole.routes);
           if (title === 'New Role') {
             let {data:{key}} = await addRole(serverRole);
             role.key = key;
