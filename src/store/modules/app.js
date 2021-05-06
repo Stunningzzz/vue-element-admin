@@ -1,4 +1,5 @@
 import { setItem, getItem } from '@/common/storage';
+import {} from '@/settings';
 export default {
   namespaced: true,
   state: {
@@ -9,6 +10,7 @@ export default {
     // 侧边栏当前是打开还是关闭 
     asideNavStatus: getItem('asideNavStatus') === 'true',
     globalSize:getItem('globalSize') || 'default',
+    defaultTheme:parseInt(getItem('defaultTheme')) || 0,
   },
   actions: {
     setBreadCrumbsExcludePath({ commit }, payload) {
@@ -35,6 +37,9 @@ export default {
     appendBreadCrumbsExcludePath(state, payload) {
       state.breadCrumbsExcludePath.push(payload);
     },
-   
+    setDefaultTheme(state,payload){
+      state.defaultTheme = payload;
+      setItem('defaultTheme', payload);
+    }
   },
 };

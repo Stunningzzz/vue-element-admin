@@ -19,10 +19,12 @@ Vue.use(ElementUI, {
 });
 Vue.prototype.$bus = new Vue();
 
+
 if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')
   mockXHR()
 }
+
 
 new Vue({
   render: h => h(App),

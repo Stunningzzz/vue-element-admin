@@ -1,13 +1,13 @@
 import { getItem, setItem } from '@/common/storage';
-
+import {fixedHeader,sidebarLogo,primaryColor} from '@/settings';
 export default {
   namespaced: true,
   state: {
     // Page Style Setting
-    fixedHeader: parseInt(getItem('fixedHeader')) || 0,
-    sidebarLogo: parseInt(getItem('sidebarLogo')) || 0,
+    fixedHeader: parseInt(getItem('fixedHeader')) || fixedHeader,
+    sidebarLogo: parseInt(getItem('sidebarLogo')) || sidebarLogo,
     // 只是从配置文件中读取的默认主题 不提供修改选项
-    defaultSettingsColor:'',
+    primaryColor:getItem('primaryColor') || primaryColor,
   },
   mutations: {
     setFixedHeader(state, payload) {
@@ -18,6 +18,9 @@ export default {
       state.sidebarLogo = payload;
       setItem('sidebarLogo', payload);
     },
- 
+    setPrimaryColor(state,payload){
+      state.primaryColor = payload;
+      setItem('primaryColor',payload);
+    }
   },
 };

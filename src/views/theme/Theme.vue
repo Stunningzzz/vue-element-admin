@@ -12,7 +12,7 @@
       </div>
       <div class="box-item">
         <span class="field-label">Change Theme : </span>
-        <el-switch v-model="theme" />
+        <el-switch v-model="curTheme" :active-value="1" :inactive-value="0"/>
         <aside style="margin-top:15px;">
           Tips: It is different from the theme-pick on the navbar is two different skinning methods, each with different application scenarios. Refer to the documentation for details.
         </aside>
@@ -94,14 +94,14 @@
 </template>
 
 <script>
-import { toggleClass } from '@/common/utils';
-// import '@/assets/css/my-theme/index.css'; // the theme changed version element-ui css
+import {themeClass} from '@/settings';
+import {mapGetters,mapMutations} from 'vuex';
 
 export default {
   name: 'Theme',
   data() {
     return {
-      theme: false,
+      curTheme: 0,
       tags: [
         { name: 'Tag One', type: '' },
         { name: 'Tag Two', type: 'info' },
@@ -113,17 +113,21 @@ export default {
       radio: 3,
     };
   },
+  computed:{
+    ...mapGetters(['defaultTheme']),
+  },
+  methods:{
+    ...mapMutations('app',['setDefaultTheme']),
+  },
   watch: {
-    theme() { 
-      toggleClass(document.body, 'custom-theme');
+    curTheme(newVal,oldVal) { 
+      this.setDefaultTheme(newVal);
+      themeClass[oldVal] && document.body.classList.remove(themeClass[oldVal]);
+      themeClass[newVal] && document.body.classList.add(themeClass[newVal]);
     },
   },
   mounted(){
-    let link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    link.href = './theme/index.css';
-    document.head.insertBefore(link,document.head.firstElementChild);
+    this.curTheme = this.defaultTheme;
   },
 };
 </script>

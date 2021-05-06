@@ -3,9 +3,10 @@ export default {
   path: '/nested',
   meta: { title: '嵌套路由', icon: 'nested' },
   component: Layout,
-  redirect: 'nested/menu1',
+  redirect: '/nested/menu1',
   children: [
     {
+      // .custom-theme .el-breadcrumb__inner, .custom-theme .el-breadcrumb__inner a
       path: 'menu1',
       name: 'Menu1',
       meta: { title: '菜单1' },
@@ -74,7 +75,7 @@ export default {
       path: 'menu3',
       name: 'Menu3',
       meta: { title: '菜单3' },
-      // alwaysShow: true,
+      alwaysShow: true,
       component: () => import('@/views/nested/menu3/Menu3'),
       // 当有redirect时 目标路由的roles权限必须是当前路由权限相同!
       // 也就是说能看到当前页面的必定也能看到目标页面

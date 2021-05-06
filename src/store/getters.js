@@ -7,9 +7,10 @@ export default {
   asideNavIsCollapsing: state => state.app.asideNavIsCollapsing,
   breadCrumbsExcludePath: state => state.app.breadCrumbsExcludePath,
   globalSize: state => state.app.globalSize,
+  defaultTheme:state => state.app.defaultTheme,
   accessRoutes: state => state.permission.accessRoutes,
   addRoutes: state => state.permission.addRoutes,
   fixedHeader: state => state.settings.fixedHeader,
   sidebarLogo: state => state.settings.sidebarLogo,
-  defaultSettingsColor:state => state.settings.defaultSettingsColor,
+  primaryColor:state => state.settings.primaryColor,
 };

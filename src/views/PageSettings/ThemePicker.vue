@@ -1,5 +1,5 @@
 <template>
-<!-- 只能更换主色调 那既然只能更换主色调为什么还要用styleCluster生成一系列颜色呢???
+  <!-- 只能更换主色调 那既然只能更换主色调为什么还要用styleCluster生成一系列颜色呢???
   因为主色调还有不同情况下的主色调 比如hover下的 active下的等等 所以要将他们一并替换 -->
   <el-color-picker
     v-model="theme"
@@ -7,13 +7,14 @@
     class="theme-picker"
     popper-class="theme-picker-dropdown"
     size="medium"
+    :disabled="defaultTheme !== 0"
   />
 </template>
 
 <script>
 const version = require('element-ui/package.json').version; // element-ui version from node_modules
 const ORIGINAL_THEME = '#409EFF'; // default color
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   data() {
@@ -23,14 +24,20 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['defaultSettingsColor']),
+    ...mapGetters(['primaryColor','defaultTheme']),
   },
   mounted() {
-    this.theme = this.defaultSettingsColor || ORIGINAL_THEME;
+    this.theme = this.primaryColor || ORIGINAL_THEME;
   },
   watch: {
+    // 第一次的preTheme必须是original-theme 因为默认css字符串就是该值
+    // 所以第一次触发该监听函数的oldVal必须是 空字符串
+    // 在这里不需要通过immediate是因为 mounted中给this.theme赋值时就会触发第一次
     async theme(newVal, oldVal) {
+      console.log('newVal --- ', newVal);
+      console.log('oldVal --- ', oldVal);
       if (typeof newVal !== 'string') return;
+      this.setPrimaryColor(newVal);
       const preTheme = this.chalk ? oldVal : ORIGINAL_THEME;
       const newValCluster = this.getThemeCluster(newVal.replace('#', ''));
       const oldValCluster = this.getThemeCluster(preTheme.replace('#', ''));
@@ -63,6 +70,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations('settings', ['setPrimaryColor']),
     updateStyle(oldCluster, newCluster) {
       let newStyle = this.chalk;
       oldCluster.forEach((color, index) => {
@@ -139,7 +147,6 @@ export default {
 .theme-picker-dropdown {
   z-index: 99999 !important;
 }
-
 
 .theme-picker-dropdown .el-color-dropdown__link-btn {
   display: none;

@@ -44,6 +44,7 @@ export default {
   transform: translateY(40px);
   opacity: 0;
 }
+
 ::v-deep {
   // 设置最后一个不显示 ' > ' 这里不能用last-child 因为切换的时候会变成倒数第二个
   .crumb-item-last {
@@ -55,6 +56,7 @@ export default {
   .bread-leave-active {
     position: absolute;
   }
+  
   .el-breadcrumb__inner:not(.is-link){
     color:#97A8BE !important;
     cursor: initial;

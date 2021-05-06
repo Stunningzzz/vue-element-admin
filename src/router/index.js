@@ -11,8 +11,8 @@ import VueRouter from 'vue-router';
 // 但是有一点 如果当前路由的children大于1 但是要跳转到默认路由没有权限访问 那么在点击当前路由的面包屑跳转到默认
 // 路由的时候会出现404
 
-
-const Layout = () => import('@/views/layout/Layout');
+import Layout from '@/views/layout/Layout';
+import Theme from '@/views/theme/Theme';
 import nested from './modules/nested';
 import permission from './modules/permission';
 import componentlibs from './modules/componentlibs';
@@ -59,7 +59,6 @@ export const constantRoutes = [
     ],
   },
 ];
-
 export const asyncRoutes = [
   nested,
   permission,
@@ -72,7 +71,7 @@ export const asyncRoutes = [
       {
         path: 'index',
         name:'Theme',
-        component: () => import('@/views/theme/Theme'),
+        component: Theme,
         meta:{
           title:'Theme',
           icon:'theme',

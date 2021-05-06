@@ -7,24 +7,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    body {
-      /* height: 100%; */
-      background-color: #bfa;
-    }
-    https://mall.juanertu.com/home
-    .box {
-      
+    .modal {
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, .1);
+      z-index: 2000;
     }
 
-    html {
-      height: 100%;，
-      /* background-color: gold; */
+    .drawer-wrapper {
+      position: fixed;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      transition: width .5s;
+      width: 0;
+      z-index: 2001;
+      background-color: #fff;
+    }
+
+    button {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      margin-left: -40px;
+    }
+
+    .drawer-content {
+      width: 260px;
+      height: 200px;
+      background-color: #bfa;
     }
   </style>
 </head>
 
 <body>
-  <div class="box"></div>
+  <div>
+    <div class="modal"></div>
+    <div class="drawer-wrapper">
+      <button>按钮</button>
+      <div class="drawer-content"></div>
+    </div>
+  </div>
 </body>
+<script>
+  let wrapper = document.querySelector('.drawer-wrapper');
+  let content = document.querySelector('.drawer-content');
+  let modal = document.querySelector('.modal');
+  modal.style.display = 'none';
+  let btn = document.querySelector('button');
+  btn.onclick = e => {
+    let wrapperRect = wrapper.getBoundingClientRect();
+    if (parseInt(wrapperRect.width) === 0) {
+      wrapper.style.width = '260px';
+      modal.style.display = '';
+    } else {
+      wrapper.style.width = '';
+      modal.style.display = 'none';
+    }
+  }
+  modal.onclick = e => {
+    wrapper.style.width = '';
+    modal.style.display = 'none';
+  }
+</script>
 
 </html>
