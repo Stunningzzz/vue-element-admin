@@ -1,11 +1,11 @@
 <template>
   <div
     class="header-wrapper"
-    :style="{height:headerHeight}"
+    :style="wrapperStyle"
   >
-    <el-header
+    <div
       id="header"
-      :height="headerHeight"
+      ref="header"
       :style="headerStyle"
     >
       <div class="burger-crumb">
@@ -20,7 +20,7 @@
         />
       </div>
       <HeaderRight />
-    </el-header>
+    </div>
   </div>
 
 </template>
@@ -43,8 +43,7 @@ export default {
   },
   data() {
     return {
-      breadCrumbs: [],
-      headerHeight: '50px',
+      headerHeight: '',
     };
   },
   computed: {
@@ -54,6 +53,11 @@ export default {
       'breadCrumbsExcludePath',
       'fixedHeader',
     ]),
+    wrapperStyle() {
+      return {
+        height: this.headerHeight,
+      };
+    },
     headerStyle() {
       let { asideNavStatus, fixedHeader } = this;
       return fixedHeader
@@ -67,21 +71,7 @@ export default {
           }
         : {};
     },
-  },
-  watch: {
-    $route() {
-      this.getBreadCrumbs();
-    },
-  },
-  created() {
-    // 刷新或者从登录页面进入时 因为header组件还没生成 所以不会调用watch:$route方法 所以在这样要额外调用一次
-    this.getBreadCrumbs();
-  },
-  methods: {
-    burgerClick() {
-      this.$bus.$emit('toggleAsideNavStatus');
-    },
-    getBreadCrumbs() {
+    breadCrumbs() {
       let matched = [...this.$route.matched];
       // 跳转到unAccessPath的会变灰
       let unAccessPath = [this.$route.path];
@@ -133,14 +123,23 @@ export default {
           redirect: 'noRedirect',
         };
 
-        this.breadCrumbs = breadCrumbs;
+        return breadCrumbs;
       }
+    },
+  },
+  mounted() {
+    this.headerHeight = this.$refs.header.getBoundingClientRect().height + 'px';
+  },
+  methods: {
+    burgerClick() {
+      this.$bus.$emit('toggleAsideNavStatus');
     },
   },
 };
 </script>
 <style lang="scss" scoped>
 #header {
+  height: 50px;
   background-color: #fff;
   display: flex;
   align-items: center;

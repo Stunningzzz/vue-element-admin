@@ -1,11 +1,11 @@
 <template>
-  <div class="layout-container">
+  <div
+    class="layout-container"
+    :style="layoutStyle"
+  >
     <!-- 在上面的先设置iscollapsing就能看到关菜单了 否则的话看不到 -->
     <AsideNav class="asidenav-fixed" />
-    <AsideNav :placeholder="true" />
-    <div
-      class="main-container"
-    >
+    <div class="main-container">
       <Header />
       <Main />
     </div>
@@ -18,6 +18,7 @@ import Header from './Header';
 import Main from './MainRouter';
 import AsideNav from './AsideNav';
 import PageSettings from '@/views/pagesettings/PageSettings';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Layout',
@@ -27,7 +28,19 @@ export default {
     AsideNav,
     PageSettings,
   },
-  created(){
+  data() {
+    return {
+      paddingLeft: '',
+    };
+  },
+  computed: {
+    ...mapGetters(['asideNavStatus']),
+    layoutStyle() {
+      return {
+        paddingLeft: this.asideNavStatus ? '64px' : '200px',
+        transition: 'padding .3s ease-in-out',
+      };
+    },
   },
 };
 </script>
@@ -40,9 +53,9 @@ export default {
 .main-container {
   align-self: flex-start;
   height: 100%;
+  flex-basis: 0;
   flex-grow: 1;
   // 给个初始宽度能解决溢出问题
-  width: 0;
 }
 
 .asidenav-fixed {

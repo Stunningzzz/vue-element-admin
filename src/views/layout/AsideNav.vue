@@ -4,41 +4,33 @@
           el-scrollbar通过监听视口高度和el-menu的高度的关系来调整是否出现滚动条和滚动条的长度 -->
     <el-scrollbar>
       <el-menu
-        v-if="placeholder"
+        background-color="#304156"
+        text-color="#BFCBD9"
+        active-text-color="#409EFF"
         ref="menu"
+        :router='true'
         :collapse="asideNavStatus"
+        :default-active="defaultActive"
+        mode="vertical"
+        :style="menuStyle"
       >
+        <AsideNavRecurItem
+          v-for="item in accessRoutes"
+          :key="item.path"
+          :cur-route="item"
+          base-path="/"
+        />
       </el-menu>
-      <template v-else>
-        <el-menu
-          background-color="#304156"
-          text-color="#BFCBD9"
-          active-text-color="#409EFF"
-          ref="menu"
-          :router='true'
-          :collapse="asideNavStatus"
-          :default-active="defaultActive"
-          mode="vertical"
-          :style="menuStyle"
-        >
-          <AsideNavRecurItem
-            v-for="item in accessRoutes"
-            :key="item.path"
-            :cur-route="item"
-            base-path="/"
-          />
-        </el-menu>
-        <div
-          @click="$router.push('/')"
-          class="sidebar-logo"
-          v-show="sidebarLogo"
-        >
-          <img :src="sideBarLogo" />
-          <span class="title">
-            {{projectTitle}}
-          </span>
-        </div>
-      </template>
+      <div
+        @click="$router.push('/')"
+        class="sidebar-logo"
+        v-show="sidebarLogo"
+      >
+        <img :src="sideBarLogo" />
+        <span class="title">
+          {{projectTitle}}
+        </span>
+      </div>
     </el-scrollbar>
   </div>
 </template>
@@ -82,39 +74,40 @@ export default {
   },
   methods: {
     ...mapMutations('app', ['setAsideNavIsCollapsing', 'toggleAsideNavStatus']),
-
-    asyncSetAsideNavIsCollapsing() {
-      setTimeout(() => {
-        this.setAsideNavIsCollapsing(false);
-      }, 300);
-    },
   },
   created() {
     this.toggleCallback = () => {
-      if (!this.asideNavIsCollapsing) {
-        this.setAsideNavIsCollapsing(true);
-        let menu = this.$refs.menu,
-          openedMenus = menu.openedMenus,
-          openedCount = openedMenus.length;
-        if (!openedCount) {
-          this.toggleAsideNavStatus();
-          this.asyncSetAsideNavIsCollapsing();
-        } else {
-          for (let openedMenu of [...openedMenus]) {
-            menu.close(openedMenu);
-          }
-          setTimeout(() => {
-            this.toggleAsideNavStatus();
-            this.asyncSetAsideNavIsCollapsing();
-          }, 300);
+      console.log('toggleCallback');
+      // if (!this.asideNavIsCollapsing) {
+      this.setAsideNavIsCollapsing(true);
+      let menu = this.$refs.menu,
+        openedMenus = menu.openedMenus,
+        openedCount = openedMenus.length;
+      if (!openedCount) {
+        this.toggleAsideNavStatus();
+        setTimeout(() => {
+          this.setAsideNavIsCollapsing(false);
+        }, 300);
+      } else {
+        for (let openedMenu of [...openedMenus]) {
+          menu.close(openedMenu);
         }
+        // 外层的300ms是展开的menu收起的过渡时间
+        // 而内层的则是整个nav收起的过渡时间
+        setTimeout(() => {
+          this.toggleAsideNavStatus();
+          setTimeout(() => {
+            this.setAsideNavIsCollapsing(false);
+          }, 300);
+        }, 300);
       }
+      // }
     };
-    this.$bus.$on('toggleAsideNavStatus',this.toggleCallback );
+    this.$bus.$on('toggleAsideNavStatus', this.toggleCallback);
   },
-  beforeDestroy(){
-    this.$bus.$off('toggleAsideNavStatus',this.toggleCallback);
-  }
+  beforeDestroy() {
+    this.$bus.$off('toggleAsideNavStatus', this.toggleCallback);
+  },
 };
 </script>
 <style lang="scss" scoped>

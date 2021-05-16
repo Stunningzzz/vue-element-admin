@@ -17,7 +17,7 @@
         :icon="drawerSwitchIcon"
       >
       </el-button>
-      <div class="drawer-content">
+      <div class="drawer-content" ref="content">
         <h4>
           Page style setting
         </h4>
@@ -58,6 +58,7 @@ export default {
   },
   data() {
     return {
+      contentWidth:'',
       settingsDrawerVisible: false,
       settingItems: [
         {
@@ -80,7 +81,7 @@ export default {
     wrapperStyle() {
       return this.settingsDrawerVisible
         ? {
-            width: '260px',
+            width: this.contentWidth,
           }
         : {
             width: 0,
@@ -95,6 +96,9 @@ export default {
       )}`;
       this[mutationName](newVal);
     },
+  },
+  mounted(){
+    this.contentWidth = this.$refs.content.getBoundingClientRect().width + 'px';
   },
 };
 </script>

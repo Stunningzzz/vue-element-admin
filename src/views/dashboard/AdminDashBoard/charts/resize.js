@@ -1,8 +1,8 @@
 import { debounce } from '@/common/utils';
-/** 
+/**
  * resize的思路
  *   在mounted函数中调用initListener 在activated中 因为初始化时既调用mounted又调用activated 为了防止重复监听
- *   要判断$_resizeHandler是否已经存在 
+ *   要判断$_resizeHandler是否已经存在
  *   在beforeDestroy 和 deactivated 中都调用destroyListener取消监听浏览器的resize事件
  */
 export default {
@@ -11,9 +11,9 @@ export default {
       $_resizeHandler: null,
     };
   },
-  watch:{
+  watch: {
     // 监听asideNavStatus不好的原因是它改变时关闭动画还没执行完呢
-    '$store.getters.asideNavIsCollapsing'(newVal){
+    '$store.getters.asideNavIsCollapsing'(newVal) {
       // 需要判断是因为在其他也没里面切换时也会触发
       !newVal && this.$_resizeHandler && this.$_resizeHandler();
     },
@@ -23,7 +23,7 @@ export default {
   },
   activated() {
     /** 
-     * 但是这里为什么需要调用呢? 在activated之前不是一定调用过 mounted吗? 
+     * 但是这里为什么需要调用呢? 在activated之前不是一定调用过 mounted吗?
      * 因为在deactivated里面销毁了!! 所以需要每次activated的时候重新监听!!
      * 另外 因为第一次既会调用mounted又会调用mounted 所以要防止init导致重复监听
      */
@@ -31,7 +31,7 @@ export default {
     // !this.$_resizeHandler && this.initListener();
     // 每次回来都resize一下是因为 在其他界面改变大小的时候已经取消监听了
     // this.resize();
-    !this.$_resizeHandler && (this.initListener() || this.resize())
+    !this.$_resizeHandler && (this.initListener() || this.resize());
   },
   beforeDestroy() {
     this.destroyListener();

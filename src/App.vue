@@ -21,16 +21,7 @@ export default {
     document.head.insertBefore(link, document.head.firstElementChild);
     themeClass[this.defaultTheme] &&
       document.body.classList.add(themeClass[this.defaultTheme]);
-    document.addEventListener('click', (e) => {
-      if (document.activeElement.nodeName.toLowerCase() === 'button') {
-        console.log(e.target);
-      }
-    });
-  },
-  watch: {
-    $route() {
-      console.log(this.$route);
-    },
+    
   },
 };
 </script>
