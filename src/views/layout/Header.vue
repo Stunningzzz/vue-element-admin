@@ -10,11 +10,13 @@
     >
       <div class="burger-crumb">
         <HamburgerButton
+          id="hamburger-container"
           :default-state="asideNavStatus ? 'flip' : 'normal'"
           :disabled="asideNavIsCollapsing"
           @burger-click="burgerClick"
         />
         <HeaderBreadCrumb
+          id="breadcrumb-container"
           class="header-crumb"
           :bread-crumbs="breadCrumbs"
         />

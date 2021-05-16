@@ -12,6 +12,7 @@
       :style="wrapperStyle"
     >
       <el-button
+        id="page-settings-button"
         type="primary"
         @click="settingsDrawerVisible = !settingsDrawerVisible"
         :icon="drawerSwitchIcon"

@@ -60,6 +60,22 @@ export const constantRoutes = [
   },
 ];
 export const asyncRoutes = [
+  {
+    path: '/guide',
+    component: Layout,
+    redirect: '/guide/index',
+    children: [
+      {
+        path: 'index',
+        name: 'Guide',
+        component: () => import('@/views/guide/Guide'),
+        meta: {
+          title: '引导页',
+          icon: 'guide',
+        },
+      },
+    ],
+  },
   nested,
   permission,
   componentlibs,

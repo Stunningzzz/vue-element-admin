@@ -1,5 +1,5 @@
 <template>
-  <div class="aside-nav-container">
+  <div id="aside-nav-container">
     <!-- 在这里 el-menu通过el-submenu的打开和关闭来改变高度 
           el-scrollbar通过监听视口高度和el-menu的高度的关系来调整是否出现滚动条和滚动条的长度 -->
     <el-scrollbar>
@@ -111,7 +111,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-::v-deep.aside-nav-container {
+::v-deep#aside-nav-container {
   height: 100%;
   flex-shrink: 0;
   background-color: #304156;

@@ -1,8 +1,8 @@
 <template>
   <div class="header-right">
-    <HeaderRightSearch />
-    <HeaderRightFullScreen />
-    <HeaderRightSizeSelect />
+    <HeaderRightSearch id="header-search"/>
+    <HeaderRightFullScreen id="full-screen"/>
+    <HeaderRightSizeSelect id="size-select"/>
     <HeaderRightAvatarDropDown/>
   </div>
 </template>
