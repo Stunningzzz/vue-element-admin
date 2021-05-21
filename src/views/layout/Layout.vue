@@ -53,9 +53,9 @@ export default {
 .main-container {
   align-self: flex-start;
   height: 100%;
-  flex-basis: 0;
-  flex-grow: 1;
   // 给个初始宽度能解决溢出问题
+  width: 0;
+  flex-grow: 1;
 }
 
 .asidenav-fixed {

@@ -2,6 +2,7 @@ import * as echarts from 'echarts';
 import 'echarts/theme/macarons'; // echarts theme
 import resize from './resize';
 
+
 export default {
   props: {
     autoResize: {
@@ -9,27 +10,42 @@ export default {
       default: true,
     },
     chartData: {
-      type: [Array,Object],
+      type: [Array, Object],
     },
   },
-  mixins:[resize],
+  mixins: [resize],
   data() {
     return {
       chart: {},
-      animationDuration:2800,
+      animationDuration: 2800,
+      loading:null,
     };
   },
   watch: {
     chartData: {
       deep: true,
-      handler() {
-        this.setOptions();
+      handler(newVal) {
+        // if (newVal) {
+        //   this.chart.hideLoading();
+        //   this.setOptions();
+        // } else {
+        //   this.chart.showLoading();
+        // }
+        if (newVal) {
+          this.loading.close();
+          this.setOptions()
+        }
       },
     },
   },
   mounted() {
-    this.chart = echarts.init(this.$el,'macarons');
-    this.setOptions();
+    this.chart = echarts.init(this.$el, 'macarons');
+    // this.chart.showLoading();
+
+    this.loading = this.$loading({
+      target:this.$el,
+      fullScreen:false,
+    });
   },
   beforeDestroy() {
     if (!this.chart) {

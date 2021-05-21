@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-sunburst">
+  <div  class="chart-sunburst">
 
   </div>
 </template>

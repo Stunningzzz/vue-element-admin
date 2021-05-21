@@ -1,6 +1,6 @@
 <template>
   <div class="transation-table">
-    <el-table :data="transactionData">
+    <el-table :data="transactionData" v-loading="!transactionData">
       <el-table-column label="Order_No" prop="order_no" width="310" >
 
       </el-table-column>

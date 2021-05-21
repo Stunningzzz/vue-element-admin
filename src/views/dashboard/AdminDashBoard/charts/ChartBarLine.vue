@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-bar-line" />
+  <div  class="chart-bar-line" />
 </template>
 
 <script>
@@ -34,7 +34,6 @@ export default {
           axisTick: {
             show: false,
           },
-         
         },
         yAxis: [
           {
@@ -73,7 +72,7 @@ export default {
         emphasis: {
           focus: 'series',
         },
-        
+
         series: [
           {
             name: 'expected',

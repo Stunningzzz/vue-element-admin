@@ -13,36 +13,18 @@
 import PanellGroupItem from './PanellGroupItem';
 export default {
   name: 'PanelGroup',
+  props:{
+    panelGroupItems:{
+      type:Array,
+      default(){
+        return []
+      }
+    },
+  },
   components:{
     PanellGroupItem,
   },
- 
-  data() {
-    return {
-      panelGroupItems: [
-        {
-          itemClass: 'peoples',
-          itemDesc: 'New Visits',
-          itemNum: 10240,
-        },
-        {
-          itemClass: 'message',
-          itemDesc: 'New Visits',
-          itemNum: 7080,
-        },
-        {
-          itemClass: 'money',
-          itemDesc: 'New Visits',
-          itemNum: 999,
-        },
-        {
-          itemClass: 'shopping',
-          itemDesc: 'New Visits',
-          itemNum: 1234,
-        },
-      ],
-    };
-  },
+  
 };
 </script>
 
