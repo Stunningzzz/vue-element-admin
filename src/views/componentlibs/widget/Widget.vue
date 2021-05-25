@@ -112,7 +112,7 @@
 
 <script>
 import RotateAvatar from '@/components/RotateAvatar';
-import MDInput from './MDInput';
+import MDInput from '@/components/MDInput';
 import TextHoverAnimation from '@/components/TextHoverAnimation';
 import DropdownMenu from './ShareDropDown';
 import waves from '@/directives/waves/index.js'; // 水波纹指令

@@ -11,6 +11,7 @@ import App from '@/App.vue';
 import store from '@/store';
 import router from '@/router';
 import '@/permission';
+import '@/common/filters'
 
 Vue.config.productionTip = false;
 
@@ -18,12 +19,14 @@ Vue.use(ElementUI, {
   size: store.getters.globalSize,
 });
 Vue.prototype.$bus = new Vue();
+Vue.prototype.$set = Vue.set;
 
 
 if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')
   mockXHR()
 }
+
 
 
 new Vue({

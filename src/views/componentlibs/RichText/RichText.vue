@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Tinymce from './Tinymce/index'
+import Tinymce from '@/components/Tinymce'
 
 export default {
   name: 'RichText',

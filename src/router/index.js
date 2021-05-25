@@ -16,6 +16,8 @@ import Theme from '@/views/theme/Theme';
 import nested from './modules/nested';
 import permission from './modules/permission';
 import componentlibs from './modules/componentlibs';
+import table from './modules/table';
+import example from './modules/example';
 
 Vue.use(VueRouter);
 export const constantRoutes = [
@@ -111,9 +113,11 @@ export const asyncRoutes = [
       },
     ],
   },
+  table,
+  example,
   {
     path: '*',
-    component: () => import('@/components/common/NotFoundPage'),
+    component: () => import('@/components/NotFoundPage'),
     name: 'NotFoundPage',
     hidden: true,
   },

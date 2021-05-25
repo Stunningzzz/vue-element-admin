@@ -13,10 +13,10 @@
       :router='true'
     >
       <template slot="title">
-        <svg-icon :icon-class="curRoute.meta.icon"></svg-icon>
-        <span slot="title">
-          {{curRoute.meta.title}}
-        </span>
+        <AsideNavRecurItemTitle
+          :icon="curRoute.meta.icon"
+          :title="curRoute.meta.title"
+        />
       </template>
       <AsideNavRecurItem
         v-for="item in curRoute.children"
@@ -31,10 +31,10 @@
       v-else
       :index="getFullPath(curRouteItem)"
     >
-      <svg-icon :icon-class="curRouteItem.meta.icon"></svg-icon>
-      <span slot="title">
-        {{curRouteItem.meta.title}}
-      </span>
+      <AsideNavRecurItemTitle
+        :icon="curRouteItem.meta.icon"
+        :title="curRouteItem.meta.title"
+      />
     </el-menu-item>
   </div>
 
@@ -45,11 +45,14 @@
 
 <script>
 import { mapActions } from 'vuex';
+import AsideNavRecurItemTitle from './AsideNavRecurItemTitle';
 import path from 'path';
 
 export default {
   name: 'AsideNavRecurItem',
-
+  components: {
+    AsideNavRecurItemTitle,
+  },
   props: {
     curRoute: {
       type: Object,
@@ -78,10 +81,10 @@ export default {
     },
   },
   created() {
-    let { curRoute,basePath } = this;
+    let { curRoute, basePath } = this;
     if (curRoute.children?.length === 1 && !curRoute.alwaysShow) {
       // 如果当前path属性是写的相对路径的话会出错
-      this.setBreadCrumbsExcludePath(path.resolve(basePath,curRoute.path));
+      this.setBreadCrumbsExcludePath(path.resolve(basePath, curRoute.path));
     }
   },
   methods: {
@@ -94,17 +97,10 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.svg-icon {
-  vertical-align: middle;
-  margin-right: 5px;
-  width: 24px;
-  text-align: center;
-  font-size: 12px;
-}
 ::v-deep {
   // 如果写成.is-active > .el-submenu__title 的话 第一层的submenu不会亮
   // 原因是 第一层恰好是匹配::v-deep的 写在里面只选择子元素而不会选择自身
-  &.is-active > .el-submenu__title {
+  &.is-active > .el-submenu__title * {
     color: #409eff !important;
   }
   // 只要不是最外层的ul都会加上该类名

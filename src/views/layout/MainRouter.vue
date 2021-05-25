@@ -4,7 +4,10 @@
       name="router"
       mode="out-in"
     >
-      <keep-alive v-if="isRouterAlive">
+      <keep-alive
+        v-if="isRouterAlive"
+        :exclude="['CreateArticle',]"
+      >
         <router-view
           :key="$route.path"
           class="route-view"
@@ -58,7 +61,6 @@ export default {
       display: table;
     }
   }
-  
 }
 
 .router-enter-active,

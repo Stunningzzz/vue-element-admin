@@ -3,7 +3,7 @@ export default {
   path: '/componentlibs',
   meta: { title: '组件库', icon: 'component' },
   component: Layout,
-  redirect: '/componentlibs/tinymce',
+  redirect: '/componentlibs/richtext',
   alwaysShow:true,
   children: [
     {

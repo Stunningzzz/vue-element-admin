@@ -1,8 +1,8 @@
 import request from './request'
 
-export function searchUser(name) {
+export function searchAuthor(name) {
   return request({
-    url: '/search/user',
+    url: '/search/author',
     method: 'get',
     params: { name }
   })

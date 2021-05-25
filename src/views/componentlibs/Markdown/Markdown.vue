@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import MarkdownEditor from './TuiEditor/index';
+import MarkdownEditor from '@/components/TuiEditor';
 
 const content = `
 **This is test**

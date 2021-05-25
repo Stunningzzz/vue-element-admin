@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import GitHubCorner from '@/components/common/GitHubCorner';
+import GitHubCorner from '@/components/GitHubCorner';
 import PanelGroup from './PanelGroup';
 import ChartBarLine from './charts/ChartBarLine';
 import ChartPie from './charts/ChartPie';

@@ -39,7 +39,7 @@
         </div>
         <div class="setting-item theme-picker-item">
           <span>
-            Theme Color
+            Primary Color
           </span>
           <ThemePicker />
         </div>

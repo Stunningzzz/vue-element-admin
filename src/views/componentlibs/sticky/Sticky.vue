@@ -169,7 +169,7 @@
 </template>
 
 <script>
-import StickyComp from './StickyComp';
+import StickyComp from '@/components/StickyComp';
 import {mapGetters} from 'vuex';
 
 export default {

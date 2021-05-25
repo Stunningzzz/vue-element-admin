@@ -27,7 +27,7 @@
 
 </template>
 <script>
-import HamburgerButton from '@/components/common/HamburgerButton';
+import HamburgerButton from '@/components/HamburgerButton';
 import HeaderBreadCrumb from './HeaderBreadCrumb';
 import HeaderRight from './HeaderRight';
 import { mapGetters } from 'vuex';

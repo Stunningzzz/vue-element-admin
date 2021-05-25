@@ -37,9 +37,27 @@
 <script>
 import AsideNavRecurItem from './AsideNavRecurItem';
 import { mapGetters, mapMutations } from 'vuex';
+import path from 'path';
 
 export default {
   name: 'AsideNav',
+  components: {
+    AsideNavRecurItem,
+  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler(newVal) {
+        let { activeMenu } = newVal.meta;
+        if (activeMenu) {
+          let activePath = path.resolve(newVal.path, activeMenu);
+          this.$nextTick(() => {
+            this.$refs.menu.updateActiveIndex(activePath);
+          });
+        }
+      },
+    },
+  },
   props: {
     placeholder: Boolean,
     default: false,
@@ -50,9 +68,6 @@ export default {
         'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png',
       projectTitle: 'Vue Element Admin',
     };
-  },
-  components: {
-    AsideNavRecurItem,
   },
   computed: {
     ...mapGetters([

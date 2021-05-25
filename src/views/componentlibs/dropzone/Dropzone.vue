@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Dropzone from './index.vue';
+import Dropzone from '@/components/Dropzone';
 
 export default {
   name: 'DropzoneDemo',

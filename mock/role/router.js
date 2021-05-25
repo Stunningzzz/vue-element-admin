@@ -150,7 +150,7 @@ module.exports = [
 
   {
     path: '*',
-    component: 'components/common/NotFoundPage',
+    component: 'components/NotFoundPage',
     name: 'NotFoundPage',
     hidden: true,
   },
