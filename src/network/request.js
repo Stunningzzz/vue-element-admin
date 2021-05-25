@@ -15,7 +15,6 @@ instance.interceptors.request.use = (config => {
   }
   return config;
 },error => {
-  console.log('send request error --- ',error);
   return Promise.reject(error);
 })
 
@@ -45,7 +44,6 @@ instance.interceptors.response.use( ({data}) => {
     return data;
   }
 },error => {
-  console.log(`get response error --- ${error}`);
   Message({
     message:error.message,
     type:'error',

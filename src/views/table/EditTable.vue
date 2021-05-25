@@ -173,7 +173,6 @@ export default {
           duration: 1000,
         });
       } else {
-        console.log('row.title ---- ', row.title);
         this.articleListPreVal[index] = row.title;
       }
     },

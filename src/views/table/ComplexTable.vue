@@ -561,7 +561,6 @@ export default {
       let {
         data: { items, total },
       } = await fetchList(this.listQuery);
-      console.log('items --- ', items);
       this.listLoading = false;
       this.listData = items;
       this.total = total;

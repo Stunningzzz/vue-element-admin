@@ -92,7 +92,6 @@ export default {
   },
   created() {
     this.toggleCallback = () => {
-      console.log('toggleCallback');
       // if (!this.asideNavIsCollapsing) {
       this.setAsideNavIsCollapsing(true);
       let menu = this.$refs.menu,

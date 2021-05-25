@@ -225,7 +225,6 @@ module.exports = [
     url: '/role/[A-Za-z0-9]+$',
     type: 'put',
     response: (request) => {
-      console.log(util.inspect(request.body.routes,{depth:null}));
       return {
         code: 200,
         data: {

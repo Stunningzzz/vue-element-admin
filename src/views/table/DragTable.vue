@@ -79,10 +79,9 @@ export default {
   data() {
     return {
       articleList: [],
-      isLoading: true,
+      isLoading: null,
       initSequence: [],
       sortable: null,
-      key: true,
     };
   },
   computed: {
@@ -91,11 +90,13 @@ export default {
     },
   },
   async created() {
+    this.isLoading = true,
     this.articleList = (await fetchList()).data.items.slice(0, 10);
-    console.log(this.articleList);
     this.initSequence = this.articleList.map((v) => v.id);
     this.isLoading = false;
-    this.$nextTick(this.sortList);
+  },
+  mounted(){
+    this.sortList();
   },
   methods: {
     sortList() {
@@ -108,7 +109,6 @@ export default {
           dataTransfer.setData('Text', '');
         },
         onEnd: ({ newIndex, oldIndex }) => {
-          console.log('onEnd');
           let target = this.articleList.splice(oldIndex, 1)[0];
           this.articleList.splice(newIndex, 0, target);
         },

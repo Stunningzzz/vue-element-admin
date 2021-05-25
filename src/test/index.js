@@ -16,4 +16,3 @@ let newVal = ['a-platform'];
 let platformStatus = newVal.filter(item =>
   platformCheckbox.find(checkboxItem => item === checkboxItem.value)
 );
-console.log(platformStatus);

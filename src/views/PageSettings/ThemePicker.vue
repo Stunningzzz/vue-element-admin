@@ -34,8 +34,6 @@ export default {
     // 所以第一次触发该监听函数的oldVal必须是 空字符串
     // 在这里不需要通过immediate是因为 mounted中给this.theme赋值时就会触发第一次
     async theme(newVal, oldVal) {
-      console.log('newVal --- ', newVal);
-      console.log('oldVal --- ', oldVal);
       if (typeof newVal !== 'string') return;
       this.setPrimaryColor(newVal);
       const preTheme = this.chalk ? oldVal : ORIGINAL_THEME;

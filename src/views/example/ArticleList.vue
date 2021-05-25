@@ -137,7 +137,6 @@ export default {
     async getListData() {
       this.listLoading = true;
       let { total, items } = (await fetchList(this.listQuery)).data;
-      console.log('items --- ', items);
       this.listLoading = false;
       this.total = total;
       this.listData = items;

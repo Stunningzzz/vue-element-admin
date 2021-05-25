@@ -1,5 +1,5 @@
 <template>
-  <StickyComp :sticky-top="0">
+  <StickyComp :sticky-top="stickyTop">
     <div
       class="stikcy-navbar"
       :style="navbarStyle"
@@ -111,6 +111,7 @@ export default {
   },
   data() {
     return {
+      stickyTop: 0,
       commentStatusRadio: [
         {
           label: 'Close Comment',
@@ -158,6 +159,19 @@ export default {
     },
   },
   watch: {
+    '$store.getters.fixedHeader': {
+      immediate: true,
+      handler(newVal) {
+        if (this.$el) {
+          this.stickyTop = newVal ? this.fixedStickyTop : 0;
+        } else {
+          this.$nextTick(() => {
+            this.fixedStickyTop = this.$el.offsetTop;
+            this.stickyTop = newVal ? this.fixedStickyTop : 0;
+          });
+        }
+      },
+    },
     comment_disabled(newVal) {
       this.curCommentStatusRadio = this.commentStatusRadio.find(
         (item) => item.value === newVal
@@ -177,7 +191,7 @@ export default {
     },
   },
   methods: {
-    goBack(){
+    goBack() {
       this.$router.back();
     },
     publishClick() {
